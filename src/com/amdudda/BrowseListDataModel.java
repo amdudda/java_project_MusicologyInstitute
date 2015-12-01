@@ -61,6 +61,6 @@ public class BrowseListDataModel extends AbstractTableModel {
         } catch (SQLException sqle) {
             System.out.println("Unable to get data for cell at row " + rowIndex + ", column " + columnIndex + ".\n" + sqle);
         }
-        return null;
+        return contents;
     }
 }
