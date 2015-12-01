@@ -14,6 +14,7 @@ public class BrowseListDataModel extends AbstractTableModel {
 
     public BrowseListDataModel(ResultSet bT) {
         this.browseTable = bT;
+        setTableDimensions();
     }
 
     private void setTableDimensions() {
@@ -37,6 +38,7 @@ public class BrowseListDataModel extends AbstractTableModel {
         } catch (SQLException sqle) {
             System.out.println("Unable to fetch row count.\n" + sqle);
         }
+        System.out.println(tally);
         return tally;
     }
 
@@ -62,5 +64,16 @@ public class BrowseListDataModel extends AbstractTableModel {
             System.out.println("Unable to get data for cell at row " + rowIndex + ", column " + columnIndex + ".\n" + sqle);
         }
         return contents;
+    }
+
+    @Override
+    public String getColumnName(int colNum) {
+        String columnText = "?";
+        try {
+            columnText = this.browseTable.getMetaData().getColumnName(colNum+1);
+        } catch (SQLException sqle) {
+            System.out.println("Unable to extract column name.\n" + sqle);
+        }
+        return  columnText;
     }
 }

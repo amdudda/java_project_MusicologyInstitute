@@ -32,11 +32,12 @@ public class BrowseDatabaseScreen extends JFrame {
         try {
             browseTableStatement = Database.conn.createStatement();
             dataToBrowse = browseTableStatement.executeQuery("SELECT InstName, InstType, Subtype, Location FROM Instrument");
+            bldm = new BrowseListDataModel(dataToBrowse);
         } catch (SQLException sqle) {
             System.out.println("Unable to fetch data for table.\n" + sqle);
         }
 
-        bldm = new BrowseListDataModel(dataToBrowse);
+        browseDataTable.setModel(bldm);
 
 
         returnToMainMenuButton.addActionListener(new ActionListener() {

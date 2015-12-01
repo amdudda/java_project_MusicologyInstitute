@@ -13,7 +13,7 @@ public class Main {
         Database.openConnStatement();
         MainMenuGUI mMG = new MainMenuGUI();
 
-        // and close everything when the program exits
+        // and close everything when the program exits - now taken care of in Main Menu screen.
         //Database.closeConnStatement();
 
     }
