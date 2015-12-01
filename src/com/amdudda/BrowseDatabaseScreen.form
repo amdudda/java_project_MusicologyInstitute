@@ -33,7 +33,10 @@
           <grid row="1" column="2" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
-        <properties/>
+        <properties>
+          <minimumSize width="300" height="300"/>
+          <preferredSize width="453" height="422"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="bbb66" class="javax.swing.JTable" binding="browseDataTable">

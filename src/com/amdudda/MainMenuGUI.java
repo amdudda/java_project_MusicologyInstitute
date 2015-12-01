@@ -26,7 +26,7 @@ public class MainMenuGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO: feed in the relevant resultset
-                BrowseDatabaseScreen browseWindow = new BrowseDatabaseScreen();
+                BrowseDatabaseScreen browseWindow = new BrowseDatabaseScreen(Instrument.getBrowsingData());
             }
         });
 
