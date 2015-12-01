@@ -37,5 +37,11 @@ public class MainMenuGUI extends JFrame {
                 System.exit(0);
             }
         });
+        browseContactsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BrowseDatabaseScreen bds = new BrowseDatabaseScreen(Contact.getBrowsingData());
+            }
+        });
     }
 }
