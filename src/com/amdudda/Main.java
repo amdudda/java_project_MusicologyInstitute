@@ -10,8 +10,11 @@ public class Main {
 
         Database.setupDatabase();
 
+        Database.openConnStatement();
+        MainMenuGUI mMG = new MainMenuGUI();
+
         // and close everything when the program exits
-        Database.closeConnStatement();
+        //Database.closeConnStatement();
 
     }
 }

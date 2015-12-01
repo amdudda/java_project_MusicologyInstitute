@@ -41,6 +41,7 @@ public class Database {
         */
             flagSuccessfulSetup(dbFlag);
         }
+        closeConnStatement();
     }
 
     private static void createSchema() {
