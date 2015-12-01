@@ -8,7 +8,7 @@ import java.sql.Statement;
  * Created by amdudda on 12/1/15.
  */
 public class Instrument {
-    // TODO: add global variables related to instruments table in database
+    // Global variables related to Instrument table in database
     public static final String INSTRUMENT_TABLE_NAME = "Instrument";
     public static final String INSTID = INSTRUMENT_TABLE_NAME + ".InstID";
     public static final String INSTNAME = INSTRUMENT_TABLE_NAME + ".InstName";

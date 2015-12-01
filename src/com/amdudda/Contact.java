@@ -8,7 +8,21 @@ import java.sql.Statement;
  * Created by amdudda on 12/1/15.
  */
 public class Contact {
-    // TODO: add global variables related to instruments table in database
+    // Global variables related to Contact table in database
+    public static final String CONTACT_TABLE_NAME = "Contact";
+    public static final String CONTACTID = CONTACT_TABLE_NAME + ".ContactID";
+    public static final String CONTACTNAME = CONTACT_TABLE_NAME + ".ContactName";
+    public static final String BUSINESSNAME = CONTACT_TABLE_NAME + ".BusinessName";
+    public static final String ADDRESS = CONTACT_TABLE_NAME + ".Address";
+    public static final String CITY = CONTACT_TABLE_NAME + ".City";
+    public static final String STATE = CONTACT_TABLE_NAME + ".State";
+    public static final String POSTALCODE = CONTACT_TABLE_NAME + ".PostalCode";
+    public static final String COUNTRY = CONTACT_TABLE_NAME + ".Country";
+    public static final String BUSINESSPHONE = CONTACT_TABLE_NAME + ".BusinessPhone";
+    public static final String CONTACTPHONE = CONTACT_TABLE_NAME + ".ContactPhone";
+    public static final String CONTACTTYPE = CONTACT_TABLE_NAME + ".ContactType";
+    public static final String NOTES = CONTACT_TABLE_NAME + ".Notes";
+
 
     // also need a method to return a resultset for basic browsing screen
     protected static ResultSet getBrowsingData() {
@@ -16,8 +30,17 @@ public class Contact {
         Statement bts = BrowseDatabaseScreen.browseTableStatement;
         try {
             bts = Database.conn.createStatement();
-            // TODO: Replace field & table names with constants
-            dataToBrowse = bts.executeQuery("SELECT ContactID,ContactName,BusinessName,Address,City,State,Country,ContactType FROM Contact");
+            String sqlToRun = "SELECT " +
+                    CONTACTID + ", " +
+                    CONTACTNAME + ", " +
+                    BUSINESSNAME + ", " +
+                    ADDRESS + ", " +
+                    CITY + ", " +
+                    STATE + ", " +
+                    COUNTRY + ", " +
+                    CONTACTTYPE + " FROM " +
+                    CONTACT_TABLE_NAME;
+            dataToBrowse = bts.executeQuery(sqlToRun); //"SELECT ContactID,ContactName,BusinessName,Address,City,State,Country,ContactType FROM Contact");
         } catch (SQLException sqle) {
             System.out.println("Unable to fetch data for table.\n" + sqle);
         }
