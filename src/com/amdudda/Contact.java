@@ -10,6 +10,9 @@ import java.sql.Statement;
 public class Contact {
     // Global variables related to Contact table in database
     public static final String CONTACT_TABLE_NAME = "Contact";
+    // note that the constants below return a fully qualified field name.  I do this so the output mirrors the syntax
+    // used to call the constants, because SQL doesn't care if you do unnecessary table specification, and because it
+    // reduces confusion when reviewing SQL syntax during debugging.
     public static final String CONTACTID = CONTACT_TABLE_NAME + ".ContactID";
     public static final String CONTACTNAME = CONTACT_TABLE_NAME + ".ContactName";
     public static final String BUSINESSNAME = CONTACT_TABLE_NAME + ".BusinessName";
@@ -40,7 +43,7 @@ public class Contact {
                     COUNTRY + ", " +
                     CONTACTTYPE + " FROM " +
                     CONTACT_TABLE_NAME;
-            dataToBrowse = bts.executeQuery(sqlToRun); //"SELECT ContactID,ContactName,BusinessName,Address,City,State,Country,ContactType FROM Contact");
+            dataToBrowse = bts.executeQuery(sqlToRun);
         } catch (SQLException sqle) {
             System.out.println("Unable to fetch data for table.\n" + sqle);
         }

@@ -10,6 +10,9 @@ import java.sql.Statement;
 public class Instrument {
     // Global variables related to Instrument table in database
     public static final String INSTRUMENT_TABLE_NAME = "Instrument";
+    // note that the constants below return a fully qualified field name.  I do this so the output mirrors the syntax
+    // used to call the constants, because SQL doesn't care if you do unnecessary table specification, and because it
+    // reduces confusion when reviewing SQL syntax during debugging.
     public static final String INSTID = INSTRUMENT_TABLE_NAME + ".InstID";
     public static final String INSTNAME = INSTRUMENT_TABLE_NAME + ".InstName";
     public static final String INSTTYPE = INSTRUMENT_TABLE_NAME + ".InstType";
