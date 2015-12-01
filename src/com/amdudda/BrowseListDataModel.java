@@ -52,7 +52,7 @@ public class BrowseListDataModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Object contents;
+        Object contents = "";
         try {
             browseTable.absolute(rowIndex + 1);
             contents = browseTable.getObject(columnIndex + 1);
