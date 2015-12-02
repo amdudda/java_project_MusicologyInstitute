@@ -54,10 +54,9 @@ public class Instrument {
         if (recID != null) {
             // only bother populating the values if a recordID is actually passed to the constructor.
             try {
-                PreparedStatement psFetch = Database.conn.prepareStatement("SELECT * FROM ? WHERE ? = ?");
-                psFetch.setString(1,INSTRUMENT_TABLE_NAME);
-                psFetch.setString(2,INSTID);
-                psFetch.setInt(3,Integer.parseInt(recID));
+                String toPrep = "SELECT * FROM " + INSTRUMENT_TABLE_NAME + " WHERE "+ INSTID + " = ?";
+                PreparedStatement psFetch = Database.conn.prepareStatement(toPrep);
+                psFetch.setInt(1,Integer.parseInt(recID));
                 ResultSet my_instrument = psFetch.executeQuery();
             } catch (SQLException sqle) {
                 System.out.println("Unable to fetch instrument data)");
