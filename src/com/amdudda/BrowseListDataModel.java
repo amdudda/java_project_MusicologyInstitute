@@ -38,7 +38,7 @@ public class BrowseListDataModel extends AbstractTableModel {
         } catch (SQLException sqle) {
             System.out.println("Unable to fetch row count.\n" + sqle);
         }
-        System.out.println(tally);
+        // debugging: System.out.println(tally);
         return tally;
     }
 
