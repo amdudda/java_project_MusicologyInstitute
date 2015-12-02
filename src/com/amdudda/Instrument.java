@@ -1,5 +1,6 @@
 package com.amdudda;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,6 +34,36 @@ public class Instrument {
     public static final String HIGHNOTE = INSTRUMENT_TABLE_NAME + ".HighNote";
     public static final String DESCRIPTION = INSTRUMENT_TABLE_NAME + ".Description";
     public static final String ISALOAN = INSTRUMENT_TABLE_NAME + ".isALoan";
+
+    // variables to store object attributes
+    private String ContactID;
+    private String ContactName;
+    private String BusinessName;
+    private String Address;
+    private String City;
+    private String State;
+    private String PostalCode;
+    private String Country;
+    private String BusinessPhone;
+    private String ContactPhone;
+    private String ContactType;
+    private String Notes;
+
+    // and a constructor so we can pass instrument attributes to the editing screen and pass values back to the databae
+    public Instrument(String recID) {
+        if (recID != null) {
+            // only bother populating the values if a recordID is actually passed to the constructor.
+            try {
+                PreparedStatement psFetch = Database.conn.prepareStatement("SELECT * FROM ? WHERE ? = ?");
+                psFetch.setString(1,INSTRUMENT_TABLE_NAME);
+                psFetch.setString(2,INSTID);
+                psFetch.setInt(3,Integer.parseInt(recID));
+                ResultSet my_instrument = psFetch.executeQuery();
+            } catch (SQLException sqle) {
+                System.out.println("Unable to fetch instrument data)");
+            }
+        }
+    }
 
 
     // also need a method to return a resultset for basic browsing screen
