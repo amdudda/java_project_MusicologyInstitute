@@ -47,11 +47,12 @@ public class BrowseDatabaseScreen extends JFrame {
                 dispose();
             }
         });
+
         editSelectedRecordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (browseDataTable.getSelectedRow() > -1) {
-                    int selPK = (int) bldm.getValueAt(browseDataTable.getSelectedRow(), 0);
+                    String selPK = bldm.getValueAt(browseDataTable.getSelectedRow(), 0).toString();
                     System.out.println(selPK);
                     UpdateInstrument updtInst = new UpdateInstrument(selPK);
                 } else {

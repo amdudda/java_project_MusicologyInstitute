@@ -37,7 +37,7 @@ public class UpdateInstrument extends JFrame {
     private PreparedStatement instrumentDataStatement;
     private ResultSet instrumentData;
 
-    public UpdateInstrument(int pkToUse) {
+    public UpdateInstrument(String pkToUse) {
         /*try {
             instrumentDataStatement = Database.conn.createStatement();
         } catch (SQLException sqle) {
@@ -51,19 +51,13 @@ public class UpdateInstrument extends JFrame {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         // fetch the data for the instrument
-        // TODO: instantiate an Instrument object and read its attributes.
-        instrumentData = Instrument.getInstrumentData(pkToUse,instrumentDataStatement);
+        // instantiate an Instrument object and read its attributes.
+        Instrument selectedInstrument = new Instrument(pkToUse);
 
         // then populate our fields with the data
         // TODO: create a method call to keep the main body human-readable.
-        // for now, just populate the primary key and instrument name
-        try {
-            instrumentData.next();
-            instrIDtextField.setText("" + instrumentData.getInt(1));
-            instrNameTextField.setText(instrumentData.getString(2));
-        } catch (SQLException sqle) {
-            System.out.println("Unable to read resultset.\n" + sqle);
-        }
+        instrIDtextField.setText("" + selectedInstrument.getInstID());
+        instrNameTextField.setText(selectedInstrument.getInstName());
 
         exitButton.addActionListener(new ActionListener() {
             @Override

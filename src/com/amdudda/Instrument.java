@@ -1,9 +1,6 @@
 package com.amdudda;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * Created by amdudda on 12/1/15.
@@ -36,23 +33,70 @@ public class Instrument {
     public static final String ISALOAN = INSTRUMENT_TABLE_NAME + ".isALoan";
 
     // variables to store object attributes
+    private int InstID;
+    private String InstName;
+    private String InstType;
+    private String Subtype;
+    private Date AcquiredDate;
+    private String AcquiredFrom;
+    private double PurchasePrice;
+    private double InsuranceValue;
+    private String Location;
+    private double Height;
+    private double Width;
+    private double Depth;
+    private String Region;
+    private String Country;
+    private String Culture;
+    private String Tuning;
+    private String LowNote;
+    private String HighNote;
+    private String Description;
+    private boolean isALoan;
 
+    // misc attributes for data retrieval
+    ResultSet my_instrument;
 
     // and a constructor so we can pass instrument attributes to the editing screen and pass values back to the databae
     public Instrument(String recID) {
         if (recID != null) {
             // only bother populating the values if a recordID is actually passed to the constructor.
             try {
-                PreparedStatement psFetch = Database.conn.prepareStatement("SELECT * FROM ? WHERE ? = ?");
-                psFetch.setString(1,INSTRUMENT_TABLE_NAME);
-                psFetch.setString(2,INSTID);
-                psFetch.setInt(3,Integer.parseInt(recID));
-                ResultSet my_instrument = psFetch.executeQuery();
+                PreparedStatement psFetch = Database.conn.prepareStatement("SELECT * FROM " + INSTRUMENT_TABLE_NAME +
+                        " WHERE " + INSTID + " = ?");
+                psFetch.setInt(1, Integer.parseInt(recID));
+                my_instrument = psFetch.executeQuery();
+                my_instrument.next();
 
-                // TODO: for now, assume the columns are in a fixed, known order:
+                // TODO: can we map these without worrying about field order in the table?
+                InstID = Integer.parseInt(my_instrument.getObject(INSTID).toString());
+                System.out.println("Instrument id is: " + InstID);
+                InstName = fetchValueOfString(INSTNAME);
+                InstType = fetchValueOfString(INSTTYPE);
+                Subtype = fetchValueOfString(SUBTYPE);
+                AcquiredDate = Date.valueOf(my_instrument.getObject(ACQUIREDDATE).toString());
+                AcquiredFrom = fetchValueOfString(ACQUIREDFROM);
+                PurchasePrice = fetchValueOfDouble(PURCHASEPRICE);
+                InsuranceValue = fetchValueOfDouble(INSURANCEVALUE);
+                Location = fetchValueOfString(LOCATION);
+                Height = fetchValueOfDouble(HEIGHT);
+                Width = fetchValueOfDouble(WIDTH);
+                Depth = fetchValueOfDouble(DEPTH);
+                Region = fetchValueOfString(REGION);
+                Country = fetchValueOfString(COUNTRY);
+                Culture = fetchValueOfString(CULTURE);
+                Tuning = fetchValueOfString(TUNING);
+                LowNote = fetchValueOfString(LOWNOTE);
+                HighNote = fetchValueOfString(HIGHNOTE);
+                Description = fetchValueOfString(DESCRIPTION);
+                isALoan = (my_instrument.getObject(ISALOAN) == null) ? false : Boolean.parseBoolean(my_instrument.getObject(ISALOAN).toString());
+
+                // and close my query now that I've gathered my data...
+                my_instrument.close();
+                psFetch.close();
 
             } catch (SQLException sqle) {
-                System.out.println("Unable to fetch instrument data)");
+                System.out.println("Unable to fetch instrument data.\n" + sqle);
             }
         }
     }
@@ -66,8 +110,8 @@ public class Instrument {
             bts = Database.conn.createStatement();
             String sqlToRun = "SELECT " +
                     INSTID + "," +
-                    INSTNAME  + "," +
-                    INSTTYPE  + "," +
+                    INSTNAME + "," +
+                    INSTTYPE + "," +
                     SUBTYPE + "," +
                     LOCATION +
                     " FROM " + INSTRUMENT_TABLE_NAME;
@@ -84,7 +128,7 @@ public class Instrument {
                 " WHERE " + INSTID + " = ?";
         try {
             s = Database.conn.prepareStatement(sqlToRun);
-            s.setInt(1,priKey);
+            s.setInt(1, priKey);
             instrumentData = s.executeQuery();
 
         } catch (SQLException sqle) {
@@ -94,4 +138,185 @@ public class Instrument {
         return instrumentData;
     }
 
+    // getters and setters for Instrument attributes
+
+    public int getInstID() {
+        return InstID;
+    }
+
+    public void setInstID(int instID) {
+        InstID = instID;
+    }
+
+    public String getInstName() {
+        return InstName;
+    }
+
+    public void setInstName(String instName) {
+        InstName = instName;
+    }
+
+    public String getInstType() {
+        return InstType;
+    }
+
+    public void setInstType(String instType) {
+        InstType = instType;
+    }
+
+    public String getSubtype() {
+        return Subtype;
+    }
+
+    public void setSubtype(String subtype) {
+        Subtype = subtype;
+    }
+
+    public Date getAcquiredDate() {
+        return AcquiredDate;
+    }
+
+    public void setAcquiredDate(Date acquiredDate) {
+        AcquiredDate = acquiredDate;
+    }
+
+    public String getAcquiredFrom() {
+        return AcquiredFrom;
+    }
+
+    public void setAcquiredFrom(String acquiredFrom) {
+        AcquiredFrom = acquiredFrom;
+    }
+
+    public double getPurchasePrice() {
+        return PurchasePrice;
+    }
+
+    public void setPurchasePrice(double purchasePrice) {
+        PurchasePrice = purchasePrice;
+    }
+
+    public double getInsuranceValue() {
+        return InsuranceValue;
+    }
+
+    public void setInsuranceValue(double insuranceValue) {
+        InsuranceValue = insuranceValue;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
+
+    public void setLocation(String location) {
+        Location = location;
+    }
+
+    public double getHeight() {
+        return Height;
+    }
+
+    public void setHeight(double height) {
+        Height = height;
+    }
+
+    public double getWidth() {
+        return Width;
+    }
+
+    public void setWidth(double width) {
+        Width = width;
+    }
+
+    public double getDepth() {
+        return Depth;
+    }
+
+    public void setDepth(double depth) {
+        Depth = depth;
+    }
+
+    public String getRegion() {
+        return Region;
+    }
+
+    public void setRegion(String region) {
+        Region = region;
+    }
+
+    public String getCountry() {
+        return Country;
+    }
+
+    public void setCountry(String country) {
+        Country = country;
+    }
+
+    public String getCulture() {
+        return Culture;
+    }
+
+    public void setCulture(String culture) {
+        Culture = culture;
+    }
+
+    public String getTuning() {
+        return Tuning;
+    }
+
+    public void setTuning(String tuning) {
+        Tuning = tuning;
+    }
+
+    public String getLowNote() {
+        return LowNote;
+    }
+
+    public void setLowNote(String lowNote) {
+        LowNote = lowNote;
+    }
+
+    public String getHighNote() {
+        return HighNote;
+    }
+
+    public void setHighNote(String highNote) {
+        HighNote = highNote;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
+
+    public boolean isALoan() {
+        return isALoan;
+    }
+
+    public void setALoan(boolean ALoan) {
+        isALoan = ALoan;
+    }
+
+    private String fetchValueOfString(String fieldname) {
+        // This method reads in a value and translates nulls into an empty string so the constructor doesn't choke.
+        try {
+           return (my_instrument.getObject(fieldname) == null) ? "" : my_instrument.getObject(fieldname).toString();
+        } catch (SQLException sqle) {
+            System.out.println("Unable to fetch value of " + fieldname + ".\n" + sqle);
+            return "?????";
+        }
+    }
+
+    private double fetchValueOfDouble(String fieldname) {
+        // As with fetch...String, the point is to handle nulls gracefully.
+        try {
+            return (my_instrument.getObject(fieldname) == null) ? 0 : Double.parseDouble(my_instrument.getObject(HEIGHT).toString());
+        } catch (SQLException sqle) {
+            System.out.println("Unable to fetch value of " + fieldname + ".\n" + sqle);
+            return -1;
+        }
+    }
 }
