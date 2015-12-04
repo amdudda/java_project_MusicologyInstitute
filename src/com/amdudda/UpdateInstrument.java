@@ -15,14 +15,12 @@ import java.sql.Statement;
 public class UpdateInstrument extends JFrame {
     private JPanel updateInstrumentRootPanel;
     private JTextField instrIDtextField;
-    private JLabel instrumentIDTextField;
     private JTextField instrNameTextField;
     private JTextField regionTextField;
     private JTextField acquiredDateTextField;
     private JTextField acquiredFromTextField;
     private JComboBox locationComboBox;
-    private JTextField countryTextField;
-    private JCheckBox checkIfYesCheckBox;
+    private JCheckBox isALoanCheckBox;
     private JTextField heightTextField;
     private JTextField widthTextField;
     private JTextField depthTextField;
@@ -32,10 +30,12 @@ public class UpdateInstrument extends JFrame {
     private JTextField cultureTextField;
     private JComboBox tuningTypeComboBox;
     private JTextField lowNoteTextField;
-    private JTextField HighNoteTextField;
+    private JTextField highNoteTextField;
     private JButton exitButton;
+    private JComboBox countryComboBox;
     private PreparedStatement instrumentDataStatement;
     private ResultSet instrumentData;
+    private Instrument selectedInstrument;
 
     public UpdateInstrument(String pkToUse) {
         /*try {
@@ -52,12 +52,13 @@ public class UpdateInstrument extends JFrame {
 
         // fetch the data for the instrument
         // instantiate an Instrument object and read its attributes.
-        Instrument selectedInstrument = new Instrument(pkToUse);
+        selectedInstrument = new Instrument(pkToUse);
 
         // then populate our fields with the data
         // TODO: create a method call to keep the main body human-readable.
-        instrIDtextField.setText("" + selectedInstrument.getInstID());
-        instrNameTextField.setText(selectedInstrument.getInstName());
+        /*instrIDtextField.setText("" + selectedInstrument.getInstID());
+        instrNameTextField.setText(selectedInstrument.getInstName());*/
+        populateFormFields();
 
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -73,5 +74,31 @@ public class UpdateInstrument extends JFrame {
         });
     }
 
+    private void populateFormFields() {
+        // first, let's setup the text fields
+        instrIDtextField.setText("" + selectedInstrument.getInstID());
+        instrNameTextField.setText(selectedInstrument.getInstName());
+        acquiredDateTextField.setText(selectedInstrument.getAcquiredDate().toString());
+        acquiredFromTextField.setText(selectedInstrument.getAcquiredFrom());
+        regionTextField.setText(selectedInstrument.getRegion());
+        heightTextField.setText("" + selectedInstrument.getHeight());
+        widthTextField.setText("" + selectedInstrument.getWidth());
+        depthTextField.setText("" + selectedInstrument.getDepth());
+        // TODO: should subtype be some sort of combobox? if so, needs listener to listen for changes to classification.
+        subtypeTextField.setText(selectedInstrument.getSubtype());
+        cultureTextField.setText(selectedInstrument.getCulture());
+        lowNoteTextField.setText(selectedInstrument.getLowNote());
+        highNoteTextField.setText(selectedInstrument.getHighNote());
+        descriptionTextArea.setText(selectedInstrument.getDescription());
 
+        // ooh!  tickybox!
+        isALoanCheckBox.setSelected(selectedInstrument.isALoan());
+
+
+        // TODO: comboboxes - for now just add the current value of the field for the instrument.
+        classificationComboBox1.addItem(selectedInstrument.getInstType());
+        countryComboBox.addItem(selectedInstrument.getCountry());
+        locationComboBox.addItem(selectedInstrument.getLocation());
+        tuningTypeComboBox.addItem(selectedInstrument.getTuning());
+    }
 }

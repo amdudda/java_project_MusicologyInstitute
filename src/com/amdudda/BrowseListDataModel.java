@@ -8,9 +8,9 @@ import java.sql.SQLException;
  * Created by amdudda on 11/30/15.
  */
 public class BrowseListDataModel extends AbstractTableModel {
-    int rowcount = 0;
-    int colcount = 0;
-    ResultSet browseTable = null;
+    private int rowcount = 0;
+    private int colcount = 0;
+    private ResultSet browseTable = null;
 
     public BrowseListDataModel(ResultSet bT) {
         this.browseTable = bT;
@@ -75,5 +75,14 @@ public class BrowseListDataModel extends AbstractTableModel {
             System.out.println("Unable to extract column name.\n" + sqle);
         }
         return  columnText;
+    }
+
+    public String getTableName() {
+        try {
+            return this.browseTable.getMetaData().getTableName(1);
+        } catch (SQLException sqle) {
+            System.out.println("Unable to fetch table name.\n" + sqle);
+            return null;
+        }
     }
 }

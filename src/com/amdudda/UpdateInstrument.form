@@ -37,7 +37,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="af71d" class="javax.swing.JLabel" binding="instrumentIDTextField">
+      <component id="af71d" class="javax.swing.JLabel">
         <constraints>
           <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
@@ -281,16 +281,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="684d9" class="javax.swing.JTextField" binding="countryTextField">
-        <constraints>
-          <grid row="7" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="e0655" class="javax.swing.JCheckBox" binding="checkIfYesCheckBox" default-binding="true">
+      <component id="e0655" class="javax.swing.JCheckBox" binding="isALoanCheckBox">
         <constraints>
           <grid row="8" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
@@ -382,7 +373,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="a65d4" class="javax.swing.JTextField" binding="HighNoteTextField">
+      <component id="a65d4" class="javax.swing.JTextField" binding="highNoteTextField">
         <constraints>
           <grid row="20" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -399,6 +390,13 @@
         <properties>
           <text value="Exit"/>
         </properties>
+      </component>
+      <component id="543d3" class="javax.swing.JComboBox" binding="countryComboBox">
+        <constraints>
+          <grid row="7" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties/>
       </component>
     </children>
   </grid>
