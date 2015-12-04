@@ -25,7 +25,7 @@ public class MainMenuGUI extends JFrame {
         browseInstrumentsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: feed in the relevant resultset
+                // feed in the relevant resultset
                 BrowseDatabaseScreen browseWindow = new BrowseDatabaseScreen(Instrument.getBrowsingData());
             }
         });

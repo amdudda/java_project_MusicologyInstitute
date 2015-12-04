@@ -49,7 +49,7 @@ public class Database {
             conn = DriverManager.getConnection(DB_CONNECTION_URL, USER, PASS);
             statement = conn.createStatement();
 
-            statement.executeUpdate("CREATE SCHEMA " + DB_NAME);
+            statement.executeUpdate("CREATE DATABASE " + DB_NAME);
 
             statement.close();
             conn.close();

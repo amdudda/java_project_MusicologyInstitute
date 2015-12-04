@@ -30,13 +30,6 @@ public class BrowseDatabaseScreen extends JFrame {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         // this screen takes different result sets based on whether instruments or contacts are being browsed.
-        /*try {
-            browseTableStatement = Database.conn.createStatement();
-            dataToBrowse = browseTableStatement.executeQuery("SELECT InstName, InstType, Subtype, Location FROM Instrument");
-            bldm = new BrowseListDataModel(dataToBrowse);
-        } catch (SQLException sqle) {
-            System.out.println("Unable to fetch data for table.\n" + sqle);
-        }*/
 
         bldm = new BrowseListDataModel(dataToBrowse);
         browseDataTable.setModel(bldm);
@@ -52,6 +45,18 @@ public class BrowseDatabaseScreen extends JFrame {
                     System.out.println("Unable to close connections.\n" + sqle);
                 }
                 dispose();
+            }
+        });
+        editSelectedRecordButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (browseDataTable.getSelectedRow() > -1) {
+                    int selPK = (int) bldm.getValueAt(browseDataTable.getSelectedRow(), 0);
+                    System.out.println(selPK);
+                    UpdateInstrument updtInst = new UpdateInstrument(selPK);
+                } else {
+                    JOptionPane.showMessageDialog(browseDbScreenRootPanel,"Please select a record to edit.");
+                }
             }
         });
     }

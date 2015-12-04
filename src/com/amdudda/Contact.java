@@ -26,6 +26,19 @@ public class Contact {
     public static final String CONTACTTYPE = CONTACT_TABLE_NAME + ".ContactType";
     public static final String NOTES = CONTACT_TABLE_NAME + ".Notes";
 
+    // variables to store object attributes
+    private String ContactID;
+    private String ContactName;
+    private String BusinessName;
+    private String Address;
+    private String City;
+    private String State;
+    private String PostalCode;
+    private String Country;
+    private String BusinessPhone;
+    private String ContactPhone;
+    private String ContactType;
+    private String Notes;
 
     // also need a method to return a resultset for basic browsing screen
     protected static ResultSet getBrowsingData() {

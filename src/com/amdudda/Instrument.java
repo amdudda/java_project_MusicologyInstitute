@@ -36,28 +36,21 @@ public class Instrument {
     public static final String ISALOAN = INSTRUMENT_TABLE_NAME + ".isALoan";
 
     // variables to store object attributes
-    private String ContactID;
-    private String ContactName;
-    private String BusinessName;
-    private String Address;
-    private String City;
-    private String State;
-    private String PostalCode;
-    private String Country;
-    private String BusinessPhone;
-    private String ContactPhone;
-    private String ContactType;
-    private String Notes;
+
 
     // and a constructor so we can pass instrument attributes to the editing screen and pass values back to the databae
     public Instrument(String recID) {
         if (recID != null) {
             // only bother populating the values if a recordID is actually passed to the constructor.
             try {
-                String toPrep = "SELECT * FROM " + INSTRUMENT_TABLE_NAME + " WHERE "+ INSTID + " = ?";
-                PreparedStatement psFetch = Database.conn.prepareStatement(toPrep);
-                psFetch.setInt(1,Integer.parseInt(recID));
+                PreparedStatement psFetch = Database.conn.prepareStatement("SELECT * FROM ? WHERE ? = ?");
+                psFetch.setString(1,INSTRUMENT_TABLE_NAME);
+                psFetch.setString(2,INSTID);
+                psFetch.setInt(3,Integer.parseInt(recID));
                 ResultSet my_instrument = psFetch.executeQuery();
+
+                // TODO: for now, assume the columns are in a fixed, known order:
+
             } catch (SQLException sqle) {
                 System.out.println("Unable to fetch instrument data)");
             }
@@ -84,4 +77,21 @@ public class Instrument {
         }
         return dataToBrowse;
     }
+
+    protected static ResultSet getInstrumentData(int priKey, PreparedStatement s) {
+        ResultSet instrumentData = null;
+        String sqlToRun = "SELECT * FROM " + INSTRUMENT_TABLE_NAME +
+                " WHERE " + INSTID + " = ?";
+        try {
+            s = Database.conn.prepareStatement(sqlToRun);
+            s.setInt(1,priKey);
+            instrumentData = s.executeQuery();
+
+        } catch (SQLException sqle) {
+            System.out.println("Unable to fetch instrument data for PK = " + priKey);
+            System.out.println(sqle);
+        }
+        return instrumentData;
+    }
+
 }
