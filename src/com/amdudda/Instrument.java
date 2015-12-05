@@ -70,7 +70,7 @@ public class Instrument {
 
                 // TODO: can we map these without worrying about field order in the table?
                 InstID = Integer.parseInt(my_instrument.getObject(INSTID).toString());
-                System.out.println("Instrument id is: " + InstID);
+                //System.out.println("Instrument id is: " + InstID);
                 InstName = fetchValueOfString(INSTNAME);
                 InstType = fetchValueOfString(INSTTYPE);
                 Subtype = fetchValueOfString(SUBTYPE);

@@ -33,17 +33,9 @@ public class UpdateInstrument extends JFrame {
     private JTextField highNoteTextField;
     private JButton exitButton;
     private JComboBox countryComboBox;
-    private PreparedStatement instrumentDataStatement;
-    private ResultSet instrumentData;
     private Instrument selectedInstrument;
 
     public UpdateInstrument(String pkToUse) {
-        /*try {
-            instrumentDataStatement = Database.conn.createStatement();
-        } catch (SQLException sqle) {
-            System.out.println("Unable to configure instrumentDataStatement");
-        }*/
-
         setContentPane(updateInstrumentRootPanel);
         setTitle("Update Database Record");
         pack();
@@ -54,21 +46,12 @@ public class UpdateInstrument extends JFrame {
         // instantiate an Instrument object and read its attributes.
         selectedInstrument = new Instrument(pkToUse);
 
-        // then populate our fields with the data
-        // TODO: create a method call to keep the main body human-readable.
-        /*instrIDtextField.setText("" + selectedInstrument.getInstID());
-        instrNameTextField.setText(selectedInstrument.getInstName());*/
-        populateFormFields();
+        // then populate our fields with the data, IF we have data to use.
+        if (pkToUse != null) populateFormFields();
 
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    if (instrumentData != null) instrumentData.close();
-                    if (instrumentDataStatement != null) instrumentDataStatement.close();
-                } catch (SQLException sqle) {
-                    System.out.println("Unable to close resultset or statement.");
-                }
                 dispose();
             }
         });
@@ -100,5 +83,39 @@ public class UpdateInstrument extends JFrame {
         countryComboBox.addItem(selectedInstrument.getCountry());
         locationComboBox.addItem(selectedInstrument.getLocation());
         tuningTypeComboBox.addItem(selectedInstrument.getTuning());
+    }
+
+
+    public void updateInstrument() {
+        // a method that will be called by the update button
+        String preppedStatemt = "UPDATE " + Instrument.INSTRUMENT_TABLE_NAME + " SET " +
+                Instrument.INSTNAME + "= ?, " + // 1
+                Instrument.INSTTYPE + "= ?, " +
+                Instrument.SUBTYPE + "= ?, " +
+                Instrument.ACQUIREDDATE + "= ?, " +
+                Instrument.ACQUIREDFROM + "= ?, " + // 5
+                Instrument.LOCATION + "= ?, " +
+                Instrument.HEIGHT + "= ?, " +
+                Instrument.WIDTH + "= ?, " +
+                Instrument.DEPTH + "= ?, " +
+                Instrument.REGION + "= ?, " + // 10
+                Instrument.CULTURE + "= ?, " +
+                Instrument.TUNING + "= ?, " +
+                Instrument.LOWNOTE + "= ?, " +
+                Instrument.HIGHNOTE + "= ?, " +
+                Instrument.DESCRIPTION + "= ?, " + // 15
+                Instrument.ISALOAN + "= ? " +
+                "WHERE " + Instrument.INSTID + " = ? ";
+        try {
+            PreparedStatement updtInst = Database.conn.prepareStatement(preppedStatemt);
+            updtInst.setString(1,instrNameTextField.getText());
+            updtInst.setString(2,classificationComboBox1.getSelectedItem().toString());
+            updtInst.setString(3,subtypeTextField.getText());
+            updtInst.setDate(4,java.sql.Date.valueOf(acquiredDateTextField.getText()));
+            updtInst.setInt(5,Integer.parseInt(acquiredFromTextField.getText()));
+            // TODO: finish rest of data fields.
+        } catch (SQLException sqle) {
+            System.out.println("Unable to update database record.\n" + sqle);
+        }
     }
 }
