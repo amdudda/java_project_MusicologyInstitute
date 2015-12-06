@@ -33,6 +33,7 @@ public class UpdateInstrument extends JFrame {
     private JTextField highNoteTextField;
     private JButton exitButton;
     private JComboBox countryComboBox;
+    private JButton updateDatabaseButton;
     private Instrument selectedInstrument;
 
     public UpdateInstrument(String pkToUse) {
@@ -53,6 +54,20 @@ public class UpdateInstrument extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+            }
+        });
+
+
+        updateDatabaseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (pkToUse != null) {
+                    // update the record
+                    updateInstrument();
+                } else {
+                    // insert the record.
+                    return;
+                }
             }
         });
     }
@@ -113,9 +128,24 @@ public class UpdateInstrument extends JFrame {
             updtInst.setString(3,subtypeTextField.getText());
             updtInst.setDate(4,java.sql.Date.valueOf(acquiredDateTextField.getText()));
             updtInst.setInt(5,Integer.parseInt(acquiredFromTextField.getText()));
-            // TODO: finish rest of data fields.
+            updtInst.setString(6,locationComboBox.getSelectedItem().toString());
+            updtInst.setDouble(7,Double.parseDouble(heightTextField.getText()));
+            updtInst.setDouble(8,Double.parseDouble(widthTextField.getText()));
+            updtInst.setDouble(9,Double.parseDouble(depthTextField.getText()));
+            updtInst.setString(10,regionTextField.getText());
+            updtInst.setString(11,cultureTextField.getText());
+            updtInst.setString(12,tuningTypeComboBox.getSelectedItem().toString());
+            updtInst.setString(13,lowNoteTextField.getText());
+            updtInst.setString(14,highNoteTextField.getText());
+            updtInst.setString(15,descriptionTextArea.getText());
+            updtInst.setBoolean(16,isALoanCheckBox.isSelected());
+            // don't forget to update only the selected instrument
+            updtInst.setInt(17,selectedInstrument.getInstID());
+            updtInst.executeUpdate();
         } catch (SQLException sqle) {
             System.out.println("Unable to update database record.\n" + sqle);
         }
     }
+
+    // TODO: method to insert a new instrument.
 }
