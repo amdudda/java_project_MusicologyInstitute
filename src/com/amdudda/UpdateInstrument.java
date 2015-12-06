@@ -181,33 +181,34 @@ public class UpdateInstrument extends JFrame {
         }
     }
 
-    // TODO: method to insert a new instrument.
+    // Method to insert a new instrument.
     public void addInstrument() {
         // a method that will be called by the add button
         String prSt = "INSERT INTO " + Instrument.INSTRUMENT_TABLE_NAME + " (" +
-                Instrument.INSTNAME + ", " + // 1
-                Instrument.INSTTYPE + ", " +
-                Instrument.SUBTYPE + ", " +
-                Instrument.ACQUIREDDATE + ", " +
-                Instrument.ACQUIREDFROM + ", " + // 5
-                Instrument.LOCATION + ", " +
-                Instrument.HEIGHT + ", " +
-                Instrument.WIDTH + ", " +
-                Instrument.DEPTH + ", " +
-                Instrument.REGION + ", " + // 10
-                Instrument.CULTURE + ", " +
-                Instrument.TUNING + ", " +
-                Instrument.LOWNOTE + ", " +
-                Instrument.HIGHNOTE + ", " +
-                Instrument.DESCRIPTION + ", " + // 15
-                Instrument.ISALOAN +
-                ") VALUES "+
+                Instrument.INSTNAME + "," + // 1
+                Instrument.INSTTYPE + "," +
+                Instrument.SUBTYPE + "," +
+                Instrument.ACQUIREDDATE + "," +
+                Instrument.ACQUIREDFROM + "," + // 5
+                Instrument.LOCATION + "," +
+                Instrument.HEIGHT + "," +
+                Instrument.WIDTH + "," +
+                Instrument.DEPTH + "," +
+                Instrument.REGION + "," + // 10
+                Instrument.CULTURE + "," +
+                Instrument.TUNING + "," +
+                Instrument.LOWNOTE + "," +
+                Instrument.HIGHNOTE + "," +
+                Instrument.DESCRIPTION + "," + // 15
+                Instrument.ISALOAN + ") " +
+                "VALUES "+
                 "( ?, ?, ?, ?, "+
                 "?, ?, ?, ?, "+
                 "?, ?, ?, ?, "+
-                "?, ?, ?, ? )";
+                "?, ?, ?, ? ) ";
         System.out.println(prSt);
-        try {
+        // TODO: why is it not liking my prepared statement?
+        /*try {
             PreparedStatement addInst = Database.conn.prepareStatement(prSt);
             addInst.setString(1,instrNameTextField.getText());
             addInst.setString(2,classificationComboBox1.getSelectedItem().toString());
@@ -229,6 +230,6 @@ public class UpdateInstrument extends JFrame {
             addInst.close();
         } catch (SQLException sqle) {
             System.out.println("Unable to update database record.\n" + sqle);
-        }
+        }*/
     }
 }
