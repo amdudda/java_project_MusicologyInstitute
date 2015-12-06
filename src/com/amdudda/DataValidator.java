@@ -63,4 +63,13 @@ public class DataValidator {
         }
         return verdict;
     }
+
+    public static boolean isDouble(String zifr) {
+        try {
+            Double.parseDouble(zifr);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
 }

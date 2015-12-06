@@ -1,9 +1,16 @@
 package com.amdudda;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.xml.crypto.Data;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -67,6 +74,18 @@ public class UpdateInstrument extends JFrame {
                 } else {
                     // insert the record.
                     return;
+                }
+            }
+        });
+
+// TODO: why isn't this working?
+        heightTextField.addFocusListener(new FocusAdapter() {
+            private String fieldValue = heightTextField.getText().toString();
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                if (!DataValidator.isDouble(fieldValue)) {
+                    JOptionPane.showMessageDialog(updateInstrumentRootPanel,"Please enter a number.");
                 }
             }
         });
