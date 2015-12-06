@@ -1,20 +1,12 @@
 package com.amdudda;
 
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.xml.crypto.Data;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Created by amdudda on 12/2/15.
@@ -70,7 +62,8 @@ public class UpdateInstrument extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (pkToUse != null) {
                     // update the record
-                    updateInstrument();
+                    //updateInstrument();
+                    addInstrument();
                 } else {
                     // insert the record.
                     return;
@@ -78,13 +71,34 @@ public class UpdateInstrument extends JFrame {
             }
         });
 
-// TODO: why isn't this working?
         heightTextField.addFocusListener(new FocusAdapter() {
-            private String fieldValue = heightTextField.getText().toString();
             @Override
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
-                if (!DataValidator.isDouble(fieldValue)) {
+                String fieldValue = heightTextField.getText().toString();
+                if (!fieldValue.equals("") && !DataValidator.isDouble(fieldValue)) {
+                    JOptionPane.showMessageDialog(updateInstrumentRootPanel,"Please enter a number.");
+                }
+            }
+        });
+
+        widthTextField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                String fieldValue = widthTextField.getText().toString();
+                if (!fieldValue.equals("") && !DataValidator.isDouble(fieldValue)) {
+                    JOptionPane.showMessageDialog(updateInstrumentRootPanel,"Please enter a number.");
+                }
+            }
+        });
+
+        depthTextField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                String fieldValue = depthTextField.getText().toString();
+                if (!fieldValue.equals("") && !DataValidator.isDouble(fieldValue)) {
                     JOptionPane.showMessageDialog(updateInstrumentRootPanel,"Please enter a number.");
                 }
             }
@@ -161,10 +175,60 @@ public class UpdateInstrument extends JFrame {
             // don't forget to update only the selected instrument
             updtInst.setInt(17,selectedInstrument.getInstID());
             updtInst.executeUpdate();
+            updtInst.close();
         } catch (SQLException sqle) {
             System.out.println("Unable to update database record.\n" + sqle);
         }
     }
 
     // TODO: method to insert a new instrument.
+    public void addInstrument() {
+        // a method that will be called by the add button
+        String prSt = "INSERT INTO " + Instrument.INSTRUMENT_TABLE_NAME + " (" +
+                Instrument.INSTNAME + ", " + // 1
+                Instrument.INSTTYPE + ", " +
+                Instrument.SUBTYPE + ", " +
+                Instrument.ACQUIREDDATE + ", " +
+                Instrument.ACQUIREDFROM + ", " + // 5
+                Instrument.LOCATION + ", " +
+                Instrument.HEIGHT + ", " +
+                Instrument.WIDTH + ", " +
+                Instrument.DEPTH + ", " +
+                Instrument.REGION + ", " + // 10
+                Instrument.CULTURE + ", " +
+                Instrument.TUNING + ", " +
+                Instrument.LOWNOTE + ", " +
+                Instrument.HIGHNOTE + ", " +
+                Instrument.DESCRIPTION + ", " + // 15
+                Instrument.ISALOAN +
+                ") VALUES "+
+                "( ?, ?, ?, ?, "+
+                "?, ?, ?, ?, "+
+                "?, ?, ?, ?, "+
+                "?, ?, ?, ? )";
+        System.out.println(prSt);
+        try {
+            PreparedStatement addInst = Database.conn.prepareStatement(prSt);
+            addInst.setString(1,instrNameTextField.getText());
+            addInst.setString(2,classificationComboBox1.getSelectedItem().toString());
+            addInst.setString(3,subtypeTextField.getText());
+            addInst.setDate(4,java.sql.Date.valueOf(acquiredDateTextField.getText()));
+            addInst.setInt(5,Integer.parseInt(acquiredFromTextField.getText()));
+            addInst.setString(6,locationComboBox.getSelectedItem().toString());
+            addInst.setDouble(7,Double.parseDouble(heightTextField.getText()));
+            addInst.setDouble(8,Double.parseDouble(widthTextField.getText()));
+            addInst.setDouble(9,Double.parseDouble(depthTextField.getText()));
+            addInst.setString(10,regionTextField.getText());
+            addInst.setString(11,cultureTextField.getText());
+            addInst.setString(12,tuningTypeComboBox.getSelectedItem().toString());
+            addInst.setString(13,lowNoteTextField.getText());
+            addInst.setString(14,highNoteTextField.getText());
+            addInst.setString(15,descriptionTextArea.getText());
+            addInst.setBoolean(16,isALoanCheckBox.isSelected());
+            addInst.executeUpdate();
+            addInst.close();
+        } catch (SQLException sqle) {
+            System.out.println("Unable to update database record.\n" + sqle);
+        }
+    }
 }
