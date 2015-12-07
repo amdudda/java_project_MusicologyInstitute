@@ -45,36 +45,39 @@ public class Contact {
 
     // constructor for contact info
     public Contact(String pkToUse) {
-        // first, fetch the data
-        PreparedStatement stmt = null;
-        try {
-            String sqlToRun = "SELECT * FROM " + CONTACT_TABLE_NAME + " WHERE " + CONTACTID + " = ? ";
-            stmt = Database.conn.prepareStatement(sqlToRun);
-            stmt.setInt(1,Integer.parseInt(pkToUse));
-            my_contact = stmt.executeQuery();
-            my_contact.next();
-        } catch (SQLException sqle) {
-            System.out.println("Unable to fetch contact info.\n" + sqle);
-        }
-        // then try to parse it.
-        try {
-            ContactID = Integer.parseInt(my_contact.getObject(CONTACTID).toString());
-            ContactName = fetchValueOfString(CONTACTNAME);
-            BusinessName = fetchValueOfString(BUSINESSNAME);
-            Address = fetchValueOfString(ADDRESS);
-            City = fetchValueOfString(CITY);
-            State = fetchValueOfString(STATE);
-            PostalCode = fetchValueOfString(POSTALCODE);
-            Country = fetchValueOfString(COUNTRY);
-            BusinessPhone = fetchValueOfString(BUSINESSPHONE);
-            ContactPhone = fetchValueOfString(CONTACTPHONE);
-            ContactType = fetchValueOfString(CONTACTTYPE);
-            Notes = fetchValueOfString(NOTES);
-            // don't forget to close the resultset & statement in case they're still hanging out there for some reason.
-            my_contact.close();
-            if (stmt != null) stmt.close();
-        } catch (SQLException sqle) {
-            System.out.println("Unable to assign object attributes.\n" + sqle);
+        // check whether there's even any data to pull for this contact
+        if (pkToUse != null) {
+            // first, fetch the data
+            PreparedStatement stmt = null;
+            try {
+                String sqlToRun = "SELECT * FROM " + CONTACT_TABLE_NAME + " WHERE " + CONTACTID + " = ? ";
+                stmt = Database.conn.prepareStatement(sqlToRun);
+                stmt.setInt(1, Integer.parseInt(pkToUse));
+                my_contact = stmt.executeQuery();
+                my_contact.next();
+            } catch (SQLException sqle) {
+                System.out.println("Unable to fetch contact info.\n" + sqle);
+            }
+            // then try to parse it.
+            try {
+                ContactID = Integer.parseInt(my_contact.getObject(CONTACTID).toString());
+                ContactName = fetchValueOfString(CONTACTNAME);
+                BusinessName = fetchValueOfString(BUSINESSNAME);
+                Address = fetchValueOfString(ADDRESS);
+                City = fetchValueOfString(CITY);
+                State = fetchValueOfString(STATE);
+                PostalCode = fetchValueOfString(POSTALCODE);
+                Country = fetchValueOfString(COUNTRY);
+                BusinessPhone = fetchValueOfString(BUSINESSPHONE);
+                ContactPhone = fetchValueOfString(CONTACTPHONE);
+                ContactType = fetchValueOfString(CONTACTTYPE);
+                Notes = fetchValueOfString(NOTES);
+                // don't forget to close the resultset & statement in case they're still hanging out there for some reason.
+                my_contact.close();
+                if (stmt != null) stmt.close();
+            } catch (SQLException sqle) {
+                System.out.println("Unable to assign object attributes.\n" + sqle);
+            }
         }
     }
 

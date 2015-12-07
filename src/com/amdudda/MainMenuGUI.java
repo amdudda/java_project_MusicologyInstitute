@@ -43,5 +43,17 @@ public class MainMenuGUI extends JFrame {
                 BrowseDatabaseScreen bds = new BrowseDatabaseScreen(Contact.getBrowsingData());
             }
         });
+        addNewInstrumentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateInstrument addInst = new UpdateInstrument(null);
+            }
+        });
+        addNewContactButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateContact addContact = new UpdateContact(null);
+            }
+        });
     }
 }

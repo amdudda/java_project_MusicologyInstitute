@@ -17,7 +17,6 @@ public class UpdateInstrument extends JFrame {
     private JPanel updateInstrumentRootPanel;
     private JTextField instrIDtextField;
     private JTextField instrNameTextField;
-    private JTextField regionTextField;
     private JTextField acquiredDateTextField;
     private JTextField acquiredFromTextField;
     private JComboBox locationComboBox;
@@ -35,6 +34,7 @@ public class UpdateInstrument extends JFrame {
     private JButton exitButton;
     private JComboBox countryComboBox;
     private JButton updateDatabaseButton;
+    private JComboBox regionComboBox;
     private Instrument selectedInstrument;
 
     public UpdateInstrument(String pkToUse) {// fetch the data for the instrument
@@ -113,6 +113,7 @@ public class UpdateInstrument extends JFrame {
         DataValidator.generateCountryComboBox(countryComboBox);
         DataValidator.generateComboBox(locationComboBox,DataValidator.STORAGE_LOCATIONS);
         DataValidator.generateComboBox(tuningTypeComboBox,DataValidator.TUNING_TYPES);
+        DataValidator.generateComboBox(regionComboBox,DataValidator.REGIONS);
 
         if (haveData) {
             // populate text fields and comboboxes
@@ -121,7 +122,6 @@ public class UpdateInstrument extends JFrame {
             acquiredDateTextField.setText(selectedInstrument.getAcquiredDate().toString());
             // TODO: acquiredFrom info should be a human-readable name, not an ID number
             acquiredFromTextField.setText(selectedInstrument.getAcquiredFrom());
-            regionTextField.setText(selectedInstrument.getRegion());
             heightTextField.setText("" + selectedInstrument.getHeight());
             widthTextField.setText("" + selectedInstrument.getWidth());
             depthTextField.setText("" + selectedInstrument.getDepth());
@@ -137,6 +137,7 @@ public class UpdateInstrument extends JFrame {
 
             // set combobox selections
             classificationComboBox1.setSelectedItem(selectedInstrument.getInstType());
+            regionComboBox.setSelectedItem(selectedInstrument.getRegion());
             countryComboBox.setSelectedItem(selectedInstrument.getCountry());
             locationComboBox.setSelectedItem(selectedInstrument.getLocation());
             tuningTypeComboBox.setSelectedItem(selectedInstrument.getTuning());
@@ -144,7 +145,7 @@ public class UpdateInstrument extends JFrame {
             // turn off fields that should only be altered by accountant types
             acquiredDateTextField.setEditable(false);
             acquiredFromTextField.setEditable(false);
-            regionTextField.setEditable(false);
+            regionComboBox.setEditable(false);
             countryComboBox.setEditable(false);
             isALoanCheckBox.setEnabled(false);
         }
@@ -182,7 +183,7 @@ public class UpdateInstrument extends JFrame {
             updtInst.setDouble(++i,Double.parseDouble(heightTextField.getText()));
             updtInst.setDouble(++i,Double.parseDouble(widthTextField.getText()));
             updtInst.setDouble(++i,Double.parseDouble(depthTextField.getText()));
-            updtInst.setString(++i,regionTextField.getText());
+            updtInst.setString(++i,regionComboBox.getSelectedItem().toString());
             updtInst.setString(++i,cultureTextField.getText());
             updtInst.setString(++i,tuningTypeComboBox.getSelectedItem().toString());
             updtInst.setString(++i,lowNoteTextField.getText());
@@ -237,7 +238,7 @@ public class UpdateInstrument extends JFrame {
             addInst.setDouble(++i,Double.parseDouble(heightTextField.getText()));
             addInst.setDouble(++i,Double.parseDouble(widthTextField.getText()));
             addInst.setDouble(++i,Double.parseDouble(depthTextField.getText()));
-            addInst.setString(++i,regionTextField.getText());
+            addInst.setString(++i,regionComboBox.getSelectedItem().toString());
             addInst.setString(++i,cultureTextField.getText());
             addInst.setString(++i,tuningTypeComboBox.getSelectedItem().toString());
             addInst.setString(++i,lowNoteTextField.getText());
