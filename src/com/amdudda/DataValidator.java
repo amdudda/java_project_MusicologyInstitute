@@ -1,6 +1,10 @@
 package com.amdudda;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.Year;
+import java.util.ArrayList;
 
 /**
  * Created by amdudda on 12/5/15.
@@ -71,5 +75,24 @@ public class DataValidator {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    // also some field values for comboboxes
+    public static ArrayList<String> getCountries() {
+        ArrayList<String> countryList = new ArrayList<String>();
+        try {
+            String sqlToRun = "SELECT * FROM Countries";
+            Statement s = Database.conn.createStatement();
+            ResultSet r = s.executeQuery(sqlToRun);
+            while (r.next()) {
+                countryList.add(r.getObject("CountryName").toString());
+            }
+
+            r.close();
+            s.close();
+        } catch (SQLException sqle) {
+            System.out.println("Unable to fetch list of countries from database.\n" + sqle);
+        }
+        return countryList;
     }
 }

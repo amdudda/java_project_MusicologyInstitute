@@ -57,17 +57,21 @@ public class UpdateContact extends JFrame {
         notesTextArea.setText(selected_contact.getNotes());
 
         // TODO: drop-down lists - for now just add current values.
-        ArrayList<String> topCountries = new ArrayList<String>();
-        topCountries.add("United States");
-        topCountries.add("Canada");
-        topCountries.add("Mexico");
-        for (int i = 0; i < topCountries.size(); i++) {
-            countryComboBox.addItem(topCountries.get(i));
-        }
-        if (!topCountries.contains(selected_contact.getCountry())) { countryComboBox.addItem(selected_contact.getCountry()); }
+        generateCountryComboBox();
         countryComboBox.setSelectedItem(selected_contact.getCountry());
 
         stateComboBox.addItem(selected_contact.getState());
         contactTypeComboBox.addItem(selected_contact.getContactType());
+    }
+
+    private void generateCountryComboBox() {
+        ArrayList<String> countryList = DataValidator.getCountries();
+        // in reverse order to put USA at top of list.
+        countryList.add(0,"Mexico");
+        countryList.add(0,"Canada");
+        countryList.add(0,"United States");
+        for (int i = 0; i < countryList.size(); i++) {
+            countryComboBox.addItem(countryList.get(i));
+        }
     }
 }

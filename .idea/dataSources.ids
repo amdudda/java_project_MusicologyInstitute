@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - MusicologyInstitute@localhost" uuid="c0fecdf8-b2a7-4295-b080-b36ba03bcf44">
+    <database-info product="MySQL" version="5.6.27-0ubuntu1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.2">
+      <schema id="1" name="MusicologyInstitute"/>
+      <table id="2" parent="1" name="Contact"/>
+      <table id="3" parent="1" name="Countries"/>
+      <table id="4" parent="1" name="Exhibit"/>
+      <table id="5" parent="1" name="Instrument"/>
+      <table id="6" parent="1" name="InstrumentExhibit"/>
+      <table id="7" parent="1" name="Loan"/>
+      <table id="8" parent="1" name="Rooms"/>
+      <table id="9" parent="1" name="StorageLibrary"/>
+      <column id="10" parent="2" name="ContactID">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="11" parent="2" name="ContactName">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="12" parent="2" name="BusinessName">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="13" parent="2" name="Address">
+        <data-type>varchar(300)</data-type>
+      </column>
+      <column id="14" parent="2" name="City">
+        <data-type>varchar(75)</data-type>
+      </column>
+      <column id="15" parent="2" name="State">
+        <data-type>varchar(2)</data-type>
+      </column>
+      <column id="16" parent="2" name="PostalCode">
+        <data-type>varchar(6)</data-type>
+      </column>
+      <column id="17" parent="2" name="Country">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="18" parent="2" name="BusinessPhone">
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="19" parent="2" name="ContactPhone">
+        <data-type>varchar(15)</data-type>
+      </column>
+      <column id="20" parent="2" name="ContactType">
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="21" parent="2" name="Notes">
+        <data-type>varchar(1500)</data-type>
+      </column>
+      <key id="22" parent="2" name="PRIMARY">
+        <columns>ContactID</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="23" parent="2" name="Contact_ibfk_1">
+        <columns>Country</columns>
+        <ref-key>Countries.CountryName</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="24" parent="3" name="CountryNum">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="25" parent="3" name="CountryName">
+        <mandatory>1</mandatory>
+        <data-type>varchar(40)</data-type>
+      </column>
+      <index id="26" parent="3" name="CountryName">
+        <columns>CountryName</columns>
+        <unique>1</unique>
+      </index>
+      <key id="27" parent="3" name="CountryName">
+        <columns>CountryName</columns>
+        <underlying-index>CountryName</underlying-index>
+      </key>
+      <key id="28" parent="3" name="PRIMARY">
+        <columns>CountryNum</columns>
+        <primary>1</primary>
+      </key>
+      <column id="29" parent="4" name="ExhibitID">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="30" parent="4" name="ExhibitName">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="31" parent="4" name="StartDate">
+        <data-type>date</data-type>
+      </column>
+      <column id="32" parent="4" name="EndDate">
+        <data-type>date</data-type>
+      </column>
+      <column id="33" parent="4" name="Room">
+        <data-type>varchar(5)</data-type>
+      </column>
+      <key id="34" parent="4" name="PRIMARY">
+        <columns>ExhibitID</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="35" parent="4" name="Exhibit_ibfk_1">
+        <columns>Room</columns>
+        <ref-key>Rooms.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="36" parent="5" name="InstID">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="37" parent="5" name="InstName">
+        <data-type>varchar(50)</data-type>
+      </column>
+      <column id="38" parent="5" name="InstType">
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="39" parent="5" name="Subtype">
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="40" parent="5" name="AcquiredDate">
+        <data-type>date</data-type>
+      </column>
+      <column id="41" parent="5" name="AcquiredFrom">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="42" parent="5" name="PurchasePrice">
+        <data-type>decimal(12,2)</data-type>
+      </column>
+      <column id="43" parent="5" name="InsuranceValue">
+        <data-type>decimal(12,2)</data-type>
+      </column>
+      <column id="44" parent="5" name="Location">
+        <data-type>varchar(10)</data-type>
+      </column>
+      <column id="45" parent="5" name="Height">
+        <data-type>double</data-type>
+      </column>
+      <column id="46" parent="5" name="Width">
+        <data-type>double</data-type>
+      </column>
+      <column id="47" parent="5" name="Depth">
+        <data-type>double</data-type>
+      </column>
+      <column id="48" parent="5" name="Region">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="49" parent="5" name="Country">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="50" parent="5" name="Culture">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="51" parent="5" name="Tuning">
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="52" parent="5" name="LowNote">
+        <data-type>varchar(3)</data-type>
+      </column>
+      <column id="53" parent="5" name="HighNote">
+        <data-type>varchar(3)</data-type>
+      </column>
+      <column id="54" parent="5" name="Description">
+        <data-type>varchar(1500)</data-type>
+      </column>
+      <column id="55" parent="5" name="IsALoan">
+        <data-type>tinyint(1)</data-type>
+      </column>
+      <key id="56" parent="5" name="PRIMARY">
+        <columns>InstID</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="57" parent="5" name="Instrument_ibfk_1">
+        <columns>AcquiredFrom</columns>
+        <ref-key>Contact.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="58" parent="5" name="Instrument_ibfk_2">
+        <columns>Country</columns>
+        <ref-key>Countries.CountryName</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="59" parent="6" name="ExhibitID">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="60" parent="6" name="InstID">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="61" parent="6" name="Room">
+        <data-type>varchar(5)</data-type>
+      </column>
+      <column id="62" parent="6" name="LocationInRoom">
+        <data-type>varchar(16)</data-type>
+      </column>
+      <key id="63" parent="6" name="PRIMARY">
+        <columns>ExhibitID
+InstID</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="64" parent="6" name="InstrumentExhibit_ibfk_1">
+        <columns>ExhibitID</columns>
+        <ref-key>Exhibit.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="65" parent="6" name="InstrumentExhibit_ibfk_2">
+        <columns>InstID</columns>
+        <ref-key>Instrument.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="66" parent="7" name="InstID">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="67" parent="7" name="ContactID">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="68" parent="7" name="StartDate">
+        <data-type>date</data-type>
+      </column>
+      <column id="69" parent="7" name="EndDate">
+        <data-type>date</data-type>
+      </column>
+      <key id="70" parent="7" name="PRIMARY">
+        <columns>InstID
+ContactID</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="71" parent="7" name="Loan_ibfk_1">
+        <columns>InstID</columns>
+        <ref-key>Instrument.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="72" parent="7" name="Loan_ibfk_2">
+        <columns>ContactID</columns>
+        <ref-key>Contact.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="73" parent="8" name="RoomNum">
+        <mandatory>1</mandatory>
+        <data-type>varchar(5)</data-type>
+      </column>
+      <column id="74" parent="8" name="RoomName">
+        <data-type>varchar(50)</data-type>
+      </column>
+      <key id="75" parent="8" name="PRIMARY">
+        <columns>RoomNum</columns>
+        <primary>1</primary>
+      </key>
+      <column id="76" parent="9" name="InstID">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="77" parent="9" name="StorageType">
+        <data-type>varchar(30)</data-type>
+      </column>
+      <column id="78" parent="9" name="Room">
+        <data-type>varchar(5)</data-type>
+      </column>
+      <column id="79" parent="9" name="Cabinet">
+        <data-type>varchar(1)</data-type>
+      </column>
+      <column id="80" parent="9" name="Shelf">
+        <data-type>smallint(6)</data-type>
+      </column>
+      <key id="81" parent="9" name="PRIMARY">
+        <columns>InstID</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="82" parent="9" name="StorageLibrary_ibfk_1">
+        <columns>InstID</columns>
+        <ref-key>Instrument.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+    </database-model>
+  </data-source>
+  <data-source name="MySQL - @localhost" uuid="513ddfcf-43aa-40ce-b6ca-84daf7e9555a">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+</component>
