@@ -46,7 +46,7 @@ public class UpdateInstrument extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         // then populate our fields with the data, IF we have data to use.
-        if (pkToUse != null) populateFormFields();
+        populateFormFields();
         // then pack it into a window that fits all the data.
         pack();
 
@@ -110,6 +110,7 @@ public class UpdateInstrument extends JFrame {
         instrIDtextField.setText("" + selectedInstrument.getInstID());
         instrNameTextField.setText(selectedInstrument.getInstName());
         acquiredDateTextField.setText(selectedInstrument.getAcquiredDate().toString());
+        // TODO: acquiredFrom info should be a human-readable name, not an ID number
         acquiredFromTextField.setText(selectedInstrument.getAcquiredFrom());
         regionTextField.setText(selectedInstrument.getRegion());
         heightTextField.setText("" + selectedInstrument.getHeight());
@@ -194,26 +195,28 @@ public class UpdateInstrument extends JFrame {
         // I considered making this a method in Instrument, but didn't want to create
         // listeners for every single field to update Instrument object with data.
         String prSt = "INSERT INTO " + Instrument.INSTRUMENT_TABLE_NAME + " (" +
-                Instrument.INSTNAME + ", " + // 1
+                Instrument.INSTNAME + ", " +
                 Instrument.INSTTYPE + ", " +
                 Instrument.SUBTYPE + ", " +
                 Instrument.ACQUIREDDATE + ", " +
-                Instrument.ACQUIREDFROM + ", " + // 5
+                Instrument.ACQUIREDFROM + ", " +
                 Instrument.LOCATION + ", " +
-                Instrument.HEIGHT + ", " +
-                Instrument.WIDTH + ", " +
+                Instrument.HEIGHT + ", ";
+        // apparently IntelliJ sql parser doesn't like super-long strings, so I've broken it up here.
+        // TODO: insert URL from Clara that references this issue.
+        prSt+=  Instrument.WIDTH + ", " +
                 Instrument.DEPTH + ", " +
-                Instrument.REGION + ", " + // 10
+                Instrument.REGION + ", " +
                 Instrument.CULTURE + ", " +
                 Instrument.TUNING + ", " +
                 Instrument.LOWNOTE + ", " +
                 Instrument.HIGHNOTE + ", " +
-                Instrument.DESCRIPTION + ", " + // 15
+                Instrument.DESCRIPTION + ", " +
                 Instrument.ISALOAN + ") " +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         System.out.println(prSt);
         // TODO: Why does the below not work?
-        /*try {
+        try {
             PreparedStatement addInst = Database.conn.prepareStatement(prSt);
             addInst.setString(1,instrNameTextField.getText());
             addInst.setString(2,classificationComboBox1.getSelectedItem().toString());
@@ -236,7 +239,7 @@ public class UpdateInstrument extends JFrame {
             if (addInst != null) addInst.close();
         } catch (SQLException sqle) {
             System.out.println("Unable to update database record.\n" + sqle);
-        }*/
+        }
     }
 
 }

@@ -130,4 +130,29 @@ public class DataValidator {
             cBox.addItem(instTypeList[i]);
         }
     }
+
+    public static void generateStateComboBox(JComboBox cBox) {
+        // ideally, we'd show the full name next to the abbreviation, but for now, just do abbrevs.
+        String sqlToRun = "SELECT Abbreviation FROM States";
+        Statement s = null;
+        ResultSet r = null;
+        try {
+            s = Database.conn.createStatement();
+            r = s.executeQuery(sqlToRun);
+            while (r.next()) {
+                cBox.addItem(r.getObject("Abbreviation").toString());
+            }
+            r.close();
+            s.close();
+        } catch (SQLException sqle) {
+            System.out.println("Unable to extract list of states.\n" + sqle);
+        }
+    }
+
+    public static void generateContactTypeComboBox(JComboBox cBox) {
+        String[] contactTypes = {"Donor", "Museum", "Seller", "Musician", "School", "Private Individual"};
+        for (int i = 0; i < contactTypes.length; i++) {
+            cBox.addItem(contactTypes[i]);
+        }
+    }
 }

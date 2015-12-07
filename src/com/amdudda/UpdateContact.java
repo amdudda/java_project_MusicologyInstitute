@@ -58,7 +58,10 @@ public class UpdateContact extends JFrame {
         DataValidator.generateCountryComboBox(countryComboBox);
         countryComboBox.setSelectedItem(selected_contact.getCountry());
 
-        stateComboBox.addItem(selected_contact.getState());
+        DataValidator.generateStateComboBox(stateComboBox);
+        stateComboBox.setSelectedItem(selected_contact.getState());
+
+
         contactTypeComboBox.addItem(selected_contact.getContactType());
     }
 
