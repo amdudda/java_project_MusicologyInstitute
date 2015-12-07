@@ -233,6 +233,15 @@
           <text value="Exit"/>
         </properties>
       </component>
+      <component id="47174" class="javax.swing.JButton" binding="updateDatabaseButton" default-binding="true">
+        <constraints>
+          <grid row="8" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Update Database"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

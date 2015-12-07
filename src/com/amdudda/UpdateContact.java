@@ -3,6 +3,8 @@ package com.amdudda;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +24,7 @@ public class UpdateContact extends JFrame {
     private JTextArea notesTextArea;
     private JButton exitButton;
     private JPanel updateContactRootPanel;
+    private JButton updateDatabaseButton;
     private Contact selected_contact;
 
     public UpdateContact(String selContact) {
@@ -37,6 +40,14 @@ public class UpdateContact extends JFrame {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
+        updateDatabaseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateContact();
                 dispose();
             }
         });
@@ -65,4 +76,42 @@ public class UpdateContact extends JFrame {
         contactTypeComboBox.setSelectedItem(selected_contact.getContactType());
     }
 
+    private void updateContact() {
+        String sqlToUse = "UPDATE " + Contact.CONTACT_TABLE_NAME + " SET " +
+                Contact.CONTACTNAME + "= ?, " +
+                Contact.BUSINESSNAME + "= ?, " +
+                Contact.ADDRESS + "= ?, " +
+                Contact.CITY + "= ?, " +
+                Contact.POSTALCODE + "= ?, " +
+                Contact.CONTACTPHONE + "= ?, " +
+                Contact.BUSINESSPHONE + "= ?, " +
+                Contact.NOTES + "= ?, " +
+                Contact.COUNTRY + "= ?, " +
+                Contact.STATE + "= ?, " +
+                Contact.CONTACTTYPE + "= ? " +
+                "WHERE " + Contact.CONTACTID + " = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = Database.conn.prepareStatement(sqlToUse);
+
+            int i = 1;
+            ps.setString(i,contactNameTextField.getText());
+            ps.setString(++i,businessNameTextField.getText());
+            ps.setString(++i,addressTextArea.getText());
+            ps.setString(++i,cityTextField.getText());
+            ps.setString(++i,postalCodeTextField.getText());
+            ps.setString(++i,contactPhoneTextField.getText());
+            ps.setString(++i,businessPhoneTextField.getText());
+            ps.setString(++i,notesTextArea.getText());
+            ps.setString(++i,countryComboBox.getSelectedItem().toString());
+            ps.setString(++i,stateComboBox.getSelectedItem().toString());
+            ps.setString(++i,contactTypeComboBox.getSelectedItem().toString());
+            ps.setInt(++i,selected_contact.getContactID());
+            ps.executeUpdate();
+
+            ps.close();
+        } catch (SQLException sqle) {
+            System.out.println("Unable to update database.\n" + sqle);
+        }
+    }
 }
