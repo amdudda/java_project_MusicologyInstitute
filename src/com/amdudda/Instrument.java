@@ -60,15 +60,20 @@ public class Instrument {
     // and a constructor so we can pass instrument attributes to the editing screen and pass values back to the databae
     public Instrument(String recID) {
         if (recID != null) {
+            PreparedStatement psFetch = null;
             // only bother populating the values if a recordID is actually passed to the constructor.
             try {
-                PreparedStatement psFetch = Database.conn.prepareStatement("SELECT * FROM " + INSTRUMENT_TABLE_NAME +
+                psFetch = Database.conn.prepareStatement("SELECT * FROM " + INSTRUMENT_TABLE_NAME +
                         " WHERE " + INSTID + " = ?");
                 psFetch.setInt(1, Integer.parseInt(recID));
                 my_instrument = psFetch.executeQuery();
                 my_instrument.next();
-
-                // TODO: can we map these without worrying about field order in the table?
+            } catch (SQLException sqle) {
+                System.out.println("Unable to fetch instrument info.\n" + sqle);
+            }
+            // then try to parse it.
+            try {
+                // I map these without worrying about field order in the table.
                 InstID = Integer.parseInt(my_instrument.getObject(INSTID).toString());
                 //System.out.println("Instrument id is: " + InstID);
                 InstName = fetchValueOfString(INSTNAME);
@@ -93,10 +98,10 @@ public class Instrument {
 
                 // and close my query now that I've gathered my data...
                 my_instrument.close();
-                psFetch.close();
+                if(psFetch != null) psFetch.close();
 
             } catch (SQLException sqle) {
-                System.out.println("Unable to fetch instrument data.\n" + sqle);
+                System.out.println("Unable to assign instrument attributes.\n" + sqle);
             }
         }
     }

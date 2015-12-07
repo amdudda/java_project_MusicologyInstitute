@@ -1,5 +1,6 @@
 package com.amdudda;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,7 +28,7 @@ public class Contact {
     public static final String NOTES = CONTACT_TABLE_NAME + ".Notes";
 
     // variables to store object attributes
-    private String ContactID;
+    private int ContactID;
     private String ContactName;
     private String BusinessName;
     private String Address;
@@ -39,6 +40,42 @@ public class Contact {
     private String ContactPhone;
     private String ContactType;
     private String Notes;
+
+    ResultSet my_contact;
+
+    // constructor for contact info
+    public Contact(String pkToUse) {
+        // first, fetch the data
+        PreparedStatement stmt = null;
+        try {
+            String sqlToRun = "SELECT * FROM " + CONTACT_TABLE_NAME + " WHERE " + CONTACTID + " = ? ";
+            stmt = Database.conn.prepareStatement(sqlToRun);
+            stmt.setInt(1,Integer.parseInt(pkToUse));
+            my_contact = stmt.executeQuery();
+        } catch (SQLException sqle) {
+            System.out.println("Unable to fetch contact info.\n" + sqle);
+        }
+        // then try to parse it.
+        try {
+            ContactID = Integer.parseInt(my_contact.getObject(CONTACTID).toString());
+            ContactName = fetchValueOfString(CONTACTNAME);
+            BusinessName = fetchValueOfString(BUSINESSNAME);
+            Address = fetchValueOfString(ADDRESS);
+            City = fetchValueOfString(CITY);
+            State = fetchValueOfString(STATE);
+            PostalCode = fetchValueOfString(POSTALCODE);
+            Country = fetchValueOfString(COUNTRY);
+            BusinessPhone = fetchValueOfString(BUSINESSPHONE);
+            ContactPhone = fetchValueOfString(CONTACTPHONE);
+            ContactType = fetchValueOfString(CONTACTTYPE);
+            Notes = fetchValueOfString(NOTES);
+            // don't forget to close the resultset & statement in case they're still hanging out there for some reason.
+            my_contact.close();
+            if (stmt != null) stmt.close();
+        } catch (SQLException sqle) {
+            System.out.println("Unable to assign object attributes.\n" + sqle);
+        }
+    }
 
     // also need a method to return a resultset for basic browsing screen
     protected static ResultSet getBrowsingData() {
@@ -61,5 +98,15 @@ public class Contact {
             System.out.println("Unable to fetch data for table.\n" + sqle);
         }
         return dataToBrowse;
+    }
+
+    private String fetchValueOfString(String fieldname) {
+        // This method reads in a value and translates nulls into an empty string so the constructor doesn't choke.
+        try {
+            return (my_contact.getObject(fieldname) == null) ? "" : my_contact.getObject(fieldname).toString();
+        } catch (SQLException sqle) {
+            System.out.println("Unable to fetch value of " + fieldname + ".\n" + sqle);
+            return "?????";
+        }
     }
 }

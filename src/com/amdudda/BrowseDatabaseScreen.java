@@ -51,14 +51,14 @@ public class BrowseDatabaseScreen extends JFrame {
         editSelectedRecordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String selPK = bldm.getValueAt(browseDataTable.getSelectedRow(), 0).toString();
                 if (browseDataTable.getSelectedRow() == -1) {
                     JOptionPane.showMessageDialog(browseDbScreenRootPanel,"Please select a record to edit.");
                 } else if (bldm.getTableName().contains("Instrument")) {
-                    String selPK = bldm.getValueAt(browseDataTable.getSelectedRow(), 0).toString();
                     UpdateInstrument updtInst = new UpdateInstrument(selPK);
                 } else {
                     // TODO: need to handle fetching contacts data
-                    // for now, do nothing
+                    UpdateContact updtCont = new UpdateContact(selPK);
                     return;
                 }
             }
@@ -67,11 +67,10 @@ public class BrowseDatabaseScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (bldm.getTableName().contains("Instrument")) {
-                    String selPK = bldm.getValueAt(browseDataTable.getSelectedRow(), 0).toString();
                     UpdateInstrument updtInst = new UpdateInstrument(null);
                 } else {
                     // TODO: need to handle fetching contacts data
-                    // for now, do nothing
+                    UpdateContact updtCont = new UpdateContact(null);
                     return;
                 }
             }
