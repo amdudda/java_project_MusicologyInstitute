@@ -46,9 +46,10 @@ public class UpdateInstrument extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         // then populate our fields with the data, IF we have data to use.
-        populateFormFields();
+        populateFormFields(pkToUse != null);
         // then pack it into a window that fits all the data.
         pack();
+
 
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -68,6 +69,7 @@ public class UpdateInstrument extends JFrame {
                     // insert the record.
                     addInstrument();
                 }
+                dispose();
             }
         });
 
@@ -105,40 +107,43 @@ public class UpdateInstrument extends JFrame {
         });
     }
 
-    private void populateFormFields() {
-        // first, let's setup the text fields
-        instrIDtextField.setText("" + selectedInstrument.getInstID());
-        instrNameTextField.setText(selectedInstrument.getInstName());
-        acquiredDateTextField.setText(selectedInstrument.getAcquiredDate().toString());
-        // TODO: acquiredFrom info should be a human-readable name, not an ID number
-        acquiredFromTextField.setText(selectedInstrument.getAcquiredFrom());
-        regionTextField.setText(selectedInstrument.getRegion());
-        heightTextField.setText("" + selectedInstrument.getHeight());
-        widthTextField.setText("" + selectedInstrument.getWidth());
-        depthTextField.setText("" + selectedInstrument.getDepth());
-        // TODO: should subtype be some sort of combobox? if so, needs listener to listen for changes to classification.
-        subtypeTextField.setText(selectedInstrument.getSubtype());
-        cultureTextField.setText(selectedInstrument.getCulture());
-        lowNoteTextField.setText(selectedInstrument.getLowNote());
-        highNoteTextField.setText(selectedInstrument.getHighNote());
-        descriptionTextArea.setText(selectedInstrument.getDescription());
-
-        // ooh!  tickybox!
-        isALoanCheckBox.setSelected(selectedInstrument.isALoan());
-
-
-        // populate comboboxes
+    private void populateFormFields(boolean haveData) {
+        // generate our comboboxes - we need these even if pkToUse is null
         DataValidator.generateClassificationComboBox(classificationComboBox1);
-        classificationComboBox1.setSelectedItem(selectedInstrument.getInstType());
-
         DataValidator.generateCountryComboBox(countryComboBox);
-        countryComboBox.setSelectedItem(selectedInstrument.getCountry());
-
         DataValidator.generateLocationComboBox(locationComboBox);
-        locationComboBox.setSelectedItem(selectedInstrument.getLocation());
-
         DataValidator.generateTuningComboBox(tuningTypeComboBox);
-        tuningTypeComboBox.setSelectedItem(selectedInstrument.getTuning());
+
+        if (haveData) {
+            // populate text fields and comboboxes
+            instrIDtextField.setText("" + selectedInstrument.getInstID());
+            instrNameTextField.setText(selectedInstrument.getInstName());
+            acquiredDateTextField.setText(selectedInstrument.getAcquiredDate().toString());
+            // TODO: acquiredFrom info should be a human-readable name, not an ID number
+            acquiredFromTextField.setText(selectedInstrument.getAcquiredFrom());
+            regionTextField.setText(selectedInstrument.getRegion());
+            heightTextField.setText("" + selectedInstrument.getHeight());
+            widthTextField.setText("" + selectedInstrument.getWidth());
+            depthTextField.setText("" + selectedInstrument.getDepth());
+            // TODO: should subtype be some sort of combobox? if so, needs listener to listen for changes to classification.
+            subtypeTextField.setText(selectedInstrument.getSubtype());
+            cultureTextField.setText(selectedInstrument.getCulture());
+            lowNoteTextField.setText(selectedInstrument.getLowNote());
+            highNoteTextField.setText(selectedInstrument.getHighNote());
+            descriptionTextArea.setText(selectedInstrument.getDescription());
+
+            // ooh!  tickybox!
+            isALoanCheckBox.setSelected(selectedInstrument.isALoan());
+
+            // set combobox selections
+            classificationComboBox1.setSelectedItem(selectedInstrument.getInstType());
+            countryComboBox.setSelectedItem(selectedInstrument.getCountry());
+            locationComboBox.setSelectedItem(selectedInstrument.getLocation());
+            tuningTypeComboBox.setSelectedItem(selectedInstrument.getTuning());
+        }
+
+        // oh, yeah, we don't want anyone touching the ID number field.
+        instrIDtextField.setEditable(false);
     }
 
 
