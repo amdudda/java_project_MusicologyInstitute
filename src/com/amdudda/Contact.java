@@ -52,6 +52,7 @@ public class Contact {
             stmt = Database.conn.prepareStatement(sqlToRun);
             stmt.setInt(1,Integer.parseInt(pkToUse));
             my_contact = stmt.executeQuery();
+            my_contact.next();
         } catch (SQLException sqle) {
             System.out.println("Unable to fetch contact info.\n" + sqle);
         }
@@ -108,5 +109,103 @@ public class Contact {
             System.out.println("Unable to fetch value of " + fieldname + ".\n" + sqle);
             return "?????";
         }
+    }
+
+    // getters and setters for attributes
+
+    public int getContactID() {
+        return ContactID;
+    }
+
+    public void setContactID(int contactID) {
+        ContactID = contactID;
+    }
+
+    public String getContactName() {
+        return ContactName;
+    }
+
+    public void setContactName(String contactName) {
+        ContactName = contactName;
+    }
+
+    public String getBusinessName() {
+        return BusinessName;
+    }
+
+    public void setBusinessName(String businessName) {
+        BusinessName = businessName;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public String getCity() {
+        return City;
+    }
+
+    public void setCity(String city) {
+        City = city;
+    }
+
+    public String getState() {
+        return State;
+    }
+
+    public void setState(String state) {
+        State = state;
+    }
+
+    public String getPostalCode() {
+        return PostalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        PostalCode = postalCode;
+    }
+
+    public String getCountry() {
+        return Country;
+    }
+
+    public void setCountry(String country) {
+        Country = country;
+    }
+
+    public String getBusinessPhone() {
+        return BusinessPhone;
+    }
+
+    public void setBusinessPhone(String businessPhone) {
+        BusinessPhone = businessPhone;
+    }
+
+    public String getContactPhone() {
+        return ContactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        ContactPhone = contactPhone;
+    }
+
+    public String getContactType() {
+        return ContactType;
+    }
+
+    public void setContactType(String contactType) {
+        ContactType = contactType;
+    }
+
+    public String getNotes() {
+        return Notes;
+    }
+
+    public void setNotes(String notes) {
+        Notes = notes;
     }
 }

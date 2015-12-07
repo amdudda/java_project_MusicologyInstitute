@@ -203,7 +203,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="2b22" class="javax.swing.JTextArea" binding="NotesTextArea">
+      <component id="2b22" class="javax.swing.JTextArea" binding="notesTextArea">
         <constraints>
           <grid row="5" column="5" row-span="2" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
