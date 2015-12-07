@@ -1,5 +1,8 @@
 package com.amdudda;
 
+import javafx.scene.control.ComboBox;
+
+import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -94,5 +97,16 @@ public class DataValidator {
             System.out.println("Unable to fetch list of countries from database.\n" + sqle);
         }
         return countryList;
+    }
+
+    public static void generateCountryComboBox(JComboBox cBox) {
+        ArrayList<String> countryList = getCountries();
+        // in reverse order to put USA at top of list.
+        countryList.add(0,"Mexico");
+        countryList.add(0,"Canada");
+        countryList.add(0,"United States");
+        for (int i = 0; i < countryList.size(); i++) {
+            cBox.addItem(countryList.get(i));
+        }
     }
 }

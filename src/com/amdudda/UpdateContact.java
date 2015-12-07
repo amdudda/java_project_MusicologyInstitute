@@ -25,16 +25,14 @@ public class UpdateContact extends JFrame {
     private Contact selected_contact;
 
     public UpdateContact(String selContact) {
-        setContentPane(updateContactRootPanel);
-        setTitle("Update Contact");
-        pack();
-        setVisible(true);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
         selected_contact = new Contact(selContact);
 
-        // todo: Populate our fields.
+        setContentPane(updateContactRootPanel);
+        setTitle("Update Contact");
+        setVisible(true);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         populateFormData();
+        pack();
 
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -57,14 +55,14 @@ public class UpdateContact extends JFrame {
         notesTextArea.setText(selected_contact.getNotes());
 
         // TODO: drop-down lists - for now just add current values.
-        generateCountryComboBox();
+        DataValidator.generateCountryComboBox(countryComboBox);
         countryComboBox.setSelectedItem(selected_contact.getCountry());
 
         stateComboBox.addItem(selected_contact.getState());
         contactTypeComboBox.addItem(selected_contact.getContactType());
     }
 
-    private void generateCountryComboBox() {
+    /*private void generateCountryComboBox() {
         ArrayList<String> countryList = DataValidator.getCountries();
         // in reverse order to put USA at top of list.
         countryList.add(0,"Mexico");
@@ -73,5 +71,5 @@ public class UpdateContact extends JFrame {
         for (int i = 0; i < countryList.size(); i++) {
             countryComboBox.addItem(countryList.get(i));
         }
-    }
+    }*/
 }

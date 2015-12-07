@@ -7,6 +7,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by amdudda on 12/2/15.
@@ -35,19 +36,18 @@ public class UpdateInstrument extends JFrame {
     private JButton updateDatabaseButton;
     private Instrument selectedInstrument;
 
-    public UpdateInstrument(String pkToUse) {
-        setContentPane(updateInstrumentRootPanel);
-        setTitle("Update Database Record");
-        pack();
-        setVisible(true);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        // fetch the data for the instrument
+    public UpdateInstrument(String pkToUse) {// fetch the data for the instrument
         // instantiate an Instrument object and read its attributes.
         selectedInstrument = new Instrument(pkToUse);
 
+        setContentPane(updateInstrumentRootPanel);
+        setTitle("Update Database Record");
+        setVisible(true);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         // then populate our fields with the data, IF we have data to use.
         if (pkToUse != null) populateFormFields();
+        // then pack it into a window that fits all the data.
+        pack();
 
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -62,11 +62,10 @@ public class UpdateInstrument extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (pkToUse != null) {
                     // update the record
-                    //updateInstrument();
-                    addInstrument();
+                    updateInstrument();
                 } else {
                     // insert the record.
-                    return;
+                    addInstrument();
                 }
             }
         });
@@ -128,7 +127,10 @@ public class UpdateInstrument extends JFrame {
 
         // TODO: comboboxes - for now just add the current value of the field for the instrument.
         classificationComboBox1.addItem(selectedInstrument.getInstType());
-        countryComboBox.addItem(selectedInstrument.getCountry());
+
+        DataValidator.generateCountryComboBox(countryComboBox);
+        countryComboBox.setSelectedItem(selectedInstrument.getCountry());
+
         locationComboBox.addItem(selectedInstrument.getLocation());
         tuningTypeComboBox.addItem(selectedInstrument.getTuning());
     }
@@ -184,30 +186,28 @@ public class UpdateInstrument extends JFrame {
     // Method to insert a new instrument.
     public void addInstrument() {
         // a method that will be called by the add button
+        // I considered making this a method in Instrument, but didn't want to create
+        // listeners for every single field to update Instrument object with data.
         String prSt = "INSERT INTO " + Instrument.INSTRUMENT_TABLE_NAME + " (" +
-                Instrument.INSTNAME + "," + // 1
-                Instrument.INSTTYPE + "," +
-                Instrument.SUBTYPE + "," +
-                Instrument.ACQUIREDDATE + "," +
-                Instrument.ACQUIREDFROM + "," + // 5
-                Instrument.LOCATION + "," +
-                Instrument.HEIGHT + "," +
-                Instrument.WIDTH + "," +
-                Instrument.DEPTH + "," +
-                Instrument.REGION + "," + // 10
-                Instrument.CULTURE + "," +
-                Instrument.TUNING + "," +
-                Instrument.LOWNOTE + "," +
-                Instrument.HIGHNOTE + "," +
-                Instrument.DESCRIPTION + "," + // 15
+                Instrument.INSTNAME + ", " + // 1
+                Instrument.INSTTYPE + ", " +
+                Instrument.SUBTYPE + ", " +
+                Instrument.ACQUIREDDATE + ", " +
+                Instrument.ACQUIREDFROM + ", " + // 5
+                Instrument.LOCATION + ", " +
+                Instrument.HEIGHT + ", " +
+                Instrument.WIDTH + ", " +
+                Instrument.DEPTH + ", " +
+                Instrument.REGION + ", " + // 10
+                Instrument.CULTURE + ", " +
+                Instrument.TUNING + ", " +
+                Instrument.LOWNOTE + ", " +
+                Instrument.HIGHNOTE + ", " +
+                Instrument.DESCRIPTION + ", " + // 15
                 Instrument.ISALOAN + ") " +
-                "VALUES "+
-                "( ?, ?, ?, ?, "+
-                "?, ?, ?, ?, "+
-                "?, ?, ?, ?, "+
-                "?, ?, ?, ? ) ";
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         System.out.println(prSt);
-        // TODO: why is it not liking my prepared statement?
+        // TODO: Why does the below not work?
         /*try {
             PreparedStatement addInst = Database.conn.prepareStatement(prSt);
             addInst.setString(1,instrNameTextField.getText());
@@ -227,9 +227,11 @@ public class UpdateInstrument extends JFrame {
             addInst.setString(15,descriptionTextArea.getText());
             addInst.setBoolean(16,isALoanCheckBox.isSelected());
             addInst.executeUpdate();
-            addInst.close();
+            // don't forget to close my statement just in case it's still lingering...
+            if (addInst != null) addInst.close();
         } catch (SQLException sqle) {
             System.out.println("Unable to update database record.\n" + sqle);
         }*/
     }
+
 }
