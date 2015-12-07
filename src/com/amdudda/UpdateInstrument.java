@@ -109,10 +109,10 @@ public class UpdateInstrument extends JFrame {
 
     private void populateFormFields(boolean haveData) {
         // generate our comboboxes - we need these even if pkToUse is null
-        DataValidator.generateClassificationComboBox(classificationComboBox1);
+        DataValidator.generateComboBox(classificationComboBox1,DataValidator.INSTRUMENT_TYPES);
         DataValidator.generateCountryComboBox(countryComboBox);
-        DataValidator.generateLocationComboBox(locationComboBox);
-        DataValidator.generateTuningComboBox(tuningTypeComboBox);
+        DataValidator.generateComboBox(locationComboBox,DataValidator.STORAGE_LOCATIONS);
+        DataValidator.generateComboBox(tuningTypeComboBox,DataValidator.TUNING_TYPES);
 
         if (haveData) {
             // populate text fields and comboboxes
@@ -140,6 +140,13 @@ public class UpdateInstrument extends JFrame {
             countryComboBox.setSelectedItem(selectedInstrument.getCountry());
             locationComboBox.setSelectedItem(selectedInstrument.getLocation());
             tuningTypeComboBox.setSelectedItem(selectedInstrument.getTuning());
+
+            // turn off fields that should only be altered by accountant types
+            acquiredDateTextField.setEditable(false);
+            acquiredFromTextField.setEditable(false);
+            regionTextField.setEditable(false);
+            countryComboBox.setEditable(false);
+            isALoanCheckBox.setEnabled(false);
         }
 
         // oh, yeah, we don't want anyone touching the ID number field.
@@ -150,43 +157,40 @@ public class UpdateInstrument extends JFrame {
     public void updateInstrument() {
         // a method that will be called by the update button
         String preppedStatemt = "UPDATE " + Instrument.INSTRUMENT_TABLE_NAME + " SET " +
-                Instrument.INSTNAME + "= ?, " + // 1
+                Instrument.INSTNAME + "= ?, " +
                 Instrument.INSTTYPE + "= ?, " +
                 Instrument.SUBTYPE + "= ?, " +
-                Instrument.ACQUIREDDATE + "= ?, " +
-                Instrument.ACQUIREDFROM + "= ?, " + // 5
                 Instrument.LOCATION + "= ?, " +
                 Instrument.HEIGHT + "= ?, " +
                 Instrument.WIDTH + "= ?, " +
                 Instrument.DEPTH + "= ?, " +
-                Instrument.REGION + "= ?, " + // 10
+                Instrument.REGION + "= ?, " +
                 Instrument.CULTURE + "= ?, " +
                 Instrument.TUNING + "= ?, " +
                 Instrument.LOWNOTE + "= ?, " +
                 Instrument.HIGHNOTE + "= ?, " +
-                Instrument.DESCRIPTION + "= ?, " + // 15
+                Instrument.DESCRIPTION + "= ?, " +
                 Instrument.ISALOAN + "= ? " +
                 "WHERE " + Instrument.INSTID + " = ? ";
         try {
             PreparedStatement updtInst = Database.conn.prepareStatement(preppedStatemt);
-            updtInst.setString(1,instrNameTextField.getText());
-            updtInst.setString(2,classificationComboBox1.getSelectedItem().toString());
-            updtInst.setString(3,subtypeTextField.getText());
-            updtInst.setDate(4,java.sql.Date.valueOf(acquiredDateTextField.getText()));
-            updtInst.setInt(5,Integer.parseInt(acquiredFromTextField.getText()));
-            updtInst.setString(6,locationComboBox.getSelectedItem().toString());
-            updtInst.setDouble(7,Double.parseDouble(heightTextField.getText()));
-            updtInst.setDouble(8,Double.parseDouble(widthTextField.getText()));
-            updtInst.setDouble(9,Double.parseDouble(depthTextField.getText()));
-            updtInst.setString(10,regionTextField.getText());
-            updtInst.setString(11,cultureTextField.getText());
-            updtInst.setString(12,tuningTypeComboBox.getSelectedItem().toString());
-            updtInst.setString(13,lowNoteTextField.getText());
-            updtInst.setString(14,highNoteTextField.getText());
-            updtInst.setString(15,descriptionTextArea.getText());
-            updtInst.setBoolean(16,isALoanCheckBox.isSelected());
+            int i = 1;
+            updtInst.setString(i,instrNameTextField.getText());
+            updtInst.setString(++i,classificationComboBox1.getSelectedItem().toString());
+            updtInst.setString(++i,subtypeTextField.getText());
+            updtInst.setString(++i,locationComboBox.getSelectedItem().toString());
+            updtInst.setDouble(++i,Double.parseDouble(heightTextField.getText()));
+            updtInst.setDouble(++i,Double.parseDouble(widthTextField.getText()));
+            updtInst.setDouble(++i,Double.parseDouble(depthTextField.getText()));
+            updtInst.setString(++i,regionTextField.getText());
+            updtInst.setString(++i,cultureTextField.getText());
+            updtInst.setString(++i,tuningTypeComboBox.getSelectedItem().toString());
+            updtInst.setString(++i,lowNoteTextField.getText());
+            updtInst.setString(++i,highNoteTextField.getText());
+            updtInst.setString(++i,descriptionTextArea.getText());
+            updtInst.setBoolean(++i,isALoanCheckBox.isSelected());
             // don't forget to update only the selected instrument
-            updtInst.setInt(17,selectedInstrument.getInstID());
+            updtInst.setInt(++i,selectedInstrument.getInstID());
             updtInst.executeUpdate();
             updtInst.close();
         } catch (SQLException sqle) {
@@ -208,7 +212,8 @@ public class UpdateInstrument extends JFrame {
                 Instrument.LOCATION + ", " +
                 Instrument.HEIGHT + ", ";
         // apparently IntelliJ sql parser doesn't like super-long strings, so I've broken it up here.
-        // TODO: insert URL from Clara that references this issue.
+        // not unique to this bit of code, see this link Clara dug up:
+        // http://stackoverflow.com/questions/29740639/how-to-ignore-cannot-resolve-query-parameter-error-in-intellij
         prSt+=  Instrument.WIDTH + ", " +
                 Instrument.DEPTH + ", " +
                 Instrument.REGION + ", " +
@@ -220,25 +225,25 @@ public class UpdateInstrument extends JFrame {
                 Instrument.ISALOAN + ") " +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         System.out.println(prSt);
-        // TODO: Why does the below not work?
         try {
             PreparedStatement addInst = Database.conn.prepareStatement(prSt);
-            addInst.setString(1,instrNameTextField.getText());
-            addInst.setString(2,classificationComboBox1.getSelectedItem().toString());
-            addInst.setString(3,subtypeTextField.getText());
-            addInst.setDate(4,java.sql.Date.valueOf(acquiredDateTextField.getText()));
-            addInst.setInt(5,Integer.parseInt(acquiredFromTextField.getText()));
-            addInst.setString(6,locationComboBox.getSelectedItem().toString());
-            addInst.setDouble(7,Double.parseDouble(heightTextField.getText()));
-            addInst.setDouble(8,Double.parseDouble(widthTextField.getText()));
-            addInst.setDouble(9,Double.parseDouble(depthTextField.getText()));
-            addInst.setString(10,regionTextField.getText());
-            addInst.setString(11,cultureTextField.getText());
-            addInst.setString(12,tuningTypeComboBox.getSelectedItem().toString());
-            addInst.setString(13,lowNoteTextField.getText());
-            addInst.setString(14,highNoteTextField.getText());
-            addInst.setString(15,descriptionTextArea.getText());
-            addInst.setBoolean(16,isALoanCheckBox.isSelected());
+            int i = 0;
+            addInst.setString(i,instrNameTextField.getText());
+            addInst.setString(++i,classificationComboBox1.getSelectedItem().toString());
+            addInst.setString(++i,subtypeTextField.getText());
+            addInst.setDate(++i,java.sql.Date.valueOf(acquiredDateTextField.getText()));
+            addInst.setInt(++i,Integer.parseInt(acquiredFromTextField.getText()));
+            addInst.setString(++i,locationComboBox.getSelectedItem().toString());
+            addInst.setDouble(++i,Double.parseDouble(heightTextField.getText()));
+            addInst.setDouble(++i,Double.parseDouble(widthTextField.getText()));
+            addInst.setDouble(++i,Double.parseDouble(depthTextField.getText()));
+            addInst.setString(++i,regionTextField.getText());
+            addInst.setString(++i,cultureTextField.getText());
+            addInst.setString(++i,tuningTypeComboBox.getSelectedItem().toString());
+            addInst.setString(++i,lowNoteTextField.getText());
+            addInst.setString(++i,highNoteTextField.getText());
+            addInst.setString(++i,descriptionTextArea.getText());
+            addInst.setBoolean(++i,isALoanCheckBox.isSelected());
             addInst.executeUpdate();
             // don't forget to close my statement just in case it's still lingering...
             if (addInst != null) addInst.close();

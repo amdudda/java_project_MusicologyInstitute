@@ -61,7 +61,7 @@ public class UpdateContact extends JFrame {
         DataValidator.generateStateComboBox(stateComboBox);
         stateComboBox.setSelectedItem(selected_contact.getState());
 
-        DataValidator.generateContactTypeComboBox(contactTypeComboBox);
+        DataValidator.generateComboBox(contactTypeComboBox, DataValidator.CONTACT_TYPES);
         contactTypeComboBox.setSelectedItem(selected_contact.getContactType());
     }
 
