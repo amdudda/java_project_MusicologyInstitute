@@ -1,7 +1,5 @@
 package com.amdudda;
 
-import javafx.scene.control.ComboBox;
-
 import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,8 +12,13 @@ import java.util.ArrayList;
  */
 public class DataValidator {
     // this is a helper object to validate data input
+    // some constants for database constraints used in comboboxes, to make them easy to find when they are changed
+    private static final String[] TUNING_TYPES = {"Fixed", "Specified", "Variable", "Untuned"};
+    private static final String[] STORAGE_LOCATIONS = {"Exhibit", "Library", "Storage", "On Loan"};
+    private static final String[] INSTRUMENT_TYPES = {"Idiophone", "Membranophone", "Chordophone", "Aerophone", "Electrophone", "Hybrid"};
+    private static final String[] CONTACT_TYPES = {"Donor", "Museum", "Seller", "Musician", "School", "Private Individual"};
 
-
+    // some data validators
     public static boolean isDate(String date) {
         // This checks for a year between 1995 and next year, and that month and date are at least vaguely plausible values.
         try {
@@ -80,7 +83,7 @@ public class DataValidator {
         }
     }
 
-    // also some field values for comboboxes
+    // also some generators for comboboxes
     public static ArrayList<String> getCountries() {
         ArrayList<String> countryList = new ArrayList<String>();
         try {
@@ -111,28 +114,28 @@ public class DataValidator {
     }
 
     public static void generateTuningComboBox(JComboBox cBox) {
-        String[] typeList = {"Fixed", "Specified", "Variable", "Untuned"};
-        for (int i = 0; i < typeList.length; i++) {
-            cBox.addItem(typeList[i]);
+        // I have to encode these manually because mySQL doesn't store
+        // CHECK constraints:  https://bugs.mysql.com/bug.php?id=3464
+        for (int i = 0; i < TUNING_TYPES.length; i++) {
+            cBox.addItem(TUNING_TYPES[i]);
         }
     }
 
     public static void  generateLocationComboBox(JComboBox cBox) {
-        String[] locList = {"Exhibit", "Library", "Storage", "On Loan"};
-        for (int i = 0; i < locList.length; i++) {
-            cBox.addItem(locList[i]);
+        for (int i = 0; i < STORAGE_LOCATIONS.length; i++) {
+            cBox.addItem(STORAGE_LOCATIONS[i]);
         }
     }
 
     public static void generateClassificationComboBox(JComboBox cBox) {
-        String[] instTypeList = {"Idiophone", "Membranophone", "Chordophone", "Aerophone", "Electrophone", "Hybrid"};
-        for (int i = 0; i < instTypeList.length; i++) {
-            cBox.addItem(instTypeList[i]);
+        for (int i = 0; i < INSTRUMENT_TYPES.length; i++) {
+            cBox.addItem(INSTRUMENT_TYPES[i]);
         }
     }
 
     public static void generateStateComboBox(JComboBox cBox) {
         // ideally, we'd show the full name next to the abbreviation, but for now, just do abbrevs.
+        // not bothering with declaring constants, as this is the only place this table even gets used.
         String sqlToRun = "SELECT Abbreviation FROM States";
         Statement s = null;
         ResultSet r = null;
@@ -150,9 +153,8 @@ public class DataValidator {
     }
 
     public static void generateContactTypeComboBox(JComboBox cBox) {
-        String[] contactTypes = {"Donor", "Museum", "Seller", "Musician", "School", "Private Individual"};
-        for (int i = 0; i < contactTypes.length; i++) {
-            cBox.addItem(contactTypes[i]);
+        for (int i = 0; i < CONTACT_TYPES.length; i++) {
+            cBox.addItem(CONTACT_TYPES[i]);
         }
     }
 }
