@@ -109,4 +109,25 @@ public class DataValidator {
             cBox.addItem(countryList.get(i));
         }
     }
+
+    public static void generateTuningComboBox(JComboBox cBox) {
+        String[] typeList = {"Fixed", "Specified", "Variable", "Untuned"};
+        for (int i = 0; i < typeList.length; i++) {
+            cBox.addItem(typeList[i]);
+        }
+    }
+
+    public static void  generateLocationComboBox(JComboBox cBox) {
+        String[] locList = {"Exhibit", "Library", "Storage", "On Loan"};
+        for (int i = 0; i < locList.length; i++) {
+            cBox.addItem(locList[i]);
+        }
+    }
+
+    public static void generateClassificationComboBox(JComboBox cBox) {
+        String[] instTypeList = {"Idiophone", "Membranophone", "Chordophone", "Aerophone", "Electrophone", "Hybrid"};
+        for (int i = 0; i < instTypeList.length; i++) {
+            cBox.addItem(instTypeList[i]);
+        }
+    }
 }

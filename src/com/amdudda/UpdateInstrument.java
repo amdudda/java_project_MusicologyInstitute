@@ -1,6 +1,7 @@
 package com.amdudda;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -125,14 +126,18 @@ public class UpdateInstrument extends JFrame {
         isALoanCheckBox.setSelected(selectedInstrument.isALoan());
 
 
-        // TODO: comboboxes - for now just add the current value of the field for the instrument.
-        classificationComboBox1.addItem(selectedInstrument.getInstType());
+        // populate comboboxes
+        DataValidator.generateClassificationComboBox(classificationComboBox1);
+        classificationComboBox1.setSelectedItem(selectedInstrument.getInstType());
 
         DataValidator.generateCountryComboBox(countryComboBox);
         countryComboBox.setSelectedItem(selectedInstrument.getCountry());
 
-        locationComboBox.addItem(selectedInstrument.getLocation());
-        tuningTypeComboBox.addItem(selectedInstrument.getTuning());
+        DataValidator.generateLocationComboBox(locationComboBox);
+        locationComboBox.setSelectedItem(selectedInstrument.getLocation());
+
+        DataValidator.generateTuningComboBox(tuningTypeComboBox);
+        tuningTypeComboBox.setSelectedItem(selectedInstrument.getTuning());
     }
 
 
