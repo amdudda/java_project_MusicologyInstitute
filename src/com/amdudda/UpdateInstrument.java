@@ -35,6 +35,7 @@ public class UpdateInstrument extends JFrame {
     private JComboBox countryComboBox;
     private JButton updateDatabaseButton;
     private JComboBox regionComboBox;
+    private JButton selectContactButton;
     private Instrument selectedInstrument;
 
     public UpdateInstrument(String pkToUse) {// fetch the data for the instrument
@@ -105,6 +106,12 @@ public class UpdateInstrument extends JFrame {
                 }
             }
         });
+        selectContactButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SelectContactScreen scs = new SelectContactScreen(Contact.getBrowsingData());
+            }
+        });
     }
 
     private void populateFormFields(boolean haveData) {
@@ -148,6 +155,10 @@ public class UpdateInstrument extends JFrame {
             regionComboBox.setEditable(false);
             countryComboBox.setEditable(false);
             isALoanCheckBox.setEnabled(false);
+
+            // and turn off some buttons that aren't used when browsing
+            selectContactButton.setEnabled(false);
+            selectContactButton.setVisible(false);
         }
 
         // oh, yeah, we don't want anyone touching the ID number field.
