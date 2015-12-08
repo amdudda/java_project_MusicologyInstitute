@@ -1,7 +1,6 @@
 package com.amdudda;
 
 import javax.swing.*;
-import javax.swing.plaf.nimbus.State;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -17,10 +16,14 @@ public class BrowseDatabaseScreen extends JFrame {
     private JButton addNewRecordButton;
     private JButton returnToMainMenuButton;
     private JPanel browseDbScreenRootPanel;
+    private JComboBox selectSearchColumnComboBox;
+    private JTextField searchStringTextField;
+    private JButton searchButton;
     private BrowseListDataModel bldm;
     private static ResultSet dataToBrowse;
     protected static Statement browseTableStatement;
 
+    // TODO: create search utility, then recycle this screen to create a "select Contact" window.
     public BrowseDatabaseScreen(ResultSet dTB) {
         this.dataToBrowse = dTB;
         setContentPane(browseDbScreenRootPanel);
@@ -34,6 +37,7 @@ public class BrowseDatabaseScreen extends JFrame {
         bldm = new BrowseListDataModel(dataToBrowse);
         browseDataTable.setModel(bldm);
 
+        DataValidator.generateSearchFields(selectSearchColumnComboBox,bldm);
 
         returnToMainMenuButton.addActionListener(new ActionListener() {
             @Override
@@ -69,6 +73,12 @@ public class BrowseDatabaseScreen extends JFrame {
                 } else {
                     UpdateContact updtCont = new UpdateContact(null);
                 }
+            }
+        });
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(browseDbScreenRootPanel,"This button doesn't do anything yet.");
             }
         });
     }
