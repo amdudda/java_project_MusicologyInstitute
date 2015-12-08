@@ -19,6 +19,7 @@ public class BrowseDatabaseScreen extends JFrame {
     private JComboBox selectSearchColumnComboBox;
     private JTextField searchStringTextField;
     private JButton searchButton;
+    private JButton clearResultsButton;
     private BrowseListDataModel bldm;
     private static ResultSet dataToBrowse;
     protected static Statement browseTableStatement;
@@ -78,7 +79,16 @@ public class BrowseDatabaseScreen extends JFrame {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(browseDbScreenRootPanel,"This button doesn't do anything yet.");
+                // JOptionPane.showMessageDialog(browseDbScreenRootPanel,"This button doesn't do anything yet.");
+                String selField = selectSearchColumnComboBox.getSelectedItem().toString();
+                String searchString = searchStringTextField.getText();
+                bldm.search(selField, searchString);
+            }
+        });
+        clearResultsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bldm.clearSearch();
             }
         });
     }

@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.amdudda.BrowseDatabaseScreen">
   <grid id="27dc6" binding="browseDbScreenRootPanel" layout-manager="GridBagLayout">
     <constraints>
-      <xy x="20" y="20" width="595" height="400"/>
+      <xy x="20" y="20" width="678" height="407"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -31,7 +31,7 @@
       </component>
       <scrollpane id="92c6">
         <constraints>
-          <grid row="2" column="2" row-span="1" col-span="4" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="2" row-span="1" col-span="5" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
@@ -81,7 +81,7 @@
       </vspacer>
       <hspacer id="e4bff">
         <constraints>
-          <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="7" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
       </hspacer>
@@ -109,6 +109,15 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties/>
+      </component>
+      <component id="7efb0" class="javax.swing.JButton" binding="clearResultsButton" default-binding="true">
+        <constraints>
+          <grid row="1" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Clear Results"/>
+        </properties>
       </component>
       <component id="8f001" class="javax.swing.JButton" binding="searchButton" default-binding="true">
         <constraints>

@@ -1,6 +1,7 @@
 package com.amdudda;
 
 import javax.swing.table.AbstractTableModel;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -11,10 +12,17 @@ public class BrowseListDataModel extends AbstractTableModel {
     private int rowcount = 0;
     private int colcount = 0;
     private ResultSet browseTable = null;
+    private ResultSet originalData = null;
 
     public BrowseListDataModel(ResultSet bT) {
         this.browseTable = bT;
+        this.originalData = bT;
         setTableDimensions();
+    }
+
+    private void refresh() {
+        setTableDimensions();
+        this.fireTableDataChanged();
     }
 
     private void setTableDimensions() {
@@ -84,5 +92,31 @@ public class BrowseListDataModel extends AbstractTableModel {
             System.out.println("Unable to fetch table name.\n" + sqle);
             return null;
         }
+    }
+
+    public void search(String selField, String searchString) {
+        // this updates the display with search results
+        // TODO: edit query so it only returns available fields.
+        String sqlToRun = "SELECT * FROM " + getTableName() + " WHERE " +
+                selField + " LIKE ?";
+        PreparedStatement ps = null;
+        try {
+            ps = Database.conn.prepareStatement(sqlToRun);
+            ps.setString(1,"%" + searchString + "%");
+            System.out.println(ps.toString());
+            this.browseTable = ps.executeQuery();
+            browseTable.next();
+            System.out.println(browseTable.getInt(1));
+            browseTable.beforeFirst();
+        } catch (SQLException sqle) {
+            System.out.println("Unable to fetch search results.");
+        }
+
+        this.refresh();
+    }
+
+    public void clearSearch() {
+        this.browseTable = this.originalData;
+        this.refresh();
     }
 }
