@@ -11,7 +11,10 @@ public class Main {
         Database.setupDatabase();
 
         Database.openConnStatement();
-        MainMenuGUI mMG = new MainMenuGUI();
+        //MainMenuGUI mMG = new MainMenuGUI();
+
+        Loan loan = new Loan(7,1);
+        System.out.println((loan.toString()));
 
         // and close everything when the program exits - now taken care of in Main Menu screen.
         //Database.closeConnStatement();
