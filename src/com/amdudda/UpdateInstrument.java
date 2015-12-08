@@ -49,7 +49,7 @@ public class UpdateInstrument extends JFrame {
         populateFormFields(pkToUse != null);
         // then pack it into a window that fits all the data.
         pack();
-
+        // TODO: need a way to look at & edit storage/loan details
 
         exitButton.addActionListener(new ActionListener() {
             @Override

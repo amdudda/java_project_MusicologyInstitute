@@ -211,4 +211,19 @@ public class Contact {
     public void setNotes(String notes) {
         Notes = notes;
     }
+
+    @Override
+    public String toString() {
+        // useful for displaying contact details in contact selection screen
+        String contDetails = "";
+        if (!(this.ContactName.equals("") || this.ContactName == null)) {
+            contDetails += this.ContactName + "\n";
+        }
+        if (!(this.BusinessName.equals("") || this.BusinessName == null)) {
+            contDetails += this.BusinessName + "\n";
+        }
+        contDetails += this.Address + "\n" +
+                this.City + ", " + this.State + "  " + this.PostalCode + "\n";
+        return contDetails;
+    }
 }
