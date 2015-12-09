@@ -27,6 +27,7 @@ public class SelectContactScreen extends JFrame {
     protected static Statement browseTableStatement;
 
     // This reuses the BrowseDatabaseScreen to create a "select Contact" window.
+    // Todo: need to pass window object so we can update the value on that screen.
     public SelectContactScreen(ResultSet dTB) {
         this.dataToBrowse = dTB;
         setContentPane(selectContactRootPanel);

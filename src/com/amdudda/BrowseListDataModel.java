@@ -22,6 +22,7 @@ public class BrowseListDataModel extends AbstractTableModel {
 
     private void refresh() {
         setTableDimensions();
+        this.fireTableStructureChanged();  // not sure I want this... keep output consistent; see to-do item below
         this.fireTableDataChanged();
     }
 
@@ -103,11 +104,7 @@ public class BrowseListDataModel extends AbstractTableModel {
         try {
             ps = Database.conn.prepareStatement(sqlToRun);
             ps.setString(1,"%" + searchString + "%");
-            System.out.println(ps.toString());
             this.browseTable = ps.executeQuery();
-            browseTable.next();
-            System.out.println(browseTable.getInt(1));
-            browseTable.beforeFirst();
         } catch (SQLException sqle) {
             System.out.println("Unable to fetch search results.");
         }

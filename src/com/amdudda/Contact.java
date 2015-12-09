@@ -223,7 +223,8 @@ public class Contact {
             contDetails += this.BusinessName + "\n";
         }
         contDetails += this.Address + "\n" +
-                this.City + ", " + this.State + "  " + this.PostalCode + "\n";
+                this.City + ", " + this.State + "  " + this.PostalCode + "\n" +
+                this.Country;
         return contDetails;
     }
 }
