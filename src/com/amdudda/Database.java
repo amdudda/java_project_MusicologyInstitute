@@ -1,6 +1,7 @@
 package com.amdudda;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.sql.*;
 
@@ -205,4 +206,17 @@ public class Database {
         return alreadySetup;
     }
 
+    protected void populateData() {
+        String file1 = "./SetupFiles/SampleData/20-PopulateContacts.sql";
+        String file2 = "./SetupFiles/SampleData/21-PopulateInstruments.sql";
+        String file3 = "./SetupFiles/SampleData/22-PopulateLoan.sql";
+        try {
+            statement = Database.conn.createStatement();
+            statement.execute(fetchSQLdata(file1));
+            statement.execute(fetchSQLdata(file1));
+            statement.execute(fetchSQLdata(file1));
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+        }
+    }
 }
