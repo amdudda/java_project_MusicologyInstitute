@@ -1,14 +1,12 @@
 package com.amdudda;
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * Created by amdudda on 12/2/15.
@@ -36,6 +34,7 @@ public class UpdateInstrument extends JFrame {
     private JButton updateDatabaseButton;
     private JComboBox regionComboBox;
     private JButton selectContactButton;
+    private JLabel formDescriptionLabel;
     private Instrument selectedInstrument;
 
     public UpdateInstrument(String pkToUse) {// fetch the data for the instrument
@@ -43,7 +42,13 @@ public class UpdateInstrument extends JFrame {
         selectedInstrument = new Instrument(pkToUse);
 
         setContentPane(updateInstrumentRootPanel);
-        setTitle("Update Database Record");
+        if (pkToUse == null) {
+            setTitle("Add Instrument");
+            formDescriptionLabel.setText("Add Instrument");
+        } else {
+            setTitle("Update Database Record");
+            formDescriptionLabel.setText("Update Instrument");
+        }
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         // then populate our fields with the data, IF we have data to use.
@@ -80,7 +85,7 @@ public class UpdateInstrument extends JFrame {
                 super.focusLost(e);
                 String fieldValue = heightTextField.getText().toString();
                 if (!fieldValue.equals("") && !DataValidator.isDouble(fieldValue)) {
-                    JOptionPane.showMessageDialog(updateInstrumentRootPanel,"Please enter a number.");
+                    JOptionPane.showMessageDialog(updateInstrumentRootPanel, "Please enter a number.");
                 }
             }
         });
@@ -91,7 +96,7 @@ public class UpdateInstrument extends JFrame {
                 super.focusLost(e);
                 String fieldValue = widthTextField.getText().toString();
                 if (!fieldValue.equals("") && !DataValidator.isDouble(fieldValue)) {
-                    JOptionPane.showMessageDialog(updateInstrumentRootPanel,"Please enter a number.");
+                    JOptionPane.showMessageDialog(updateInstrumentRootPanel, "Please enter a number.");
                 }
             }
         });
@@ -102,25 +107,37 @@ public class UpdateInstrument extends JFrame {
                 super.focusLost(e);
                 String fieldValue = depthTextField.getText().toString();
                 if (!fieldValue.equals("") && !DataValidator.isDouble(fieldValue)) {
-                    JOptionPane.showMessageDialog(updateInstrumentRootPanel,"Please enter a number.");
+                    JOptionPane.showMessageDialog(updateInstrumentRootPanel, "Please enter a number.");
                 }
             }
         });
         selectContactButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SelectContactScreen scs = new SelectContactScreen(Contact.getBrowsingData(),UpdateInstrument.this);
+                SelectContactScreen scs = new SelectContactScreen(Contact.getBrowsingData(), UpdateInstrument.this);
+            }
+        });
+
+        // Arbin noticed that the data validation wasn't present for this field.
+        acquiredDateTextField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                if (!DataValidator.isDate(acquiredDateTextField.getText())) {
+                    JOptionPane.showMessageDialog(updateInstrumentRootPanel, "Please enter a date in YYYY-MM-DD format.");
+                    acquiredDateTextField.grabFocus();
+                }
             }
         });
     }
 
     private void populateFormFields(boolean haveData) {
         // generate our comboboxes - we need these even if pkToUse is null
-        DataValidator.generateComboBox(classificationComboBox1,DataValidator.INSTRUMENT_TYPES);
+        DataValidator.generateComboBox(classificationComboBox1, DataValidator.INSTRUMENT_TYPES);
         DataValidator.generateCountryComboBox(countryComboBox);
-        DataValidator.generateComboBox(locationComboBox,DataValidator.STORAGE_LOCATIONS);
-        DataValidator.generateComboBox(tuningTypeComboBox,DataValidator.TUNING_TYPES);
-        DataValidator.generateComboBox(regionComboBox,DataValidator.REGIONS);
+        DataValidator.generateComboBox(locationComboBox, DataValidator.STORAGE_LOCATIONS);
+        DataValidator.generateComboBox(tuningTypeComboBox, DataValidator.TUNING_TYPES);
+        DataValidator.generateComboBox(regionComboBox, DataValidator.REGIONS);
 
         if (haveData) {
             // populate text fields and comboboxes
@@ -187,22 +204,22 @@ public class UpdateInstrument extends JFrame {
         try {
             PreparedStatement updtInst = Database.conn.prepareStatement(preppedStatemt);
             int i = 1;
-            updtInst.setString(i,instrNameTextField.getText());
-            updtInst.setString(++i,classificationComboBox1.getSelectedItem().toString());
-            updtInst.setString(++i,subtypeTextField.getText());
-            updtInst.setString(++i,locationComboBox.getSelectedItem().toString());
-            updtInst.setDouble(++i,Double.parseDouble(heightTextField.getText()));
-            updtInst.setDouble(++i,Double.parseDouble(widthTextField.getText()));
-            updtInst.setDouble(++i,Double.parseDouble(depthTextField.getText()));
-            updtInst.setString(++i,regionComboBox.getSelectedItem().toString());
-            updtInst.setString(++i,cultureTextField.getText());
-            updtInst.setString(++i,tuningTypeComboBox.getSelectedItem().toString());
-            updtInst.setString(++i,lowNoteTextField.getText());
-            updtInst.setString(++i,highNoteTextField.getText());
-            updtInst.setString(++i,descriptionTextArea.getText());
-            updtInst.setBoolean(++i,isALoanCheckBox.isSelected());
+            updtInst.setString(i, instrNameTextField.getText());
+            updtInst.setString(++i, classificationComboBox1.getSelectedItem().toString());
+            updtInst.setString(++i, subtypeTextField.getText());
+            updtInst.setString(++i, locationComboBox.getSelectedItem().toString());
+            updtInst.setDouble(++i, Double.parseDouble(heightTextField.getText()));
+            updtInst.setDouble(++i, Double.parseDouble(widthTextField.getText()));
+            updtInst.setDouble(++i, Double.parseDouble(depthTextField.getText()));
+            updtInst.setString(++i, regionComboBox.getSelectedItem().toString());
+            updtInst.setString(++i, cultureTextField.getText());
+            updtInst.setString(++i, tuningTypeComboBox.getSelectedItem().toString());
+            updtInst.setString(++i, lowNoteTextField.getText());
+            updtInst.setString(++i, highNoteTextField.getText());
+            updtInst.setString(++i, descriptionTextArea.getText());
+            updtInst.setBoolean(++i, isALoanCheckBox.isSelected());
             // don't forget to update only the selected instrument
-            updtInst.setInt(++i,selectedInstrument.getInstID());
+            updtInst.setInt(++i, selectedInstrument.getInstID());
             updtInst.executeUpdate();
             updtInst.close();
         } catch (SQLException sqle) {
@@ -226,7 +243,7 @@ public class UpdateInstrument extends JFrame {
         // apparently IntelliJ sql parser doesn't like super-long strings, so I've broken it up here.
         // not unique to this bit of code, see this link Clara dug up:
         // http://stackoverflow.com/questions/29740639/how-to-ignore-cannot-resolve-query-parameter-error-in-intellij
-        prSt+=  Instrument.WIDTH + ", " +
+        prSt += Instrument.WIDTH + ", " +
                 Instrument.DEPTH + ", " +
                 Instrument.REGION + ", " +
                 Instrument.CULTURE + ", " +
@@ -240,22 +257,22 @@ public class UpdateInstrument extends JFrame {
         try {
             PreparedStatement addInst = Database.conn.prepareStatement(prSt);
             int i = 0;
-            addInst.setString(i,instrNameTextField.getText());
-            addInst.setString(++i,classificationComboBox1.getSelectedItem().toString());
-            addInst.setString(++i,subtypeTextField.getText());
-            addInst.setDate(++i,java.sql.Date.valueOf(acquiredDateTextField.getText()));
-            addInst.setInt(++i,Integer.parseInt(acquiredFromTextField.getText()));
-            addInst.setString(++i,locationComboBox.getSelectedItem().toString());
-            addInst.setDouble(++i,Double.parseDouble(heightTextField.getText()));
-            addInst.setDouble(++i,Double.parseDouble(widthTextField.getText()));
-            addInst.setDouble(++i,Double.parseDouble(depthTextField.getText()));
-            addInst.setString(++i,regionComboBox.getSelectedItem().toString());
-            addInst.setString(++i,cultureTextField.getText());
-            addInst.setString(++i,tuningTypeComboBox.getSelectedItem().toString());
-            addInst.setString(++i,lowNoteTextField.getText());
-            addInst.setString(++i,highNoteTextField.getText());
-            addInst.setString(++i,descriptionTextArea.getText());
-            addInst.setBoolean(++i,isALoanCheckBox.isSelected());
+            addInst.setString(i, instrNameTextField.getText());
+            addInst.setString(++i, classificationComboBox1.getSelectedItem().toString());
+            addInst.setString(++i, subtypeTextField.getText());
+            addInst.setDate(++i, java.sql.Date.valueOf(acquiredDateTextField.getText()));
+            addInst.setInt(++i, Integer.parseInt(acquiredFromTextField.getText()));
+            addInst.setString(++i, locationComboBox.getSelectedItem().toString());
+            addInst.setDouble(++i, Double.parseDouble(heightTextField.getText()));
+            addInst.setDouble(++i, Double.parseDouble(widthTextField.getText()));
+            addInst.setDouble(++i, Double.parseDouble(depthTextField.getText()));
+            addInst.setString(++i, regionComboBox.getSelectedItem().toString());
+            addInst.setString(++i, cultureTextField.getText());
+            addInst.setString(++i, tuningTypeComboBox.getSelectedItem().toString());
+            addInst.setString(++i, lowNoteTextField.getText());
+            addInst.setString(++i, highNoteTextField.getText());
+            addInst.setString(++i, descriptionTextArea.getText());
+            addInst.setBoolean(++i, isALoanCheckBox.isSelected());
             addInst.executeUpdate();
             // don't forget to close my statement just in case it's still lingering...
             if (addInst != null) addInst.close();

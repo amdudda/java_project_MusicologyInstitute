@@ -25,13 +25,18 @@ public class UpdateContact extends JFrame {
     private JButton exitButton;
     private JPanel updateContactRootPanel;
     private JButton updateDatabaseButton;
+    private JLabel formDescriptionLabel;
     private Contact selected_contact;
 
     public UpdateContact(String selContact) {
         selected_contact = new Contact(selContact);
 
         setContentPane(updateContactRootPanel);
-        setTitle("Update Contact");
+        if (selContact == null) {
+            setTitle("Add Contact");
+            formDescriptionLabel.setText("Add Contact");
+        }
+        else { setTitle("Update Contact"); }
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         populateFormData();

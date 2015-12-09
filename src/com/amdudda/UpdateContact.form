@@ -19,7 +19,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
       </vspacer>
-      <component id="9bdce" class="javax.swing.JLabel">
+      <component id="9bdce" class="javax.swing.JLabel" binding="formDescriptionLabel">
         <constraints>
           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
@@ -54,6 +54,8 @@
         </constraints>
         <properties>
           <text value="Address:"/>
+          <verticalAlignment value="1"/>
+          <verticalTextPosition value="1"/>
         </properties>
       </component>
       <component id="344da" class="javax.swing.JLabel">
@@ -144,7 +146,10 @@
           </grid>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
-        <properties/>
+        <properties>
+          <minimumSize width="0" height="36"/>
+          <preferredSize width="0" height="36"/>
+        </properties>
       </component>
       <component id="de8a0" class="javax.swing.JTextField" binding="cityTextField">
         <constraints>
@@ -162,7 +167,10 @@
           </grid>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
-        <properties/>
+        <properties>
+          <minimumSize width="30" height="23"/>
+          <preferredSize width="30" height="23"/>
+        </properties>
       </component>
       <component id="9f0e8" class="javax.swing.JComboBox" binding="stateComboBox">
         <constraints>
@@ -173,7 +181,7 @@
       </component>
       <component id="b3ecc" class="javax.swing.JComboBox" binding="countryComboBox">
         <constraints>
-          <grid row="6" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="6" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties/>
