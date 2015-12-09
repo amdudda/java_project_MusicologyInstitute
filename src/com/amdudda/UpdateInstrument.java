@@ -109,7 +109,7 @@ public class UpdateInstrument extends JFrame {
         selectContactButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SelectContactScreen scs = new SelectContactScreen(Contact.getBrowsingData());
+                SelectContactScreen scs = new SelectContactScreen(Contact.getBrowsingData(),UpdateInstrument.this);
             }
         });
     }
@@ -264,4 +264,7 @@ public class UpdateInstrument extends JFrame {
         }
     }
 
+    public void setAcquiredFromTextField(String id) {
+        this.acquiredFromTextField.setText(id);
+    }
 }

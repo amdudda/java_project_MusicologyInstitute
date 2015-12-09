@@ -28,7 +28,7 @@ public class SelectContactScreen extends JFrame {
 
     // This reuses the BrowseDatabaseScreen to create a "select Contact" window.
     // Todo: need to pass window object so we can update the value on that screen.
-    public SelectContactScreen(ResultSet dTB) {
+    public SelectContactScreen(ResultSet dTB, UpdateInstrument instrScreen) {
         this.dataToBrowse = dTB;
         setContentPane(selectContactRootPanel);
         pack();
@@ -60,7 +60,9 @@ public class SelectContactScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String selPK = bldm.getValueAt(browseDataTable.getSelectedRow(), 0).toString();
-                // TODO: Send selectedPK to the Add Instrument screen.
+                // Send selectedPK to the Add Instrument screen and close the window.
+                instrScreen.setAcquiredFromTextField(selPK);
+                dispose();
             }
         });
 
