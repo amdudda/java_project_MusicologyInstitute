@@ -36,6 +36,7 @@ public class UpdateInstrument extends JFrame {
     private JButton selectContactButton;
     private JLabel formDescriptionLabel;
     private JTextArea acquiredFromFullNameTextArea;
+    private JTextArea locationSummaryTextArea;
     private Instrument selectedInstrument;
     private String acquiredFromName;
 
@@ -176,6 +177,8 @@ public class UpdateInstrument extends JFrame {
             regionComboBox.setEditable(false);
             countryComboBox.setEditable(false);
             isALoanCheckBox.setEnabled(false);
+
+            locationSummaryTextArea.setText(selectedInstrument.getLocationInfo().toString());
 
             // and turn off some buttons that aren't used when browsing
             selectContactButton.setEnabled(false);

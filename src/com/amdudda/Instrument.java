@@ -322,6 +322,10 @@ public class Instrument {
         isALoan = ALoan;
     }
 
+    public LocationInfo getLocationInfo() {
+        return locationInfo;
+    }
+
     private String fetchValueOfString(String fieldname) {
         // This method reads in a value and translates nulls into an empty string so the constructor doesn't choke.
         try {
