@@ -42,7 +42,7 @@ public class UpdateInstrument extends JFrame {
     public UpdateInstrument(String pkToUse) {// fetch the data for the instrument
         // instantiate an Instrument object and read its attributes.
         selectedInstrument = new Instrument(pkToUse);
-        acquiredFromName = new Contact(selectedInstrument.getAcquiredFrom()).getContactFullName();
+        acquiredFromName = new Contact(selectedInstrument.getAcquiredFromAsString()).getContactFullName();
 
         setContentPane(updateInstrumentRootPanel);
         if (pkToUse == null) {
@@ -148,7 +148,7 @@ public class UpdateInstrument extends JFrame {
             instrNameTextField.setText(selectedInstrument.getInstName());
             acquiredDateTextField.setText(selectedInstrument.getAcquiredDate().toString());
             // TODO: now that we pull in acquiredFrom's human readable name, do we need the FK value?
-            acquiredFromTextField.setText(selectedInstrument.getAcquiredFrom());
+            acquiredFromTextField.setText("" + selectedInstrument.getAcquiredFrom());
             acquiredFromFullNameTextArea.setText(acquiredFromName);
             heightTextField.setText("" + selectedInstrument.getHeight());
             widthTextField.setText("" + selectedInstrument.getWidth());

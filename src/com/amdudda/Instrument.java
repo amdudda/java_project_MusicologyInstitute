@@ -37,8 +37,8 @@ public class Instrument {
     private String InstName;
     private String InstType;
     private String Subtype;
-    private Date AcquiredDate;
-    private String AcquiredFrom;
+    private java.sql.Date AcquiredDate;
+    private int AcquiredFrom;
     private double PurchasePrice;
     private double InsuranceValue;
     private String Location;
@@ -53,6 +53,7 @@ public class Instrument {
     private String HighNote;
     private String Description;
     private boolean isALoan;
+    private LocationInfo locationInfo;
 
     // misc attributes for data retrieval
     ResultSet my_instrument;
@@ -80,7 +81,7 @@ public class Instrument {
                 InstType = fetchValueOfString(INSTTYPE);
                 Subtype = fetchValueOfString(SUBTYPE);
                 AcquiredDate = Date.valueOf(my_instrument.getObject(ACQUIREDDATE).toString());
-                AcquiredFrom = fetchValueOfString(ACQUIREDFROM);
+                AcquiredFrom = Integer.parseInt(my_instrument.getObject(ACQUIREDFROM).toString());
                 PurchasePrice = fetchValueOfDouble(PURCHASEPRICE);
                 InsuranceValue = fetchValueOfDouble(INSURANCEVALUE);
                 Location = fetchValueOfString(LOCATION);
@@ -102,6 +103,18 @@ public class Instrument {
 
             } catch (SQLException sqle) {
                 System.out.println("Unable to assign instrument attributes.\n" + sqle);
+            }
+            // try fetching location info if it exists
+            // TODO: is there a way to fix these magic numbers?
+            if (Location.equals(DataValidator.STORAGE_LOCATIONS[0])) {
+                // on Exhibit:
+                locationInfo = new OnExhibit(this.InstID);
+            } else if (Location.equals(DataValidator.STORAGE_LOCATIONS[3])) {
+                // on Loan:
+                locationInfo = new Loan(this.InstID,this.AcquiredFrom);
+            } else {
+                // in library or storage:
+                locationInfo = new StorageLibrary(this.InstID);
             }
         }
     }
@@ -185,11 +198,15 @@ public class Instrument {
         AcquiredDate = acquiredDate;
     }
 
-    public String getAcquiredFrom() {
+    public int getAcquiredFrom() {
         return AcquiredFrom;
     }
 
-    public void setAcquiredFrom(String acquiredFrom) {
+    public String getAcquiredFromAsString() {
+        return "" + AcquiredFrom;
+    }
+
+    public void setAcquiredFrom(int acquiredFrom) {
         AcquiredFrom = acquiredFrom;
     }
 
