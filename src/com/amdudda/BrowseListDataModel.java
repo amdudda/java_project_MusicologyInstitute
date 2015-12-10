@@ -97,8 +97,27 @@ public class BrowseListDataModel extends AbstractTableModel {
 
     public void search(String selField, String searchString) {
         // this updates the display with search results
-        // TODO: edit query so it only returns available fields.
-        String sqlToRun = "SELECT * FROM " + getTableName() + " WHERE " +
+        String listOfFields;
+        if (getTableName().equals(Contact.CONTACT_TABLE_NAME)) {
+            listOfFields = Contact.CONTACTID + ", " +
+                    Contact.CONTACTNAME + ", " +
+                    Contact.BUSINESSNAME + ", " +
+                    Contact.ADDRESS + ", " +
+                    Contact.CITY + ", " +
+                    Contact.STATE + ", " +
+                    Contact.COUNTRY + ", " +
+                    Contact.CONTACTTYPE;
+        } else if (getTableName().equals(Instrument.INSTRUMENT_TABLE_NAME)) {
+            listOfFields = Instrument.INSTID + "," +
+                    Instrument.INSTNAME + "," +
+                    Instrument.INSTTYPE + "," +
+                    Instrument.SUBTYPE + "," +
+                    Instrument.LOCATION;
+        } else {  // table is one this code doesn't account for, let's just use "*" so it fails
+            // with useable data
+            listOfFields = "*";
+        }
+        String sqlToRun = "SELECT " + listOfFields + " FROM " + getTableName() + " WHERE " +
                 selField + " LIKE ?";
         PreparedStatement ps = null;
         try {
