@@ -31,11 +31,11 @@ public class StorageLibrary extends LocationInfo {
             ps.setInt(1, id);
             rs = ps.executeQuery();
             rs.next();
-            InstID = Integer.parseInt(rs.getObject(INSTR_ID).toString());
-            StorageType = rs.getObject(STORAGE_TYPE).toString();
-            Room = rs.getObject(ROOM).toString();
-            Cabinet = rs.getObject(CABINET).toString();
-            Shelf = Integer.parseInt(rs.getObject(SHELF).toString());
+            this.InstID = Integer.parseInt(rs.getObject(INSTR_ID).toString());
+            this.StorageType = rs.getObject(STORAGE_TYPE).toString();
+            this.Room = rs.getObject(ROOM).toString();
+            this.Cabinet = rs.getObject(CABINET).toString();
+            this.Shelf = Integer.parseInt(rs.getObject(SHELF).toString());
             if (rs != null) rs.close();
             if (ps != null) ps.close();
         } catch (SQLException sqle) {
