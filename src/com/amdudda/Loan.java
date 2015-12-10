@@ -27,7 +27,6 @@ public class Loan extends LocationInfo {
                 Contact.CONTACTNAME + "," + Contact.BUSINESSNAME + ") AS CName " +
                 " FROM " + LOAN_TABLE_NAME + ", " + Contact.CONTACT_TABLE_NAME +
                 " WHERE " + CONTACT_ID + " = " + Contact.CONTACTID;
-        System.out.println(sqlToRun);
         Statement s = null;
         ResultSet rs;
         try {
