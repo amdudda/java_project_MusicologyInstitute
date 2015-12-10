@@ -79,16 +79,16 @@ public class BrowseListDataModel extends AbstractTableModel {
     public String getColumnName(int colNum) {
         String columnText = "?";
         try {
-            columnText = this.browseTable.getMetaData().getColumnName(colNum+1);
+            columnText = this.browseTable.getMetaData().getColumnName(colNum + 1);
         } catch (SQLException sqle) {
             System.out.println("Unable to extract column name.\n" + sqle);
         }
-        return  columnText;
+        return columnText;
     }
 
     public String getTableName() {
         try {
-            return this.browseTable.getMetaData().getTableName(1);
+            return this.browseTable.getMetaData().getTableName(1);  // doesn't matter which column we pick, it's all pulled from one table.
         } catch (SQLException sqle) {
             System.out.println("Unable to fetch table name.\n" + sqle);
             return null;
@@ -122,7 +122,7 @@ public class BrowseListDataModel extends AbstractTableModel {
         PreparedStatement ps = null;
         try {
             ps = Database.conn.prepareStatement(sqlToRun);
-            ps.setString(1,"%" + searchString + "%");
+            ps.setString(1, "%" + searchString + "%");
             this.browseTable = ps.executeQuery();
         } catch (SQLException sqle) {
             System.out.println("Unable to fetch search results.");
@@ -132,8 +132,16 @@ public class BrowseListDataModel extends AbstractTableModel {
     }
 
     public void clearSearch() {
-        // TODO: Data is not updated in table after being edited.  Change this so it requeries the database.
-        this.browseTable = this.originalData;
+        // TODO: Data is not automatically updated in table after being edited; HOW TO FIX???
+        // This requeries the database so the user can see the info after manually clicking 'clear search'.
+        if (this.getTableName().equals(Instrument.INSTRUMENT_TABLE_NAME)) {
+            this.browseTable = Instrument.getBrowsingData();
+        } else if (this.getTableName().equals(Contact.CONTACT_TABLE_NAME)) {
+            this.browseTable = Contact.getBrowsingData();
+        } else {
+            // fall back to original result set if we can't figure out which table to requery.
+            this.browseTable = this.originalData;
+        }
         this.refresh();
     }
 }
