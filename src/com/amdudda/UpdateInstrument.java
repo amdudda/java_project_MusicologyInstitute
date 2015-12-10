@@ -43,7 +43,7 @@ public class UpdateInstrument extends JFrame {
     public UpdateInstrument(String pkToUse) {// fetch the data for the instrument
         // instantiate an Instrument object and read its attributes.
         selectedInstrument = new Instrument(pkToUse);
-        acquiredFromName = new Contact(selectedInstrument.getAcquiredFromAsString()).getContactFullName();
+        acquiredFromName = selectedInstrument.getAcquisitionInfo().getFullName();
 
         setContentPane(updateInstrumentRootPanel);
         if (pkToUse == null) {

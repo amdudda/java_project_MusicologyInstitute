@@ -24,7 +24,6 @@ public class BrowseDatabaseScreen extends JFrame {
     private static ResultSet dataToBrowse;
     protected static Statement browseTableStatement;
 
-    // TODO: create search utility, then recycle this screen to create a "select Contact" window.
     public BrowseDatabaseScreen(ResultSet dTB) {
         this.dataToBrowse = dTB;
         setContentPane(browseDbScreenRootPanel);

@@ -46,8 +46,8 @@ public class Loan extends LocationInfo {
     @Override
     public String toString() {
         // generates a string with loan information
-        return "Instrument ID# " + this.InstID + " was loaned to " + this.ContactName +
-                "(ID # " + this.ContactID + ") from " + this.StartDate + " to " + this.EndDate + ".";
+        return "Instrument ID# " + this.InstID + " is on loan to " + this.ContactName +
+                " (ID # " + this.ContactID + ") from " + this.StartDate + " to " + this.EndDate + ".";
     }
 
 }

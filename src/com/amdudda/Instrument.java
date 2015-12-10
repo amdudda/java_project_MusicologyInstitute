@@ -54,6 +54,7 @@ public class Instrument {
     private String Description;
     private boolean isALoan;
     private LocationInfo locationInfo;
+    private Contact acquisitionInfo;
 
     // misc attributes for data retrieval
     ResultSet my_instrument;
@@ -104,6 +105,7 @@ public class Instrument {
             } catch (SQLException sqle) {
                 System.out.println("Unable to assign instrument attributes.\n" + sqle);
             }
+
             // try fetching location info if it exists
             // TODO: is there a way to fix these magic numbers?
             if (Location.equals(DataValidator.STORAGE_LOCATIONS[0])) {
@@ -116,6 +118,9 @@ public class Instrument {
                 // in library or storage:
                 locationInfo = new StorageLibrary(this.InstID);
             }
+
+            // try fetching contact info
+            acquisitionInfo = new Contact(this.getAcquiredFromAsString());
         }
     }
 
@@ -324,6 +329,10 @@ public class Instrument {
 
     public LocationInfo getLocationInfo() {
         return locationInfo;
+    }
+
+    public Contact getAcquisitionInfo() {
+        return acquisitionInfo;
     }
 
     private String fetchValueOfString(String fieldname) {

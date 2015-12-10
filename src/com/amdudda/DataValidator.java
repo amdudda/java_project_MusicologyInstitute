@@ -147,7 +147,7 @@ public class DataValidator {
     }
 
     public static void generateSearchFields(JComboBox cBox, AbstractTableModel atm) {
-        for (int i=1; i<atm.getColumnCount(); i++) {
+        for (int i=0; i<atm.getColumnCount(); i++) {
             cBox.addItem(atm.getColumnName(i));
         }
     }

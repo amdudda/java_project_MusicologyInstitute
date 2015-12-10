@@ -220,7 +220,7 @@ public class Contact {
         Notes = notes;
     }
 
-    public String getContactFullName() {
+    public String getFullName() {
         String contDetails = "";
         if (!(this.ContactName.equals("") || this.ContactName == null)) {
             contDetails += this.ContactName;
