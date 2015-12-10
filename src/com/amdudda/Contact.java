@@ -212,6 +212,18 @@ public class Contact {
         Notes = notes;
     }
 
+    public String getContactFullName() {
+        String contDetails = "";
+        if (!(this.ContactName.equals("") || this.ContactName == null)) {
+            contDetails += this.ContactName;
+        }
+        if (!contDetails.equals("")) { contDetails += "\n"; }
+        if (!(this.BusinessName.equals("") || this.BusinessName == null)) {
+            contDetails += this.BusinessName + "";
+        }
+        return contDetails;
+    }
+
     @Override
     public String toString() {
         // useful for displaying contact details in contact selection screen

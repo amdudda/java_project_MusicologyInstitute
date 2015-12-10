@@ -35,11 +35,14 @@ public class UpdateInstrument extends JFrame {
     private JComboBox regionComboBox;
     private JButton selectContactButton;
     private JLabel formDescriptionLabel;
+    private JTextArea acquiredFromFullNameTextArea;
     private Instrument selectedInstrument;
+    private String acquiredFromName;
 
     public UpdateInstrument(String pkToUse) {// fetch the data for the instrument
         // instantiate an Instrument object and read its attributes.
         selectedInstrument = new Instrument(pkToUse);
+        acquiredFromName = new Contact(selectedInstrument.getAcquiredFrom()).getContactFullName();
 
         setContentPane(updateInstrumentRootPanel);
         if (pkToUse == null) {
@@ -144,8 +147,9 @@ public class UpdateInstrument extends JFrame {
             instrIDtextField.setText("" + selectedInstrument.getInstID());
             instrNameTextField.setText(selectedInstrument.getInstName());
             acquiredDateTextField.setText(selectedInstrument.getAcquiredDate().toString());
-            // TODO: acquiredFrom info should be a human-readable name, not an ID number
+            // TODO: now that we pull in acquiredFrom's human readable name, do we need the FK value?
             acquiredFromTextField.setText(selectedInstrument.getAcquiredFrom());
+            acquiredFromFullNameTextArea.setText(acquiredFromName);
             heightTextField.setText("" + selectedInstrument.getHeight());
             widthTextField.setText("" + selectedInstrument.getWidth());
             depthTextField.setText("" + selectedInstrument.getDepth());
