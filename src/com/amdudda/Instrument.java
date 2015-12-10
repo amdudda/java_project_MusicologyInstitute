@@ -107,20 +107,24 @@ public class Instrument {
             }
 
             // try fetching location info if it exists
-            // TODO: is there a way to fix these magic numbers?
-            if (Location.equals(DataValidator.STORAGE_LOCATIONS[0])) {
-                // on Exhibit:
-                locationInfo = new OnExhibit(this.InstID);
-            } else if (Location.equals(DataValidator.STORAGE_LOCATIONS[3])) {
-                // on Loan:
-                locationInfo = new Loan(this.InstID,this.AcquiredFrom);
-            } else {
-                // in library or storage:
-                locationInfo = new StorageLibrary(this.InstID);
-            }
+            createLocationInfo();
 
             // try fetching contact info
             acquisitionInfo = new Contact(this.getAcquiredFromAsString());
+        }
+    }
+
+    protected void createLocationInfo() {
+        // TODO: is there a way to fix these magic numbers?
+        if (Location.equals(DataValidator.STORAGE_LOCATIONS[0])) {
+            // on Exhibit:
+            locationInfo = new OnExhibit(this.InstID);
+        } else if (Location.equals(DataValidator.STORAGE_LOCATIONS[3])) {
+            // on Loan:
+            locationInfo = new Loan(this.InstID,this.AcquiredFrom);
+        } else {
+            // in library or storage:
+            locationInfo = new StorageLibrary(this.InstID);
         }
     }
 

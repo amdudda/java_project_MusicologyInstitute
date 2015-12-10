@@ -1,10 +1,7 @@
 package com.amdudda;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import java.awt.event.*;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -131,6 +128,18 @@ public class UpdateInstrument extends JFrame {
                     JOptionPane.showMessageDialog(updateInstrumentRootPanel, "Please enter a date in YYYY-MM-DD format.");
                     acquiredDateTextField.grabFocus();
                 }
+            }
+        });
+
+
+        locationComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Stack overflow says this should detect when the selected value changes:
+                // http://stackoverflow.com/questions/58939/jcombobox-selection-change-listener
+                selectedInstrument.setLocation(locationComboBox.getSelectedItem().toString());
+                selectedInstrument.createLocationInfo();
+                locationSummaryTextArea.setText(selectedInstrument.getLocationInfo().toString());
             }
         });
     }
