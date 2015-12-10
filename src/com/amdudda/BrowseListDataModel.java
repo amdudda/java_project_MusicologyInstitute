@@ -113,6 +113,7 @@ public class BrowseListDataModel extends AbstractTableModel {
     }
 
     public void clearSearch() {
+        // TODO: Data is not updated in table after being edited.  Change this so it requeries the database.
         this.browseTable = this.originalData;
         this.refresh();
     }

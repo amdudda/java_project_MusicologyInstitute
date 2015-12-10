@@ -7,8 +7,8 @@ import java.sql.Statement;
 /**
  * Created by amdudda on 12/8/15.
  */
-public class Loan {
-    private int InstID;
+public class Loan extends LocationInfo {
+    //private int InstID;
     private int ContactID;
     private java.sql.Date StartDate;
     private java.sql.Date EndDate;
