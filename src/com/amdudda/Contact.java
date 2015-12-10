@@ -26,6 +26,10 @@ public class Contact {
     public static final String CONTACTPHONE = CONTACT_TABLE_NAME + ".ContactPhone";
     public static final String CONTACTTYPE = CONTACT_TABLE_NAME + ".ContactType";
     public static final String NOTES = CONTACT_TABLE_NAME + ".Notes";
+    // TODO: do these belong here or in DataValidator?
+    public static final String DEFAULT_COUNTRY = "United States";
+    public static final String DEFAULT_STATE = "MN";
+    public static final String DEFAULT_CONTACT_TYPE = DataValidator.CONTACT_TYPES[1]; // magic number for "museum", but this prevents typos from creeping into code.
 
     // variables to store object attributes
     private int ContactID;
@@ -43,7 +47,11 @@ public class Contact {
 
     ResultSet my_contact;
 
-    // constructor for contact info
+    // constructors for contact info
+    public Contact() {
+        // no data to autopopulate; just instatiate it so code can generate forms
+    }
+
     public Contact(String pkToUse) {
         // check whether there's even any data to pull for this contact
         if (pkToUse != null) {

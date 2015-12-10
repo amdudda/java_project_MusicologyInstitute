@@ -52,7 +52,7 @@ public class UpdateContact extends JFrame {
         updateDatabaseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateContact();
+                if (selContact == null) { insertContact(); } else { updateContact(); }
                 dispose();
             }
         });
@@ -72,13 +72,18 @@ public class UpdateContact extends JFrame {
 
         // drop-down lists
         DataValidator.generateCountryComboBox(countryComboBox);
-        countryComboBox.setSelectedItem(selected_contact.getCountry());
-
         DataValidator.generateStateComboBox(stateComboBox);
-        stateComboBox.setSelectedItem(selected_contact.getState());
-
         DataValidator.generateComboBox(contactTypeComboBox, DataValidator.CONTACT_TYPES);
-        contactTypeComboBox.setSelectedItem(selected_contact.getContactType());
+
+        if (selected_contact.getContactID() == 0) {
+            countryComboBox.setSelectedItem(Contact.DEFAULT_COUNTRY);
+            stateComboBox.setSelectedItem(Contact.DEFAULT_STATE);
+            contactTypeComboBox.setSelectedItem(Contact.DEFAULT_CONTACT_TYPE);
+        } else {
+            countryComboBox.setSelectedItem(selected_contact.getCountry());
+            stateComboBox.setSelectedItem(selected_contact.getState());
+            contactTypeComboBox.setSelectedItem(selected_contact.getContactType());
+        }
     }
 
     private void updateContact() {
@@ -117,6 +122,46 @@ public class UpdateContact extends JFrame {
             ps.close();
         } catch (SQLException sqle) {
             System.out.println("Unable to update database.\n" + sqle);
+        }
+    }
+
+    private void insertContact() {
+        // add a new contact if that's what we're actually doing.
+        String sqlToUse = "INSERT INTO " + Contact.CONTACT_TABLE_NAME + " (" +
+                Contact.CONTACTNAME + ", " +
+                Contact.BUSINESSNAME + ", " +
+                Contact.ADDRESS + ", " +
+                Contact.CITY + ", " +
+                Contact.POSTALCODE +  ", " + // 5
+                Contact.CONTACTPHONE + ", " +
+                Contact.BUSINESSPHONE + ", " +
+                Contact.NOTES + ", " +
+                Contact.COUNTRY + ", " +
+                Contact.STATE +  ", " + // 10
+                Contact.CONTACTTYPE +
+                ") VALUES (" +
+                "?,?,?,?," +
+                "?,?,?,?," +
+                "?,?,?)";
+        PreparedStatement ps = null;
+        try {
+            ps = Database.conn.prepareStatement(sqlToUse);
+            int i = 1;
+            ps.setString(i,contactNameTextField.getText());
+            ps.setString(++i,businessNameTextField.getText());
+            ps.setString(++i,addressTextArea.getText());
+            ps.setString(++i,cityTextField.getText());
+            ps.setString(++i,postalCodeTextField.getText());
+            ps.setString(++i,contactPhoneTextField.getText());
+            ps.setString(++i,businessPhoneTextField.getText());
+            ps.setString(++i,notesTextArea.getText());
+            ps.setString(++i,countryComboBox.getSelectedItem().toString());
+            ps.setString(++i,stateComboBox.getSelectedItem().toString());
+            ps.setString(++i,contactTypeComboBox.getSelectedItem().toString());
+            ps.executeUpdate();
+            if (ps != null) ps.close();
+        } catch (SQLException sqle) {
+            System.out.println("Unable to insert new contact.\n" + sqle);
         }
     }
 }
