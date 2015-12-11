@@ -95,7 +95,7 @@ public class LocationInfoForm extends JFrame {
             @Override
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
-                if (!shelfTextField.equals("") && !DataValidator.isInteger(shelfTextField.getText())) {
+                if (!(shelfTextField.getText().equals("") || DataValidator.isInteger(shelfTextField.getText()))) {
                     JOptionPane.showMessageDialog(locationInfoRootPanel,"Please enter a whole number with no decimals.");
                     shelfTextField.grabFocus();
                 }
