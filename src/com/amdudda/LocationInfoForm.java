@@ -1,8 +1,11 @@
 package com.amdudda;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Enumeration;
 
 /**
  * Created by amdudda on 12/10/15.
@@ -11,7 +14,7 @@ public class LocationInfoForm extends JFrame {
     private JRadioButton storageRadioButton;
     private JRadioButton onExhibitRadioButton;
     private JRadioButton onLoanRadioButton;
-    private ButtonGroup currentLocationButtonGroup;
+    private ButtonGroup currentLocationButtonGroup = new ButtonGroup();
     private JTextField startDateTextField;
     private JTextField endDateTextField;
     private JComboBox LocInRmComboBox;
@@ -63,6 +66,19 @@ public class LocationInfoForm extends JFrame {
     private void populateFields() {
         // populate our fields
         // TODO: need to set up radiobuttons
+        currentLocationButtonGroup.add(onExhibitRadioButton);
+        currentLocationButtonGroup.add(libraryRadioButton);
+        currentLocationButtonGroup.add(storageRadioButton);
+        currentLocationButtonGroup.add(onLoanRadioButton);
+        // got this idea from http://www.java2s.com/Tutorial/Java/0240__Swing/Settingselectedbuttoninabuttongroup.htm
+        Enumeration<AbstractButton> elements = currentLocationButtonGroup.getElements();
+        while (elements.hasMoreElements()) {
+            if (elements.nextElement().getActionCommand().equals(cur_location)) {
+                elements.nextElement().setSelected(true);
+                break;
+            }
+        }
+
 
         storageRoomTextField.setText(storageLibrary.getRoom());
         cabinetTextField.setText(storageLibrary.getCabinet());
