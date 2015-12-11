@@ -39,7 +39,7 @@
           <text value="On Loan"/>
         </properties>
       </component>
-      <component id="7cdbc" class="javax.swing.JComboBox" binding="LocInRmComboBox">
+      <component id="7cdbc" class="javax.swing.JComboBox" binding="locInRmComboBox">
         <constraints>
           <grid row="6" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>

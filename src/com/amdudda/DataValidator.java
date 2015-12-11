@@ -20,6 +20,11 @@ public class DataValidator {
     */
     public static final String[] TUNING_TYPES = {"Fixed", "Specified", "Variable", "Untuned"};
     public static final String[] STORAGE_LOCATIONS = {"Exhibit", "Library", "Storage", "On Loan"};
+    public static final String LOC_EXHIBIT = STORAGE_LOCATIONS[0];
+    public static final String LOC_LIBRARY = STORAGE_LOCATIONS[1];
+    public static final String LOC_STORAGE = STORAGE_LOCATIONS[2];
+    public static final String LOC_LOAN = STORAGE_LOCATIONS[3];
+
     public static final String[] INSTRUMENT_TYPES = {"Idiophone", "Membranophone", "Chordophone", "Aerophone", "Electrophone", "Hybrid"};
     public static final String[] CONTACT_TYPES = {"Donor", "Museum", "Seller", "Musician", "School", "Private Individual"};
     public static final String[] REGIONS = {"Europe", "Asia", "Africa", "Australia", "The Americas", "Oceania"};
