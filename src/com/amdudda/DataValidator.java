@@ -96,8 +96,16 @@ public class DataValidator {
         }
     }
 
-    // also some generators for comboboxes
+    public static boolean isInteger(String zifr) {
+        try {
+            Integer.parseInt(zifr);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
 
+    // also some generators for comboboxes
     // a generic one for things database constraints don't use
     public static void generateComboBox(JComboBox cBox, String[] listToUse) {
         for (int i = 0; i < listToUse.length; i++) {

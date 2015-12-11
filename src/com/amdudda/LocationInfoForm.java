@@ -3,6 +3,8 @@ package com.amdudda;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.sql.Date;
 import java.util.Enumeration;
 
@@ -73,6 +75,32 @@ public class LocationInfoForm extends JFrame {
         });
 
         // TODO: Data validation
+        startDateTextField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                validateDate(startDateTextField);
+            }
+        });
+
+
+        endDateTextField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                validateDate(endDateTextField);
+            }
+        });
+        shelfTextField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                if (!shelfTextField.equals("") && !DataValidator.isInteger(shelfTextField.getText())) {
+                    JOptionPane.showMessageDialog(locationInfoRootPanel,"Please enter a whole number with no decimals.");
+                    shelfTextField.grabFocus();
+                }
+            }
+        });
     }
 
     private void populateFields() {
@@ -143,6 +171,13 @@ public class LocationInfoForm extends JFrame {
                 storageLibrary.setStorageType(DataValidator.LOC_STORAGE);
                 my_instrument.setLocation(DataValidator.LOC_STORAGE);
             }
+        }
+    }
+
+    private void validateDate(JTextField fieldToCheck) {
+        if (!DataValidator.isDate(fieldToCheck.getText())) {
+            JOptionPane.showMessageDialog(locationInfoRootPanel,"Please enter a date in YYYY-MM-DD format.");
+            fieldToCheck.grabFocus();
         }
     }
 }
