@@ -334,10 +334,17 @@ public class Instrument {
         return locationInfo;
     }
 
+    public void setLocationInfo(LocationInfo locationInfo) {
+        this.locationInfo = locationInfo;
+    }
+
     public Contact getAcquisitionInfo() {
         return acquisitionInfo;
     }
 
+
+
+    // some data processing
     private String fetchValueOfString(String fieldname) {
         // This method reads in a value and translates nulls into an empty string so the constructor doesn't choke.
         try {

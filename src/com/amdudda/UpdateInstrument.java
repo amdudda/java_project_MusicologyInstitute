@@ -130,7 +130,6 @@ public class UpdateInstrument extends JFrame {
             }
         });
 
-
         locationComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -141,11 +140,12 @@ public class UpdateInstrument extends JFrame {
                 locationSummaryTextArea.setText(selectedInstrument.getLocationInfo().toString());
             }
         });
+
         locationSummaryTextArea.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                LocationInfoForm lif = new LocationInfoForm(selectedInstrument);
+                LocationInfoForm lif = new LocationInfoForm(selectedInstrument, UpdateInstrument.this);
             }
         });
     }
@@ -247,6 +247,9 @@ public class UpdateInstrument extends JFrame {
         } catch (SQLException sqle) {
             System.out.println("Unable to update database record.\n" + sqle);
         }
+        // also update its location information
+        System.out.println(selectedInstrument.getLocationInfo().toString());
+        selectedInstrument.getLocationInfo().updateRecord();
     }
 
     // Method to insert a new instrument.
@@ -306,4 +309,10 @@ public class UpdateInstrument extends JFrame {
     public void setAcquiredFromTextField(String id) {
         this.acquiredFromTextField.setText(id);
     }
+    public void setLocationComboBox(String loc) { this.locationComboBox.setSelectedItem(loc); }
+    public void setLocationSummaryTextArea(String summary) {
+        System.out.println("setting location summary text to:\n'" + summary + "'");
+        this.locationSummaryTextArea.setText(summary);
+    }
+    public Instrument getSelectedInstrument() { return selectedInstrument; }
 }

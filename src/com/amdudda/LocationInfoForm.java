@@ -37,9 +37,9 @@ public class LocationInfoForm extends JFrame {
     private StorageLibrary storageLibrary;
     private Instrument my_instrument;
 
-    public LocationInfoForm(Instrument instrument) {
+    public LocationInfoForm(Instrument instrument, UpdateInstrument updateInstrument) {
         // updates current location info for selected instrument.
-        this.my_instrument = instrument;
+        my_instrument = instrument;
         this.inst_id = instrument.getInstID();
         this.cur_location = instrument.getLocation();
 
@@ -70,6 +70,15 @@ public class LocationInfoForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // JOptionPane.showMessageDialog(locationInfoRootPanel,"This button doesn't do anything yet.");
                 updateInstrumentLocation();
+                // TODO: need to update UpdtInst screen with new location indicator
+                Instrument instToUpdate = updateInstrument.getSelectedInstrument();
+                instToUpdate.setLocationInfo(my_instrument.getLocationInfo());
+
+                String summary = instToUpdate.getLocationInfo().toString();
+                System.out.println(summary);
+                updateInstrument.setLocationComboBox(instToUpdate.getLocation());
+                updateInstrument.setLocationSummaryTextArea(summary);
+
                 dispose();
             }
         });
@@ -147,17 +156,20 @@ public class LocationInfoForm extends JFrame {
         // updates instrument's location with new data
         // what we do varies based on which button is selected
         String selButton = currentLocationButtonGroup.getSelection().getActionCommand();
-        // TODO: need to update UpdtInst screen with new location indicator
+
         if (selButton.equals("On Loan")) {
             loan.setContactID(Integer.parseInt(contactIDTextField.getText()));
             loan.setStartDate(Date.valueOf(startDateTextField.getText()));
             loan.setEndDate(Date.valueOf(endDateTextField.getText()));
             my_instrument.setLocation(DataValidator.LOC_LOAN);
+            my_instrument.setLocationInfo(loan);
         } else if (selButton.equals("Exhibit")) {
             onExhibit.setExhibitID(Integer.parseInt(exhibitIDTextField.getText()));
+            System.out.println("Setting room to " + exhibitRoomComboBox.getSelectedItem().toString());
             onExhibit.setRoom(exhibitRoomComboBox.getSelectedItem().toString());
             onExhibit.setLocationInRoom(locInRmComboBox.getSelectedItem().toString());
             my_instrument.setLocation(DataValidator.LOC_EXHIBIT);
+            my_instrument.setLocationInfo(onExhibit);
         } else {
             // we update the Storage table
             storageLibrary.setRoom(slRoomComboBox.getSelectedItem().toString());
@@ -171,6 +183,7 @@ public class LocationInfoForm extends JFrame {
                 storageLibrary.setStorageType(DataValidator.LOC_STORAGE);
                 my_instrument.setLocation(DataValidator.LOC_STORAGE);
             }
+            my_instrument.setLocationInfo(storageLibrary);
         }
     }
 
