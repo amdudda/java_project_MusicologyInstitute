@@ -30,14 +30,15 @@ public class StorageLibrary extends LocationInfo {
             ps = Database.conn.prepareStatement(sqlToUse);
             ps.setInt(1, id);
             rs = ps.executeQuery();
-            rs.next();
-            this.InstID = Integer.parseInt(rs.getObject(INSTR_ID).toString());
-            this.StorageType = rs.getObject(STORAGE_TYPE).toString();
-            this.Room = rs.getObject(ROOM).toString();
-            this.Cabinet = rs.getObject(CABINET).toString();
-            this.Shelf = Integer.parseInt(rs.getObject(SHELF).toString());
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
+            if (rs.next()) {
+                this.InstID = Integer.parseInt(rs.getObject(INSTR_ID).toString());
+                this.StorageType = rs.getObject(STORAGE_TYPE).toString();
+                this.Room = rs.getObject(ROOM).toString();
+                this.Cabinet = rs.getObject(CABINET).toString();
+                this.Shelf = Integer.parseInt(rs.getObject(SHELF).toString());
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+            }
         } catch (SQLException sqle) {
             System.out.println("Unable to fetch storage information.\n" + sqle);
         }

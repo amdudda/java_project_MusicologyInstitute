@@ -224,7 +224,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="Exit"/>
+          <text value="Exit (Discard Changes)"/>
         </properties>
       </component>
       <component id="543d3" class="javax.swing.JComboBox" binding="countryComboBox">
