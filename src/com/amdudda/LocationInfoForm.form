@@ -25,7 +25,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <actionCommand value="OnExhibit"/>
+          <actionCommand value="Exhibit"/>
           <text value="On Exhibit"/>
         </properties>
       </component>
@@ -35,7 +35,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <actionCommand value="Loan"/>
+          <actionCommand value="On Loan"/>
           <text value="On Loan"/>
         </properties>
       </component>
@@ -133,15 +133,6 @@
           <text value="End Date"/>
         </properties>
       </component>
-      <component id="487a5" class="javax.swing.JTextField" binding="exhibitRoomTextField">
-        <constraints>
-          <grid row="6" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties/>
-      </component>
       <component id="57c9b" class="javax.swing.JTextField" binding="exhibitIDTextField">
         <constraints>
           <grid row="6" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -175,7 +166,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <actionCommand value="StorageLibrary"/>
+          <actionCommand value="Storage"/>
           <text value="Storage or"/>
         </properties>
       </component>
@@ -187,15 +178,6 @@
         <properties>
           <text value="Library"/>
         </properties>
-      </component>
-      <component id="35f3e" class="javax.swing.JTextField" binding="storageRoomTextField">
-        <constraints>
-          <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties/>
       </component>
       <component id="a5f24" class="javax.swing.JLabel">
         <constraints>
@@ -293,6 +275,20 @@
           <font size="36"/>
           <text value="}"/>
         </properties>
+      </component>
+      <component id="c22f1" class="javax.swing.JComboBox" binding="slRoomComboBox">
+        <constraints>
+          <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="da412" class="javax.swing.JComboBox" binding="exhibitRoomComboBox">
+        <constraints>
+          <grid row="6" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties/>
       </component>
     </children>
   </grid>

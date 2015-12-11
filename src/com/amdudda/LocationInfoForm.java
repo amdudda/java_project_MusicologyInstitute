@@ -28,6 +28,8 @@ public class LocationInfoForm extends JFrame {
     private JTextField storageRoomTextField;
     private JRadioButton libraryRadioButton;
     private JPanel locationInfoRootPanel;
+    private JComboBox slRoomComboBox;
+    private JComboBox exhibitRoomComboBox;
 
     private int inst_id;
     private String cur_location;
@@ -82,20 +84,31 @@ public class LocationInfoForm extends JFrame {
         // got this idea from http://www.java2s.com/Tutorial/Java/0240__Swing/Settingselectedbuttoninabuttongroup.htm
         Enumeration<AbstractButton> elements = currentLocationButtonGroup.getElements();
         while (elements.hasMoreElements()) {
-            if (elements.nextElement().getActionCommand().equals(cur_location)) {
-                elements.nextElement().setSelected(true);
+            AbstractButton abstractButton = elements.nextElement();
+            if (abstractButton.getActionCommand().equals(cur_location)) {
+                abstractButton.setSelected(true);
                 break;
             }
         }
 
-
-        storageRoomTextField.setText(storageLibrary.getRoom());
+        DataValidator.generateRoomComboBox(slRoomComboBox);
+        slRoomComboBox.setSelectedItem(storageLibrary.getRoom());
         cabinetTextField.setText(storageLibrary.getCabinet());
-        shelfTextField.setText(""+storageLibrary.getShelf());
+        if (storageLibrary.getShelf() == 0) {
+            shelfTextField.setText("");
+        } else {
+            shelfTextField.setText("" + storageLibrary.getShelf());
+        }
 
-        exhibitIDTextField.setText(""+onExhibit.getInstID());
-        exhibitRoomTextField.setText(onExhibit.getRoom());
+        if (onExhibit.getExhibitID() == 0 ) {
+            exhibitIDTextField.setText("");
+        } else {
+            exhibitIDTextField.setText("" + onExhibit.getExhibitID());
+        }
+        DataValidator.generateRoomComboBox(exhibitRoomComboBox);
+        exhibitRoomComboBox.setSelectedItem(onExhibit.getRoom());
         DataValidator.generateComboBox(LocInRmComboBox,DataValidator.LOCATIONS_IN_ROOM);
+        LocInRmComboBox.setSelectedItem(onExhibit.getLocationInRoom());
 
         contactIDTextField.setText("" + loan.getContactID());
         startDateTextField.setText(loan.getStartDate().toString());

@@ -148,6 +148,23 @@ public class DataValidator {
         }
     }
 
+    public static void generateRoomComboBox(JComboBox cBox) {
+        String sqlToRun = "SELECT RoomNum FROM Rooms";
+        Statement s = null;
+        ResultSet r = null;
+        try {
+            s = Database.conn.createStatement();
+            r = s.executeQuery(sqlToRun);
+            while (r.next()) {
+                cBox.addItem(r.getObject("RoomNum").toString());
+            }
+            r.close();
+            s.close();
+        } catch (SQLException sqle) {
+            System.out.println("Unable to extract list of room numbers.\n" + sqle);
+        }
+    }
+
     public static void generateSearchFields(JComboBox cBox, AbstractTableModel atm) {
         for (int i=0; i<atm.getColumnCount(); i++) {
             cBox.addItem(atm.getColumnName(i));
