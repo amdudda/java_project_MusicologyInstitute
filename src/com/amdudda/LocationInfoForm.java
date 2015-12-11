@@ -69,16 +69,17 @@ public class LocationInfoForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // JOptionPane.showMessageDialog(locationInfoRootPanel,"This button doesn't do anything yet.");
-                updateInstrumentLocation();
+                updateInstrumentLocation(instrument);
                 // TODO: need to update UpdtInst screen with new location indicator
+                /*
                 Instrument instToUpdate = updateInstrument.getSelectedInstrument();
                 instToUpdate.setLocationInfo(my_instrument.getLocationInfo());
-
-                String summary = instToUpdate.getLocationInfo().toString();
+*/
+                String summary = instrument.getLocationInfo().toString();
                 System.out.println(summary);
-                updateInstrument.setLocationComboBox(instToUpdate.getLocation());
+                updateInstrument.setLocationComboBox(instrument.getLocation());
                 updateInstrument.setLocationSummaryTextArea(summary);
-
+                // TODO: why oh why does this not update the instrument object on UpdateInstrument?????
                 dispose();
             }
         });
@@ -110,6 +111,13 @@ public class LocationInfoForm extends JFrame {
                 }
             }
         });
+    }
+
+    private void validateDate(JTextField fieldToCheck) {
+        if (!DataValidator.isDate(fieldToCheck.getText())) {
+            JOptionPane.showMessageDialog(locationInfoRootPanel,"Please enter a date in YYYY-MM-DD format.");
+            fieldToCheck.grabFocus();
+        }
     }
 
     private void populateFields() {
@@ -152,45 +160,48 @@ public class LocationInfoForm extends JFrame {
         endDateTextField.setText((loan.getEndDate() == null) ? "" : loan.getEndDate().toString());
     }
 
-    private void updateInstrumentLocation() {
+    private void updateInstrumentLocation(Instrument instToUpdate) {
         // updates instrument's location with new data
         // what we do varies based on which button is selected
         String selButton = currentLocationButtonGroup.getSelection().getActionCommand();
 
         if (selButton.equals("On Loan")) {
-            loan.setContactID(Integer.parseInt(contactIDTextField.getText()));
-            loan.setStartDate(Date.valueOf(startDateTextField.getText()));
-            loan.setEndDate(Date.valueOf(endDateTextField.getText()));
-            my_instrument.setLocation(DataValidator.LOC_LOAN);
-            my_instrument.setLocationInfo(loan);
+            //Loan locToUpdate = new Loan(instToUpdate.getInstID(),instToUpdate.getAcquiredFrom());
+            instToUpdate.setLocationInfo(new Loan(instToUpdate.getInstID(),instToUpdate.getAcquiredFrom()));
+            Loan locToUpdate = (Loan) instToUpdate.getLocationInfo();
+            locToUpdate.setContactID(Integer.parseInt(contactIDTextField.getText()));
+            locToUpdate.setStartDate(Date.valueOf(startDateTextField.getText()));
+            locToUpdate.setEndDate(Date.valueOf(endDateTextField.getText()));
+            instToUpdate.setLocation(DataValidator.LOC_LOAN);
+            instToUpdate.setLocationInfo(loan);
         } else if (selButton.equals("Exhibit")) {
-            onExhibit.setExhibitID(Integer.parseInt(exhibitIDTextField.getText()));
-            System.out.println("Setting room to " + exhibitRoomComboBox.getSelectedItem().toString());
-            onExhibit.setRoom(exhibitRoomComboBox.getSelectedItem().toString());
-            onExhibit.setLocationInRoom(locInRmComboBox.getSelectedItem().toString());
-            my_instrument.setLocation(DataValidator.LOC_EXHIBIT);
-            my_instrument.setLocationInfo(onExhibit);
+            //OnExhibit locToUpdate = new OnExhibit(instToUpdate.getInstID());
+//            instToUpdate.setLocationInfo(new OnExhibit(instToUpdate.getInstID()));
+//            OnExhibit locToUpdate = (OnExhibit) instToUpdate.getLocationInfo();
+            // System.out.println("Setting room to " + exhibitRoomComboBox.getSelectedItem().toString());
+            OnExhibit locToUpdate = (OnExhibit) instToUpdate.getLocationInfo();
+            locToUpdate.setRoom(exhibitRoomComboBox.getSelectedItem().toString());
+            locToUpdate.setLocationInRoom(locInRmComboBox.getSelectedItem().toString());
+            instToUpdate.setLocation(DataValidator.LOC_EXHIBIT);
+            instToUpdate.setLocationInfo(locToUpdate);
         } else {
             // we update the Storage table
-            storageLibrary.setRoom(slRoomComboBox.getSelectedItem().toString());
-            storageLibrary.setCabinet(cabinetTextField.getText());
-            storageLibrary.setShelf(Integer.parseInt(shelfTextField.getText()));
+            //StorageLibrary locToUpdate = new StorageLibrary(instToUpdate.getInstID());
+            instToUpdate.setLocationInfo(new StorageLibrary(instToUpdate.getInstID()));
+            StorageLibrary locToUpdate = (StorageLibrary) instToUpdate.getLocationInfo();
+            locToUpdate.setRoom(slRoomComboBox.getSelectedItem().toString());
+            locToUpdate.setCabinet(cabinetTextField.getText());
+            locToUpdate.setShelf(Integer.parseInt(shelfTextField.getText()));
             if (selButton.equals("Library")) {
-                storageLibrary.setStorageType(DataValidator.LOC_LIBRARY);
-                my_instrument.setLocation(DataValidator.LOC_LIBRARY);
+                locToUpdate.setStorageType(DataValidator.LOC_LIBRARY);
+                instToUpdate.setLocation(DataValidator.LOC_LIBRARY);
             } else {
                 // presumably in Storage
-                storageLibrary.setStorageType(DataValidator.LOC_STORAGE);
-                my_instrument.setLocation(DataValidator.LOC_STORAGE);
+                locToUpdate.setStorageType(DataValidator.LOC_STORAGE);
+                instToUpdate.setLocation(DataValidator.LOC_STORAGE);
             }
-            my_instrument.setLocationInfo(storageLibrary);
+            instToUpdate.setLocationInfo(storageLibrary);
         }
     }
 
-    private void validateDate(JTextField fieldToCheck) {
-        if (!DataValidator.isDate(fieldToCheck.getText())) {
-            JOptionPane.showMessageDialog(locationInfoRootPanel,"Please enter a date in YYYY-MM-DD format.");
-            fieldToCheck.grabFocus();
-        }
-    }
 }

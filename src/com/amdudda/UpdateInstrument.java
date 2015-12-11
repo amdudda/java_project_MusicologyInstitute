@@ -311,8 +311,8 @@ public class UpdateInstrument extends JFrame {
     }
     public void setLocationComboBox(String loc) { this.locationComboBox.setSelectedItem(loc); }
     public void setLocationSummaryTextArea(String summary) {
-        System.out.println("setting location summary text to:\n'" + summary + "'");
         this.locationSummaryTextArea.setText(summary);
+        System.out.println("Current location info is: " + selectedInstrument.getLocationInfo().toString() );
     }
-    public Instrument getSelectedInstrument() { return selectedInstrument; }
+    public Instrument getSelectedInstrument() { return this.selectedInstrument; }
 }
