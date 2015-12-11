@@ -54,13 +54,22 @@ public class LocationInfoForm extends JFrame {
 
         populateFields();
 
-
+        // listeners for the form
         exitDiscardChangesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
+
+        updateDatabaseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(locationInfoRootPanel,"This button doesn't do anything yet.");
+            }
+        });
+
+        // TODO: Data validation
     }
 
     private void populateFields() {

@@ -142,6 +142,13 @@ public class UpdateInstrument extends JFrame {
                 locationSummaryTextArea.setText(selectedInstrument.getLocationInfo().toString());
             }
         });
+        locationSummaryTextArea.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                LocationInfoForm lif = new LocationInfoForm(selectedInstrument);
+            }
+        });
     }
 
     private void populateFormFields(boolean haveData) {
