@@ -125,7 +125,7 @@ public class Loan extends LocationInfo {
             ps.executeUpdate();
             if (ps != null) ps.close();
         } catch (SQLException sqle) {
-            System.out.println("Unable to update loan information.\n" + sqle);
+            System.out.println("Unable to insert loan information.\n" + sqle);
         }
     }
 }

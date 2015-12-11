@@ -50,6 +50,7 @@ public class StorageLibrary extends LocationInfo {
                 " in cabinet " + this.Cabinet + " on shelf " + this.Shelf;
     }
 
+    // Setters and getters
     public String getStorageType() {
         return StorageType;
     }
@@ -80,5 +81,52 @@ public class StorageLibrary extends LocationInfo {
 
     public void setShelf(int shelf) {
         Shelf = shelf;
+    }
+
+    // required methods
+
+    @Override
+    public void updateRecord() {
+        String sqlToUse = "UPDATE " + STORAGE_LIBRARY_TABLE_NAME + " SET " +
+                STORAGE_TYPE + " = ?, " +
+                ROOM + " = ?, " +
+                CABINET +" = ?, " +
+                SHELF +" = ? " +
+                " WHERE " + INSTR_ID + " = ?";
+        PreparedStatement ps;
+        try {
+            ps = Database.conn.prepareStatement(sqlToUse);
+            int i = 1;
+            ps.setString(i, this.StorageType);
+            ps.setString(++i, this.Room);
+            ps.setString(++i, this.Cabinet);
+            ps.setInt(++i,this.Shelf);
+            ps.setInt(++i, this.InstID);
+            ps.executeUpdate();
+            if (ps != null) ps.close();
+        } catch (SQLException sqle) {
+            System.out.println("Unable to update storage information.\n" + sqle);
+        }
+    }
+
+    @Override
+    public void insertRecord() {
+        String sqlToUse = "INSERT INTO " + STORAGE_LIBRARY_TABLE_NAME + "(" +
+                INSTR_ID + "," + STORAGE_TYPE + "," + ROOM + "," + CABINET + "," + SHELF +
+                ") VALUES (?,?,?,?,?)";
+        PreparedStatement ps;
+        try {
+            ps = Database.conn.prepareStatement(sqlToUse);
+            int i = 1;
+            ps.setInt(i, this.InstID);
+            ps.setString(++i, this.StorageType);
+            ps.setString(++i, this.Room);
+            ps.setString(++i, this.Cabinet);
+            ps.setInt(++i,this.Shelf);
+            ps.executeUpdate();
+            if (ps != null) ps.close();
+        } catch (SQLException sqle) {
+            System.out.println("Unable to insert storage information.\n" + sqle);
+        }
     }
 }
