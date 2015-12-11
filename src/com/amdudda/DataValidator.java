@@ -23,6 +23,8 @@ public class DataValidator {
     public static final String[] INSTRUMENT_TYPES = {"Idiophone", "Membranophone", "Chordophone", "Aerophone", "Electrophone", "Hybrid"};
     public static final String[] CONTACT_TYPES = {"Donor", "Museum", "Seller", "Musician", "School", "Private Individual"};
     public static final String[] REGIONS = {"Europe", "Asia", "Africa", "Australia", "The Americas", "Oceania"};
+    public static final String[] LOCATIONS_IN_ROOM = {"North", "South", "East", "West", "Floor",
+            "NW Corner","SW Corner","SE Corner","NE Corner"};
 
     // some data validators
     public static boolean isDate(String date) {

@@ -49,4 +49,36 @@ public class StorageLibrary extends LocationInfo {
         return "In " + this.StorageType + " at room " + this.Room +
                 " in cabinet " + this.Cabinet + " on shelf " + this.Shelf;
     }
+
+    public String getStorageType() {
+        return StorageType;
+    }
+
+    public void setStorageType(String storageType) {
+        StorageType = storageType;
+    }
+
+    public String getRoom() {
+        return Room;
+    }
+
+    public void setRoom(String room) {
+        Room = room;
+    }
+
+    public String getCabinet() {
+        return Cabinet;
+    }
+
+    public void setCabinet(String cabinet) {
+        Cabinet = cabinet;
+    }
+
+    public int getShelf() {
+        return Shelf;
+    }
+
+    public void setShelf(int shelf) {
+        Shelf = shelf;
+    }
 }

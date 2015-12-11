@@ -1,5 +1,6 @@
 package com.amdudda;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -53,4 +54,35 @@ public class Loan extends LocationInfo {
                 " (ID # " + this.ContactID + ") from " + this.StartDate + " to " + this.EndDate + ".";
     }
 
+    public int getContactID() {
+        return ContactID;
+    }
+
+    public void setContactID(int contactID) {
+        ContactID = contactID;
+    }
+
+    public Date getStartDate() {
+        return StartDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        StartDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return EndDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        EndDate = endDate;
+    }
+
+    public String getContactName() {
+        return ContactName;
+    }
+
+    public void setContactName(String contactName) {
+        ContactName = contactName;
+    }
 }

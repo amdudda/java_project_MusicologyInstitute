@@ -46,4 +46,28 @@ public class OnExhibit extends LocationInfo {
         if (this.InstID == 0) return "No exhibit information found.";
         return "On exhibit in the " + this.LocationInRoom + " area of room " + this.Room;
     }
+
+    public int getExhibitID() {
+        return ExhibitID;
+    }
+
+    public void setExhibitID(int exhibitID) {
+        ExhibitID = exhibitID;
+    }
+
+    public String getRoom() {
+        return Room;
+    }
+
+    public void setRoom(String room) {
+        Room = room;
+    }
+
+    public String getLocationInRoom() {
+        return LocationInRoom;
+    }
+
+    public void setLocationInRoom(String locationInRoom) {
+        LocationInRoom = locationInRoom;
+    }
 }
