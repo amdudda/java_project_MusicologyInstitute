@@ -115,11 +115,10 @@ public class Instrument {
     }
 
     protected void createLocationInfo() {
-        // TODO: is there a way to fix these magic numbers?
-        if (Location.equals(DataValidator.STORAGE_LOCATIONS[0])) {
+        if (Location.equals(DataValidator.LOC_EXHIBIT)) {
             // on Exhibit:
             locationInfo = new OnExhibit(this.InstID);
-        } else if (Location.equals(DataValidator.STORAGE_LOCATIONS[3])) {
+        } else if (Location.equals(DataValidator.LOC_LOAN)) {
             // on Loan:
             locationInfo = new Loan(this.InstID,this.AcquiredFrom);
         } else {

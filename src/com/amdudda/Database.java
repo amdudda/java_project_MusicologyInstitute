@@ -157,7 +157,6 @@ public class Database {
 
     private static void flagSuccessfulSetup(boolean status) {
         // this creates a file the program can check to see if a successful setup has already been completed.
-        // TODO: Note in Readme how to flip this manually if the database is created in the server instead of through the code.
         // Need to convert boolean to string value
         String successful;
         if (status) { successful = "TRUE"; } else { successful = "FALSE"; }

@@ -77,7 +77,6 @@ public class LocationInfoForm extends JFrame {
 
     private void populateFields() {
         // populate our fields
-        // TODO: need to set up radiobuttons
         currentLocationButtonGroup.add(onExhibitRadioButton);
         currentLocationButtonGroup.add(libraryRadioButton);
         currentLocationButtonGroup.add(storageRadioButton);

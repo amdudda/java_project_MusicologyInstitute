@@ -26,7 +26,7 @@ public class Contact {
     public static final String CONTACTPHONE = CONTACT_TABLE_NAME + ".ContactPhone";
     public static final String CONTACTTYPE = CONTACT_TABLE_NAME + ".ContactType";
     public static final String NOTES = CONTACT_TABLE_NAME + ".Notes";
-    // TODO: do these belong here or in DataValidator?
+    // These could live in DataValidator, but they're quite specific to Contact, so I've left them here.
     public static final String DEFAULT_COUNTRY = "United States";
     public static final String DEFAULT_STATE = "MN";
     public static final String DEFAULT_CONTACT_TYPE = DataValidator.CONTACT_TYPES[1]; // magic number for "museum", but this prevents typos from creeping into code.
