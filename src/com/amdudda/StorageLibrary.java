@@ -9,7 +9,7 @@ import java.sql.SQLException;
  */
 public class StorageLibrary extends LocationInfo {
     public static final String STORAGE_LIBRARY_TABLE_NAME = "StorageLibrary";
-    public static final String INSTR_ID = STORAGE_LIBRARY_TABLE_NAME + ".InstrID";
+    public static final String INSTR_ID = STORAGE_LIBRARY_TABLE_NAME + ".InstID";
     public static final String STORAGE_TYPE = STORAGE_LIBRARY_TABLE_NAME + ".StorageType";
     public static final String ROOM = STORAGE_LIBRARY_TABLE_NAME + ".Room";
     public static final String CABINET = STORAGE_LIBRARY_TABLE_NAME + ".Cabinet";

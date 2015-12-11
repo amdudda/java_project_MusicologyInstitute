@@ -139,8 +139,8 @@ public class LocationInfoForm extends JFrame {
         locInRmComboBox.setSelectedItem(onExhibit.getLocationInRoom());
 
         contactIDTextField.setText("" + loan.getContactID());
-        startDateTextField.setText(loan.getStartDate().toString());
-        endDateTextField.setText(loan.getEndDate().toString());
+        startDateTextField.setText((loan.getStartDate() == null) ? "" : loan.getStartDate().toString());
+        endDateTextField.setText((loan.getEndDate() == null) ? "" : loan.getEndDate().toString());
     }
 
     private void updateInstrumentLocation() {

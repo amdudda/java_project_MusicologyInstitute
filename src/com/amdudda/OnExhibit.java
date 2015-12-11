@@ -9,8 +9,8 @@ import java.sql.SQLException;
  */
 public class OnExhibit extends LocationInfo {
     // this maps to the Exhibit table but is called "on exhibit" for clarity.
-    public static final String EXHIBIT_TABLE_NAME = "Exhibit";
-    public static final String INSTR_ID = EXHIBIT_TABLE_NAME + ".InstrID";
+    public static final String EXHIBIT_TABLE_NAME = "InstrumentExhibit";
+    public static final String INSTR_ID = EXHIBIT_TABLE_NAME + ".InstID";
     public static final String EXHIBIT_ID = EXHIBIT_TABLE_NAME + ".ExhibitID";
     public static final String ROOM = EXHIBIT_TABLE_NAME + ".Room";
     public static final String LOCATION_IN_ROOM = EXHIBIT_TABLE_NAME + ".LocationInRoom";
@@ -32,8 +32,8 @@ public class OnExhibit extends LocationInfo {
             rs.next();
             this.InstID = Integer.parseInt(rs.getObject(INSTR_ID).toString());
             this.ExhibitID = Integer.parseInt(rs.getObject(EXHIBIT_ID).toString());
-            this.Room = rs.getObject(ROOM).toString();
-            this.LocationInRoom = rs.getObject(LOCATION_IN_ROOM).toString();
+            this.Room = (rs.getObject(ROOM) == null) ? "" : rs.getObject(ROOM).toString();
+            this.LocationInRoom = (rs.getObject(LOCATION_IN_ROOM) == null) ? "" : rs.getObject(LOCATION_IN_ROOM).toString();
             if (rs != null) rs.close();
             if (ps != null) ps.close();
         } catch (SQLException sqle) {
