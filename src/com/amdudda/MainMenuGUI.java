@@ -23,6 +23,10 @@ public class MainMenuGUI extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        // for now let's turn off adding records.  I may need to remove these from main screen.
+        addNewContactButton.setEnabled(false);
+        addNewInstrumentButton.setEnabled(false);
+
         browseInstrumentsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -1,9 +1,6 @@
 package com.amdudda;
 
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * Created by amdudda on 12/8/15.
@@ -54,6 +51,7 @@ public class Loan extends LocationInfo {
                 " (ID # " + this.ContactID + ") from " + this.StartDate + " to " + this.EndDate + ".";
     }
 
+    // getters and setters
     public int getContactID() {
         return ContactID;
     }
@@ -84,5 +82,50 @@ public class Loan extends LocationInfo {
 
     public void setContactName(String contactName) {
         ContactName = contactName;
+    }
+
+    // required methods
+
+    @Override
+    public void updateRecord() {
+        String sqlToUse = "UPDATE " + LOAN_TABLE_NAME + " SET " +
+                CONTACT_ID + " = ?, " +
+                START_DATE + " = ?, " +
+                END_DATE +" = ? " +
+                " WHERE " + INST_ID + " = ?";
+        PreparedStatement ps;
+        try {
+            ps = Database.conn.prepareStatement(sqlToUse);
+            int i = 1;
+            ps.setInt(i, this.ContactID);
+            ps.setDate(++i, this.StartDate);
+            ps.setDate(++i, this.EndDate);
+            ps.setInt(++i, this.InstID);
+            ps.executeUpdate();
+            if (ps != null) ps.close();
+        } catch (SQLException sqle) {
+            System.out.println("Unable to update loan information.\n" + sqle);
+        }
+
+    }
+
+    @Override
+    public void insertRecord() {
+        String sqlToUse = "INSERT INTO " + LOAN_TABLE_NAME + "(" +
+                INST_ID + "," + CONTACT_ID + "," + START_DATE + "," + END_DATE +
+                ") VALUES (?,?,?,?,?)";
+        PreparedStatement ps;
+        try {
+            ps = Database.conn.prepareStatement(sqlToUse);
+            int i = 1;
+            ps.setInt(i, this.InstID);
+            ps.setInt(++i, this.ContactID);
+            ps.setDate(++i, this.StartDate);
+            ps.setDate(++i, this.EndDate);
+            ps.executeUpdate();
+            if (ps != null) ps.close();
+        } catch (SQLException sqle) {
+            System.out.println("Unable to update loan information.\n" + sqle);
+        }
     }
 }
