@@ -251,6 +251,7 @@ public class UpdateInstrument extends ContactManager { //JFrame {
             System.out.println("Unable to update database record.\n" + sqle);
         }
         // also update its location information
+        System.out.println(selectedInstrument.getLocationInfo().toString());
         selectedInstrument.getLocationInfo().updateRecord();
     }
 
@@ -314,22 +315,29 @@ public class UpdateInstrument extends ContactManager { //JFrame {
 
     public void setLocationInfo(HashMap<String,String> objAttribs) {
         // takes an arraylist and sets
+        System.out.println("setLocationInfo thinks the current instrument id is " +
+        selectedInstrument.getInstID());
         String locType = objAttribs.get("Type");
+        locationComboBox.setSelectedItem(locType);
         if (locType == DataValidator.LOC_LOAN) {
-            this.selectedInstrument.setLocationInfo(new Loan(selectedInstrument.getInstID(),selectedInstrument.getAcquiredFrom()));
+            this.selectedInstrument.setLocationInfo(new Loan(selectedInstrument.getInstID()));
             Loan loan = (Loan) this.selectedInstrument.getLocationInfo();
+            loan.setInstID(this.selectedInstrument.getInstID());
             loan.setContactID(Integer.parseInt(objAttribs.get(Loan.CONTACT_ID)));
             loan.setStartDate(Date.valueOf(objAttribs.get(Loan.START_DATE)));
             loan.setEndDate(Date.valueOf(objAttribs.get(Loan.END_DATE)));
+            loan.updateContactName();
         } else if (locType == DataValidator.LOC_EXHIBIT) {
             this.selectedInstrument.setLocationInfo(new OnExhibit(selectedInstrument.getInstID()));
             OnExhibit onEx = (OnExhibit) this.selectedInstrument.getLocationInfo();
+            onEx.setInstID(this.selectedInstrument.getInstID());
             onEx.setExhibitID(Integer.parseInt(objAttribs.get(OnExhibit.EXHIBIT_ID)));
             onEx.setRoom(objAttribs.get(OnExhibit.ROOM));
             onEx.setLocationInRoom(objAttribs.get(OnExhibit.LOCATION_IN_ROOM));
         } else { // presumably storage or library
             this.selectedInstrument.setLocationInfo(new StorageLibrary(selectedInstrument.getInstID()));
             StorageLibrary storLib = (StorageLibrary) this.selectedInstrument.getLocationInfo();
+            storLib.setInstID(this.selectedInstrument.getInstID());
             storLib.setStorageType(locType);
             storLib.setRoom(objAttribs.get(StorageLibrary.ROOM));
             storLib.setCabinet(objAttribs.get(StorageLibrary.CABINET));

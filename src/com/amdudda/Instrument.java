@@ -120,7 +120,7 @@ public class Instrument {
             locationInfo = new OnExhibit(this.InstID);
         } else if (Location.equals(DataValidator.LOC_LOAN)) {
             // on Loan:
-            locationInfo = new Loan(this.InstID,this.AcquiredFrom);
+            locationInfo = new Loan(this.InstID);
         } else {
             // in library or storage:
             locationInfo = new StorageLibrary(this.InstID);

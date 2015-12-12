@@ -18,7 +18,7 @@ public class Loan extends LocationInfo {
     public static final String START_DATE = LOAN_TABLE_NAME + ".StartDate";
     public static final String END_DATE = LOAN_TABLE_NAME + ".EndDate";
 
-    Loan (int instID,int ContactID) {
+    Loan (int instID) {
         String sqlToRun = "SELECT " + INST_ID + ", " + CONTACT_ID + ", " + START_DATE +
                 ", " + END_DATE + ", IF (isempty(" + Contact.BUSINESSNAME + ")," +
                 Contact.CONTACTNAME + "," + Contact.BUSINESSNAME + ") AS CName " +
@@ -94,6 +94,7 @@ public class Loan extends LocationInfo {
                 END_DATE +" = ? " +
                 " WHERE " + INST_ID + " = ?";
         PreparedStatement ps;
+        System.out.println("trying to update record!");
         try {
             ps = Database.conn.prepareStatement(sqlToUse);
             int i = 1;
@@ -101,7 +102,9 @@ public class Loan extends LocationInfo {
             ps.setDate(++i, this.StartDate);
             ps.setDate(++i, this.EndDate);
             ps.setInt(++i, this.InstID);
-            ps.executeUpdate();
+            if (ps.executeUpdate() == 0 ) {
+                // if update fails, try inserting instead
+                 insertRecord(); }
             if (ps != null) ps.close();
         } catch (SQLException sqle) {
             System.out.println("Unable to update loan information.\n" + sqle);
@@ -113,7 +116,7 @@ public class Loan extends LocationInfo {
     public void insertRecord() {
         String sqlToUse = "INSERT INTO " + LOAN_TABLE_NAME + "(" +
                 INST_ID + "," + CONTACT_ID + "," + START_DATE + "," + END_DATE +
-                ") VALUES (?,?,?,?,?)";
+                ") VALUES (?,?,?,?)";
         PreparedStatement ps;
         try {
             ps = Database.conn.prepareStatement(sqlToUse);
@@ -126,6 +129,30 @@ public class Loan extends LocationInfo {
             if (ps != null) ps.close();
         } catch (SQLException sqle) {
             System.out.println("Unable to insert loan information.\n" + sqle);
+        }
+    }
+
+    protected void updateContactName() {
+        String sqlToUse = "SELECT " +
+                " IF (isempty(" + Contact.BUSINESSNAME + ")," +
+                Contact.CONTACTNAME + "," + Contact.BUSINESSNAME + ") AS CName " +
+                " FROM " + Contact.CONTACT_TABLE_NAME + " WHERE " +
+                Contact.CONTACTID + " = ?";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = Database.conn.prepareStatement(sqlToUse);
+            ps.setInt(1,this.ContactID);
+            rs = ps.executeQuery();
+            if (rs.next())
+            {
+                String nameToUse = rs.getObject("CName").toString();
+                this.setContactName(nameToUse);
+            } else {
+                this.setContactName("UNKNOWN");
+            }
+        } catch (SQLException sqle) {
+            System.out.println("Unable to update contact name in Loan object.\n" + sqle);
         }
     }
 }

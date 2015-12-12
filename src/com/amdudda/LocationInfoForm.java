@@ -48,7 +48,7 @@ public class LocationInfoForm extends ContactManager { // extends JFrame {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         // fetch existing data
-        this.loan = new Loan(this.inst_id,instrument.getAcquiredFrom());
+        this.loan = new Loan(this.inst_id);
         this.onExhibit = new OnExhibit(this.inst_id);
         this.storageLibrary = new StorageLibrary(this.inst_id);
 
@@ -128,7 +128,6 @@ public class LocationInfoForm extends ContactManager { // extends JFrame {
 
     private void populateFields() {
         // populate our fields
-        System.out.println("current location: " + cur_location);
         ArrayList<JRadioButton> cLBGbuttons = new ArrayList<>();
         cLBGbuttons.add(onExhibitRadioButton);
         cLBGbuttons.add(libraryRadioButton);
