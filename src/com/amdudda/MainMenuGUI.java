@@ -14,7 +14,7 @@ public class MainMenuGUI extends JFrame {
     private JButton addNewInstrumentButton;
     private JButton addNewContactButton;
     private JButton quitButton;
-    private JButton whatSOnExhibitButton;
+    private JButton whatsOnExhibitButton;
 
     public MainMenuGUI() {
         setContentPane(mainMenuRootPanel);
@@ -60,11 +60,12 @@ public class MainMenuGUI extends JFrame {
                 UpdateContact addContact = new UpdateContact(null);
             }
         });
-        whatSOnExhibitButton.addActionListener(new ActionListener() {
+        whatsOnExhibitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO: a screen to pull up just what's on exhibit right now.
-                JOptionPane.showMessageDialog(mainMenuRootPanel,"This doesn't do anything yet.");
+                //JOptionPane.showMessageDialog(mainMenuRootPanel,"This doesn't do anything yet.");
+                WhatsOnExhibitScreen woe = new WhatsOnExhibitScreen(Exhibit.getExhibitDetailList());
             }
         });
     }
