@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -38,11 +39,18 @@ public class UpdateInstrument extends ContactManager { //JFrame {
     private JTextArea locationSummaryTextArea;
     private Instrument selectedInstrument;
     private String acquiredFromName;
+    private boolean isNewRecord=false;
 
     public UpdateInstrument(String pkToUse) {// fetch the data for the instrument
         // instantiate an Instrument object and read its attributes.
         selectedInstrument = new Instrument(pkToUse);
-        acquiredFromName = selectedInstrument.getAcquisitionInfo().getFullName();
+        if (pkToUse != null) {
+            acquiredFromName = selectedInstrument.getAcquisitionInfo().getFullName();
+            isNewRecord = false;
+        } else {
+            acquiredFromName = "";
+            isNewRecord = true;
+        }
 
         setContentPane(updateInstrumentRootPanel);
         if (pkToUse == null) {
@@ -70,12 +78,12 @@ public class UpdateInstrument extends ContactManager { //JFrame {
         updateDatabaseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (pkToUse != null) {
-                    // update the record
-                    updateInstrument();
-                } else {
+                if (isNewRecord) {
                     // insert the record.
                     addInstrument();
+                } else {
+                    // update the record
+                    updateInstrument();
                 }
                 dispose();
             }
@@ -156,9 +164,15 @@ public class UpdateInstrument extends ContactManager { //JFrame {
         // generate our comboboxes - we need these even if pkToUse is null
         DataValidator.generateComboBox(classificationComboBox1, DataValidator.INSTRUMENT_TYPES);
         DataValidator.generateCountryComboBox(countryComboBox);
+        countryComboBox.setSelectedItem("United States");
         DataValidator.generateComboBox(locationComboBox, DataValidator.STORAGE_LOCATIONS);
+        locationComboBox.setSelectedItem(DataValidator.LOC_STORAGE);
         DataValidator.generateComboBox(tuningTypeComboBox, DataValidator.TUNING_TYPES);
         DataValidator.generateComboBox(regionComboBox, DataValidator.REGIONS);
+
+        // Load some default values
+        java.sql.Date today = new java.sql.Date(new java.util.Date().getTime());
+        acquiredDateTextField.setText(today.toString());
 
         if (haveData) {
             // populate text fields and comboboxes
@@ -232,9 +246,9 @@ public class UpdateInstrument extends ContactManager { //JFrame {
             updtInst.setString(++i, classificationComboBox1.getSelectedItem().toString());
             updtInst.setString(++i, subtypeTextField.getText());
             updtInst.setString(++i, locationComboBox.getSelectedItem().toString());
-            updtInst.setDouble(++i, Double.parseDouble(heightTextField.getText()));
-            updtInst.setDouble(++i, Double.parseDouble(widthTextField.getText()));
-            updtInst.setDouble(++i, Double.parseDouble(depthTextField.getText()));
+            updtInst.setDouble(++i, (heightTextField.getText().equals("")) ? 0 : Double.parseDouble(heightTextField.getText()));
+            updtInst.setDouble(++i, (widthTextField.getText().equals("")) ? 0 : Double.parseDouble(widthTextField.getText()));
+            updtInst.setDouble(++i, (depthTextField.getText().equals("")) ? 0 : Double.parseDouble(depthTextField.getText()));
             updtInst.setString(++i, regionComboBox.getSelectedItem().toString());
             updtInst.setString(++i, cultureTextField.getText());
             updtInst.setString(++i, tuningTypeComboBox.getSelectedItem().toString());
@@ -250,7 +264,7 @@ public class UpdateInstrument extends ContactManager { //JFrame {
             System.out.println("Unable to update database record.\n" + sqle);
         }
         // also update its location information
-        System.out.println(selectedInstrument.getLocationInfo().toString());
+//        System.out.println(selectedInstrument.getLocationInfo().toString());
         selectedInstrument.getLocationInfo().updateRecord();
     }
 
@@ -259,6 +273,8 @@ public class UpdateInstrument extends ContactManager { //JFrame {
         // a method that will be called by the add button
         // I considered making this a method in Instrument, but didn't want to create
         // listeners for every single field to update Instrument object with data.
+        ResultSet getPK = null;
+        int genPK = 0;
         String prSt = "INSERT INTO " + Instrument.INSTRUMENT_TABLE_NAME + " (" +
                 Instrument.INSTNAME + ", " +
                 Instrument.INSTTYPE + ", " +
@@ -280,19 +296,19 @@ public class UpdateInstrument extends ContactManager { //JFrame {
                 Instrument.DESCRIPTION + ", " +
                 Instrument.ISALOAN + ") " +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        System.out.println(prSt);
+        //System.out.println(prSt);
         try {
-            PreparedStatement addInst = Database.conn.prepareStatement(prSt);
-            int i = 0;
+            PreparedStatement addInst = Database.conn.prepareStatement(prSt, PreparedStatement.RETURN_GENERATED_KEYS);
+            int i = 1;
             addInst.setString(i, instrNameTextField.getText());
             addInst.setString(++i, classificationComboBox1.getSelectedItem().toString());
             addInst.setString(++i, subtypeTextField.getText());
-            addInst.setDate(++i, java.sql.Date.valueOf(acquiredDateTextField.getText()));
-            addInst.setInt(++i, Integer.parseInt(acquiredFromTextField.getText()));
+            addInst.setDate(++i, (acquiredDateTextField.getText().equals("")) ? null : java.sql.Date.valueOf(acquiredDateTextField.getText()));
+            addInst.setInt(++i, (acquiredFromTextField.getText().equals("")) ? 5 : Integer.parseInt(acquiredFromTextField.getText()));
             addInst.setString(++i, locationComboBox.getSelectedItem().toString());
-            addInst.setDouble(++i, Double.parseDouble(heightTextField.getText()));
-            addInst.setDouble(++i, Double.parseDouble(widthTextField.getText()));
-            addInst.setDouble(++i, Double.parseDouble(depthTextField.getText()));
+            addInst.setDouble(++i, (heightTextField.getText().equals("")) ? 0 : Double.parseDouble(heightTextField.getText()));
+            addInst.setDouble(++i, (widthTextField.getText().equals("")) ? 0 : Double.parseDouble(widthTextField.getText()));
+            addInst.setDouble(++i, (depthTextField.getText().equals("")) ? 0 : Double.parseDouble(depthTextField.getText()));
             addInst.setString(++i, regionComboBox.getSelectedItem().toString());
             addInst.setString(++i, cultureTextField.getText());
             addInst.setString(++i, tuningTypeComboBox.getSelectedItem().toString());
@@ -301,11 +317,25 @@ public class UpdateInstrument extends ContactManager { //JFrame {
             addInst.setString(++i, descriptionTextArea.getText());
             addInst.setBoolean(++i, isALoanCheckBox.isSelected());
             addInst.executeUpdate();
-            // don't forget to close my statement just in case it's still lingering...
+            /*see URL for info on returning the PK generated by the query.
+            http://stackoverflow.com/questions/14234257/java-with-sql-the-return-value-of-insert-command#14234362
+            */
+            getPK = addInst.getGeneratedKeys();
+            if (getPK.next()) {
+                genPK = getPK.getInt(1);
+            }
+            // don't forget to close my stuff just in case it's still lingering...
+            if (getPK != null) getPK.close();
             if (addInst != null) addInst.close();
         } catch (SQLException sqle) {
-            System.out.println("Unable to update database record.\n" + sqle);
+            System.out.println("Unable to insert database record.\n" + sqle);
+           /* System.out.println("error code:" + sqle.getErrorCode());
+            System.out.println("sql state:" + sqle.getSQLState());*/
         }
+
+//        Also insert the location information
+        selectedInstrument.getLocationInfo().setInstID(genPK);
+        selectedInstrument.getLocationInfo().updateRecord();
     }
 
     public void setAcquiredFromTextField(String id) {

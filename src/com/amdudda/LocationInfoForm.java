@@ -177,8 +177,8 @@ public class LocationInfoForm extends ContactManager { // extends JFrame {
         } else if (selButton.equals("Exhibit")) {
             locAttribs.put("Type",DataValidator.LOC_EXHIBIT);
             locAttribs.put(OnExhibit.EXHIBIT_ID,exhibitIDTextField.getText());
-            locAttribs.put(onExhibit.ROOM,exhibitRoomComboBox.getSelectedItem().toString());
-            locAttribs.put(onExhibit.LOCATION_IN_ROOM,locInRmComboBox.getSelectedItem().toString());
+            locAttribs.put(OnExhibit.ROOM,exhibitRoomComboBox.getSelectedItem().toString());
+            locAttribs.put(OnExhibit.LOCATION_IN_ROOM,locInRmComboBox.getSelectedItem().toString());
         } else {
             locAttribs.put("Type",selButton);
             locAttribs.put(StorageLibrary.ROOM,slRoomComboBox.getSelectedItem().toString());
