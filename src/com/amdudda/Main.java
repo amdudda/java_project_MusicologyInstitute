@@ -14,9 +14,6 @@ public class Main {
         // (a) dbsetup closes it, and (b) if dbFlag.txt set to true, it never actually fires up.
         MainMenuGUI mMG = new MainMenuGUI();
 
-        /*Loan loan = new Loan(7,1);
-        System.out.println((loan.toString()));*/
-
         // and close everything when the program exits - now taken care of in Main Menu screen.
         //Database.closeConnStatement();
 
