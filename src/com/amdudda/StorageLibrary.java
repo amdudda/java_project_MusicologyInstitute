@@ -32,10 +32,10 @@ public class StorageLibrary extends LocationInfo {
             rs = ps.executeQuery();
             if (rs.next()) {
                 this.InstID = Integer.parseInt(rs.getObject(INSTR_ID).toString());
-                this.StorageType = rs.getObject(STORAGE_TYPE).toString();
-                this.Room = rs.getObject(ROOM).toString();
-                this.Cabinet = rs.getObject(CABINET).toString();
-                this.Shelf = Integer.parseInt(rs.getObject(SHELF).toString());
+                this.StorageType = (rs.getObject(STORAGE_TYPE) == null) ? "" : rs.getObject(STORAGE_TYPE).toString();
+                this.Room = (rs.getObject(ROOM) == null) ? "" : rs.getObject(ROOM).toString();
+                this.Cabinet = (rs.getObject(CABINET) == null) ? "" : rs.getObject(CABINET).toString();
+                this.Shelf = (rs.getObject(SHELF) == null) ? 0 : Integer.parseInt(rs.getObject(SHELF).toString());
                 if (rs != null) rs.close();
                 if (ps != null) ps.close();
             }

@@ -1,10 +1,11 @@
 package com.amdudda;
 
+import javafx.scene.control.RadioButton;
+
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 
@@ -35,11 +36,9 @@ public class LocationInfoForm extends JFrame {
     private Loan loan;
     private OnExhibit onExhibit;
     private StorageLibrary storageLibrary;
-    private Instrument my_instrument;
 
     public LocationInfoForm(Instrument instrument, UpdateInstrument updateInstrument) {
         // updates current location info for selected instrument.
-        my_instrument = instrument;
         this.inst_id = instrument.getInstID();
         this.cur_location = instrument.getLocation();
 
@@ -92,6 +91,7 @@ public class LocationInfoForm extends JFrame {
                 validateDate(endDateTextField);
             }
         });
+
         shelfTextField.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
@@ -100,6 +100,23 @@ public class LocationInfoForm extends JFrame {
                     JOptionPane.showMessageDialog(locationInfoRootPanel,"Please enter a whole number with no decimals.");
                     shelfTextField.grabFocus();
                 }
+            }
+        });
+        cabinetTextField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                if (cabinetTextField.getText().length() > 1) {
+                    JOptionPane.showMessageDialog(locationInfoRootPanel,"Cabinet must only one character long.");
+                    cabinetTextField.grabFocus();
+                }
+            }
+        });
+        contactIDTextField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                //SelectContactScreen scs = new SelectContactScreen(Contact.getBrowsingData(),LocationInfoForm.this);
             }
         });
     }
@@ -113,17 +130,17 @@ public class LocationInfoForm extends JFrame {
 
     private void populateFields() {
         // populate our fields
-        currentLocationButtonGroup.add(onExhibitRadioButton);
-        currentLocationButtonGroup.add(libraryRadioButton);
-        currentLocationButtonGroup.add(storageRadioButton);
-        currentLocationButtonGroup.add(onLoanRadioButton);
-        // got this idea from http://www.java2s.com/Tutorial/Java/0240__Swing/Settingselectedbuttoninabuttongroup.htm
-        Enumeration<AbstractButton> elements = currentLocationButtonGroup.getElements();
-        while (elements.hasMoreElements()) {
-            AbstractButton abstractButton = elements.nextElement();
-            if (abstractButton.getActionCommand().equals(cur_location)) {
-                abstractButton.setSelected(true);
-                break;
+        System.out.println("current location: " + cur_location);
+        ArrayList<JRadioButton> cLBGbuttons = new ArrayList<>();
+        cLBGbuttons.add(onExhibitRadioButton);
+        cLBGbuttons.add(libraryRadioButton);
+        cLBGbuttons.add(storageRadioButton);
+        cLBGbuttons.add(onLoanRadioButton);
+        for (int b = 0; b < cLBGbuttons.size(); b++) {
+            currentLocationButtonGroup.add(cLBGbuttons.get(b));
+            JRadioButton cur_button = cLBGbuttons.get(b);
+            if (cur_button.getActionCommand().equals(cur_location)) {
+                currentLocationButtonGroup.setSelected(cur_button.getModel(),true);
             }
         }
 
@@ -170,7 +187,11 @@ public class LocationInfoForm extends JFrame {
             locAttribs.put(StorageLibrary.ROOM,slRoomComboBox.getSelectedItem().toString());
             locAttribs.put(StorageLibrary.CABINET,cabinetTextField.getText());
             locAttribs.put(StorageLibrary.SHELF,shelfTextField.getText());
-        }
+            }
         return locAttribs;
+    }
+
+    public void setAcquiredFromTextField(String cID) {
+        this.contactIDTextField.setText(cID);
     }
 }

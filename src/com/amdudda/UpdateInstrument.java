@@ -333,7 +333,7 @@ public class UpdateInstrument extends JFrame {
             storLib.setStorageType(locType);
             storLib.setRoom(objAttribs.get(StorageLibrary.ROOM));
             storLib.setCabinet(objAttribs.get(StorageLibrary.CABINET));
-            storLib.setShelf(Integer.parseInt(StorageLibrary.SHELF));
+            storLib.setShelf(Integer.parseInt(objAttribs.get(StorageLibrary.SHELF)));
         }
         //System.out.println(this.selectedInstrument.getLocationInfo().toString());
         this.locationSummaryTextArea.setText(this.selectedInstrument.getLocationInfo().toString());

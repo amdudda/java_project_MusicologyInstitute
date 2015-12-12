@@ -21,6 +21,7 @@ public class OnExhibit extends LocationInfo {
     private String LocationInRoom;
 
     public OnExhibit(int id) {
+        this.InstID = id;
         String sqlToUse = "SELECT * FROM " + EXHIBIT_TABLE_NAME +
                 " WHERE " + INSTR_ID + " = ?";
         PreparedStatement ps = null;
@@ -29,13 +30,14 @@ public class OnExhibit extends LocationInfo {
             ps = Database.conn.prepareStatement(sqlToUse);
             ps.setInt(1, id);
             rs = ps.executeQuery();
-            rs.next();
-            this.InstID = Integer.parseInt(rs.getObject(INSTR_ID).toString());
-            this.ExhibitID = Integer.parseInt(rs.getObject(EXHIBIT_ID).toString());
-            this.Room = (rs.getObject(ROOM) == null) ? "" : rs.getObject(ROOM).toString();
-            this.LocationInRoom = (rs.getObject(LOCATION_IN_ROOM) == null) ? "" : rs.getObject(LOCATION_IN_ROOM).toString();
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
+            if (rs.next()) {
+                this.InstID = Integer.parseInt(rs.getObject(INSTR_ID).toString());
+                this.ExhibitID = Integer.parseInt(rs.getObject(EXHIBIT_ID).toString());
+                this.Room = (rs.getObject(ROOM) == null) ? "" : rs.getObject(ROOM).toString();
+                this.LocationInRoom = (rs.getObject(LOCATION_IN_ROOM) == null) ? "" : rs.getObject(LOCATION_IN_ROOM).toString();
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+            }
         } catch (SQLException sqle) {
             System.out.println("Unable to fetch OnExhibit location information.\n" + sqle);
         }
