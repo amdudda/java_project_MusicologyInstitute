@@ -251,7 +251,6 @@ public class UpdateInstrument extends JFrame {
             System.out.println("Unable to update database record.\n" + sqle);
         }
         // also update its location information
-        System.out.println(selectedInstrument.getLocationInfo().toString());
         selectedInstrument.getLocationInfo().updateRecord();
     }
 

@@ -37,7 +37,7 @@ public class OnExhibit extends LocationInfo {
             if (rs != null) rs.close();
             if (ps != null) ps.close();
         } catch (SQLException sqle) {
-            System.out.println("Unable to fetch exhibit location information.\n" + sqle);
+            System.out.println("Unable to fetch OnExhibit location information.\n" + sqle);
         }
     }
 

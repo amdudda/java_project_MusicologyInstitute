@@ -144,7 +144,6 @@ public class BrowseListDataModel extends AbstractTableModel {
         try {
             ps = Database.conn.prepareStatement(sqlToRun);
             ps.setString(1, "%" + searchString + "%");
-            System.out.println(ps.toString());
             this.browseTable = ps.executeQuery();
         } catch (SQLException sqle) {
             System.out.println("Unable to fetch search results.");
