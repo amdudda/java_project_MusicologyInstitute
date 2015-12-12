@@ -3,16 +3,14 @@ package com.amdudda;
 import javafx.scene.control.RadioButton;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 
 /**
  * Created by amdudda on 12/10/15.
  */
-public class LocationInfoForm extends JFrame {
+public class LocationInfoForm extends ContactManager { // extends JFrame {
     private JRadioButton storageRadioButton;
     private JRadioButton onExhibitRadioButton;
     private JRadioButton onLoanRadioButton;
@@ -116,7 +114,7 @@ public class LocationInfoForm extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                //SelectContactScreen scs = new SelectContactScreen(Contact.getBrowsingData(),LocationInfoForm.this);
+                SelectContactScreen scs = new SelectContactScreen(Contact.getBrowsingData(),LocationInfoForm.this);
             }
         });
     }
@@ -191,7 +189,7 @@ public class LocationInfoForm extends JFrame {
         return locAttribs;
     }
 
-    public void setAcquiredFromTextField(String cID) {
-        this.contactIDTextField.setText(cID);
+    public void setAcquiredFromTextField(String id) {
+        this.contactIDTextField.setText(id);
     }
 }

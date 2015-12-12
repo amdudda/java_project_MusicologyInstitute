@@ -11,7 +11,7 @@ import java.util.HashMap;
 /**
  * Created by amdudda on 12/2/15.
  */
-public class UpdateInstrument extends JFrame {
+public class UpdateInstrument extends ContactManager { //JFrame {
     private JPanel updateInstrumentRootPanel;
     private JTextField instrIDtextField;
     private JTextField instrNameTextField;
