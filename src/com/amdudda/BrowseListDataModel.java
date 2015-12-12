@@ -95,6 +95,18 @@ public class BrowseListDataModel extends AbstractTableModel {
         }
     }
 
+    public int getColumnNumber(String colName) {
+        int colNum = 0;
+        for (int i = 0; i <= this.colcount; i++) {
+            if (colName.equals(this.getColumnName(i))) {
+                colNum = i;
+                break;
+            }
+        }
+        System.out.println(colName + " is in column " + colNum);
+        return colNum;
+    }
+
     public void search(String selField, String searchString) {
         // this updates the display with search results
         String listOfFields, tableToQuery;

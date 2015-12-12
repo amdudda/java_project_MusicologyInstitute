@@ -364,4 +364,13 @@ public class Instrument {
             return -1;
         }
     }
+
+    @Override
+    public String toString() {
+        return this.InstName + "\n" + this.InstType + " " + this.Subtype + "\n" +
+                "Acquired " + this.AcquiredDate + " from " + this.acquisitionInfo.getFullName()  + "\n" +
+                this.Height + "cm high x " + this.Width + "cm wide x " + this.Depth + "cm deep\n"  +
+                "Originates from " + this.Culture  + "\n" +
+                "Lowest Note is " + this.LowNote + " and highest note is " + this.HighNote  + "\n";
+    }
 }

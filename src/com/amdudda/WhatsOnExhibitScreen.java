@@ -1,8 +1,7 @@
 package com.amdudda;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -92,6 +91,20 @@ public class WhatsOnExhibitScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 bldm.clearSearch();
+            }
+        });
+
+        browseDataTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                int exhColNum = bldm.getColumnNumber(Exhibit.EXHIBIT_ID.split("\\.")[1]);
+                int instColNum = bldm.getColumnNumber(Instrument.INSTID.split("\\.")[1]);
+                // refresh details at bottom of screen
+                String selExh = bldm.getValueAt(browseDataTable.getSelectedRow(), exhColNum).toString();
+                exhibitTextArea.setText(new Exhibit(selExh).toString());
+                String selInstr = bldm.getValueAt(browseDataTable.getSelectedRow(), instColNum).toString();
+                instrumentTextArea.setText(new Instrument(selInstr).toString());
             }
         });
     }

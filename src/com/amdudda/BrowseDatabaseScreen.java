@@ -67,6 +67,7 @@ public class BrowseDatabaseScreen extends JFrame {
                 }
             }
         });
+
         addNewRecordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
