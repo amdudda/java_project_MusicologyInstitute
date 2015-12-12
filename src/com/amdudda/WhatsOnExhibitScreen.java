@@ -11,8 +11,6 @@ import java.sql.Statement;
  */
 public class WhatsOnExhibitScreen extends JFrame {
     private JTable browseDataTable;
-    private JButton editSelectedRecordButton;
-    private JButton addNewRecordButton;
     private JButton returnToMainMenuButton;
     private JPanel whatsOnExhibitRootPanel;
     private JComboBox selectSearchColumnComboBox;
@@ -21,6 +19,7 @@ public class WhatsOnExhibitScreen extends JFrame {
     private JButton clearResultsButton;
     private JTextArea exhibitTextArea;
     private JTextArea instrumentTextArea;
+    private JScrollPane instrDetailsScrollPane;
     private BrowseListDataModel bldm;
     private static ResultSet dataToBrowse;
     protected static Statement browseTableStatement;
@@ -50,30 +49,6 @@ public class WhatsOnExhibitScreen extends JFrame {
                     System.out.println("Unable to close connections.\n" + sqle);
                 }
                 dispose();
-            }
-        });
-
-        editSelectedRecordButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String selPK = bldm.getValueAt(browseDataTable.getSelectedRow(), 0).toString();
-                if (browseDataTable.getSelectedRow() == -1) {
-                    JOptionPane.showMessageDialog(whatsOnExhibitRootPanel,"Please select a record to edit.");
-                } else if (bldm.getTableName().contains("Instrument")) {
-                    UpdateInstrument updtInst = new UpdateInstrument(selPK);
-                } else {
-                    UpdateContact updtCont = new UpdateContact(selPK);
-                }
-            }
-        });
-        addNewRecordButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (bldm.getTableName().contains("Instrument")) {
-                    UpdateInstrument updtInst = new UpdateInstrument(null);
-                } else {
-                    UpdateContact updtCont = new UpdateContact(null);
-                }
             }
         });
 

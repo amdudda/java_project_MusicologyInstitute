@@ -371,6 +371,7 @@ public class Instrument {
                 "Acquired " + this.AcquiredDate + " from " + this.acquisitionInfo.getFullName()  + "\n" +
                 this.Height + "cm high x " + this.Width + "cm wide x " + this.Depth + "cm deep\n"  +
                 "Originates from " + this.Culture  + "\n" +
-                "Lowest Note is " + this.LowNote + " and highest note is " + this.HighNote  + "\n";
+                "Lowest Note is " + this.LowNote + " and highest note is " + this.HighNote  + "\n" +
+                "Notes:\n" + this.Description;
     }
 }
