@@ -5,8 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.sql.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
 
 /**
  * Created by amdudda on 12/10/15.
@@ -68,23 +68,14 @@ public class LocationInfoForm extends JFrame {
         updateDatabaseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // JOptionPane.showMessageDialog(locationInfoRootPanel,"This button doesn't do anything yet.");
-                updateInstrumentLocation(instrument);
-                // TODO: need to update UpdtInst screen with new location indicator
-                /*
-                Instrument instToUpdate = updateInstrument.getSelectedInstrument();
-                instToUpdate.setLocationInfo(my_instrument.getLocationInfo());
-*/
-                String summary = instrument.getLocationInfo().toString();
-                System.out.println(summary);
-                updateInstrument.setLocationComboBox(instrument.getLocation());
-                updateInstrument.setLocationSummaryTextArea(summary);
-                // TODO: why oh why does this not update the instrument object on UpdateInstrument?????
+                // Update UpdtInst screen with new location indicator.
+                // I can't tweak the values here, because they get thrown away when this window closes.
+                updateInstrument.setLocationInfo(getLocAttribs());
                 dispose();
             }
         });
 
-        // TODO: Data validation
+        // Data validation
         startDateTextField.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
@@ -160,48 +151,26 @@ public class LocationInfoForm extends JFrame {
         endDateTextField.setText((loan.getEndDate() == null) ? "" : loan.getEndDate().toString());
     }
 
-    private void updateInstrumentLocation(Instrument instToUpdate) {
-        // updates instrument's location with new data
-        // what we do varies based on which button is selected
+    private HashMap<String,String> getLocAttribs() {
         String selButton = currentLocationButtonGroup.getSelection().getActionCommand();
+        HashMap<String,String> locAttribs = new HashMap<String,String>();
 
         if (selButton.equals("On Loan")) {
-            //Loan locToUpdate = new Loan(instToUpdate.getInstID(),instToUpdate.getAcquiredFrom());
-            instToUpdate.setLocationInfo(new Loan(instToUpdate.getInstID(),instToUpdate.getAcquiredFrom()));
-            Loan locToUpdate = (Loan) instToUpdate.getLocationInfo();
-            locToUpdate.setContactID(Integer.parseInt(contactIDTextField.getText()));
-            locToUpdate.setStartDate(Date.valueOf(startDateTextField.getText()));
-            locToUpdate.setEndDate(Date.valueOf(endDateTextField.getText()));
-            instToUpdate.setLocation(DataValidator.LOC_LOAN);
-            instToUpdate.setLocationInfo(loan);
+            locAttribs.put("Type",DataValidator.LOC_LOAN);
+            locAttribs.put(Loan.CONTACT_ID,contactIDTextField.getText());
+            locAttribs.put(Loan.START_DATE,startDateTextField.getText());
+            locAttribs.put(Loan.END_DATE,endDateTextField.getText());
         } else if (selButton.equals("Exhibit")) {
-            //OnExhibit locToUpdate = new OnExhibit(instToUpdate.getInstID());
-//            instToUpdate.setLocationInfo(new OnExhibit(instToUpdate.getInstID()));
-//            OnExhibit locToUpdate = (OnExhibit) instToUpdate.getLocationInfo();
-            // System.out.println("Setting room to " + exhibitRoomComboBox.getSelectedItem().toString());
-            OnExhibit locToUpdate = (OnExhibit) instToUpdate.getLocationInfo();
-            locToUpdate.setRoom(exhibitRoomComboBox.getSelectedItem().toString());
-            locToUpdate.setLocationInRoom(locInRmComboBox.getSelectedItem().toString());
-            instToUpdate.setLocation(DataValidator.LOC_EXHIBIT);
-            instToUpdate.setLocationInfo(locToUpdate);
+            locAttribs.put("Type",DataValidator.LOC_EXHIBIT);
+            locAttribs.put(OnExhibit.EXHIBIT_ID,exhibitIDTextField.getText());
+            locAttribs.put(onExhibit.ROOM,exhibitRoomComboBox.getSelectedItem().toString());
+            locAttribs.put(onExhibit.LOCATION_IN_ROOM,locInRmComboBox.getSelectedItem().toString());
         } else {
-            // we update the Storage table
-            //StorageLibrary locToUpdate = new StorageLibrary(instToUpdate.getInstID());
-            instToUpdate.setLocationInfo(new StorageLibrary(instToUpdate.getInstID()));
-            StorageLibrary locToUpdate = (StorageLibrary) instToUpdate.getLocationInfo();
-            locToUpdate.setRoom(slRoomComboBox.getSelectedItem().toString());
-            locToUpdate.setCabinet(cabinetTextField.getText());
-            locToUpdate.setShelf(Integer.parseInt(shelfTextField.getText()));
-            if (selButton.equals("Library")) {
-                locToUpdate.setStorageType(DataValidator.LOC_LIBRARY);
-                instToUpdate.setLocation(DataValidator.LOC_LIBRARY);
-            } else {
-                // presumably in Storage
-                locToUpdate.setStorageType(DataValidator.LOC_STORAGE);
-                instToUpdate.setLocation(DataValidator.LOC_STORAGE);
-            }
-            instToUpdate.setLocationInfo(storageLibrary);
+            locAttribs.put("Type",selButton);
+            locAttribs.put(StorageLibrary.ROOM,slRoomComboBox.getSelectedItem().toString());
+            locAttribs.put(StorageLibrary.CABINET,cabinetTextField.getText());
+            locAttribs.put(StorageLibrary.SHELF,shelfTextField.getText());
         }
+        return locAttribs;
     }
-
 }

@@ -12,11 +12,11 @@ public class Loan extends LocationInfo {
     private java.sql.Date EndDate;
     private String ContactName;
 
-    private static final String LOAN_TABLE_NAME = "Loan";
-    private static final String INST_ID = LOAN_TABLE_NAME + ".InstID";
-    private static final String CONTACT_ID = LOAN_TABLE_NAME + ".ContactID";
-    private static final String START_DATE = LOAN_TABLE_NAME + ".StartDate";
-    private static final String END_DATE = LOAN_TABLE_NAME + ".EndDate";
+    public static final String LOAN_TABLE_NAME = "Loan";
+    public static final String INST_ID = LOAN_TABLE_NAME + ".InstID";
+    public static final String CONTACT_ID = LOAN_TABLE_NAME + ".ContactID";
+    public static final String START_DATE = LOAN_TABLE_NAME + ".StartDate";
+    public static final String END_DATE = LOAN_TABLE_NAME + ".EndDate";
 
     Loan (int instID,int ContactID) {
         String sqlToRun = "SELECT " + INST_ID + ", " + CONTACT_ID + ", " + START_DATE +

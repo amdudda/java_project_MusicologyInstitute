@@ -2,8 +2,11 @@ package com.amdudda;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by amdudda on 12/2/15.
@@ -309,10 +312,31 @@ public class UpdateInstrument extends JFrame {
     public void setAcquiredFromTextField(String id) {
         this.acquiredFromTextField.setText(id);
     }
-    public void setLocationComboBox(String loc) { this.locationComboBox.setSelectedItem(loc); }
-    public void setLocationSummaryTextArea(String summary) {
-        this.locationSummaryTextArea.setText(summary);
-        System.out.println("Current location info is: " + selectedInstrument.getLocationInfo().toString() );
+
+    public void setLocationInfo(HashMap<String,String> objAttribs) {
+        // takes an arraylist and sets
+        String locType = objAttribs.get("Type");
+        if (locType == DataValidator.LOC_LOAN) {
+            this.selectedInstrument.setLocationInfo(new Loan(selectedInstrument.getInstID(),selectedInstrument.getAcquiredFrom()));
+            Loan loan = (Loan) this.selectedInstrument.getLocationInfo();
+            loan.setContactID(Integer.parseInt(objAttribs.get(Loan.CONTACT_ID)));
+            loan.setStartDate(Date.valueOf(objAttribs.get(Loan.START_DATE)));
+            loan.setEndDate(Date.valueOf(objAttribs.get(Loan.END_DATE)));
+        } else if (locType == DataValidator.LOC_EXHIBIT) {
+            this.selectedInstrument.setLocationInfo(new OnExhibit(selectedInstrument.getInstID()));
+            OnExhibit onEx = (OnExhibit) this.selectedInstrument.getLocationInfo();
+            onEx.setExhibitID(Integer.parseInt(objAttribs.get(OnExhibit.EXHIBIT_ID)));
+            onEx.setRoom(objAttribs.get(OnExhibit.ROOM));
+            onEx.setLocationInRoom(objAttribs.get(OnExhibit.LOCATION_IN_ROOM));
+        } else { // presumably storage or library
+            this.selectedInstrument.setLocationInfo(new StorageLibrary(selectedInstrument.getInstID()));
+            StorageLibrary storLib = (StorageLibrary) this.selectedInstrument.getLocationInfo();
+            storLib.setStorageType(locType);
+            storLib.setRoom(objAttribs.get(StorageLibrary.ROOM));
+            storLib.setCabinet(objAttribs.get(StorageLibrary.CABINET));
+            storLib.setShelf(Integer.parseInt(StorageLibrary.SHELF));
+        }
+        //System.out.println(this.selectedInstrument.getLocationInfo().toString());
+        this.locationSummaryTextArea.setText(this.selectedInstrument.getLocationInfo().toString());
     }
-    public Instrument getSelectedInstrument() { return this.selectedInstrument; }
 }
