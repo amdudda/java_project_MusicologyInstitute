@@ -90,7 +90,10 @@ public class OnExhibit extends LocationInfo {
             ps.setString(++i, this.Room);
             ps.setString(++i, this.LocationInRoom);
             ps.setInt(++i, this.InstID);
-            ps.executeUpdate();
+            if (ps.executeUpdate() == 0 ) {
+                // if update fails, try inserting instead
+                insertRecord();
+            }
             if (ps != null) ps.close();
         } catch (SQLException sqle) {
             System.out.println("Unable to update On-Exhibit data.\n" + sqle);

@@ -103,7 +103,10 @@ public class StorageLibrary extends LocationInfo {
             ps.setString(++i, this.Cabinet);
             ps.setInt(++i,this.Shelf);
             ps.setInt(++i, this.InstID);
-            ps.executeUpdate();
+            if (ps.executeUpdate() == 0 ) {
+                // if update fails, try inserting instead
+                insertRecord();
+            }
             if (ps != null) ps.close();
         } catch (SQLException sqle) {
             System.out.println("Unable to update storage information.\n" + sqle);

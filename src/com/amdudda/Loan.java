@@ -94,7 +94,7 @@ public class Loan extends LocationInfo {
                 END_DATE +" = ? " +
                 " WHERE " + INST_ID + " = ?";
         PreparedStatement ps;
-        System.out.println("trying to update record!");
+        // System.out.println("trying to update record!");
         try {
             ps = Database.conn.prepareStatement(sqlToUse);
             int i = 1;
@@ -104,7 +104,8 @@ public class Loan extends LocationInfo {
             ps.setInt(++i, this.InstID);
             if (ps.executeUpdate() == 0 ) {
                 // if update fails, try inserting instead
-                 insertRecord(); }
+                 insertRecord();
+            }
             if (ps != null) ps.close();
         } catch (SQLException sqle) {
             System.out.println("Unable to update loan information.\n" + sqle);
