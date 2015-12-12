@@ -63,7 +63,7 @@ public class Exhibit {
         // TODO: create helper object for InstEx data.
         String sqltoUse = "SELECT " +
                 EXHIBIT_ID + ", " + EXHIBIT_NAME + ", " + START_DATE + ", " + END_DATE + ", " + ROOM + ", " +
-                "InstrumentExhibit.InstID, InstrumentExhibit.Room, InstrumentExhibit.LocationInRoom, " +
+                "InstrumentExhibit.InstID, InstrumentExhibit.Room AS InstrRoom, InstrumentExhibit.LocationInRoom, " +
                 Instrument.INSTNAME + ", " + Instrument.INSTTYPE + ", " + Instrument.SUBTYPE +
                 " FROM Exhibit, InstrumentExhibit, Instrument" +
                 " WHERE Exhibit.ExhibitID = InstrumentExhibit.ExhibitID AND" +
