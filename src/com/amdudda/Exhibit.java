@@ -59,15 +59,7 @@ public class Exhibit {
     protected static ResultSet getBrowsingData(){
         // lists all exhibits and associated instruments
         ResultSet rs = null;
-        // TODO: create helper object for InstEx data.
-        /*String sqltoUse = "SELECT " +
-                EXHIBIT_ID + ", " + EXHIBIT_NAME + ", " + START_DATE + ", " + END_DATE + ", " + ROOM + ", " +
-                "InstrumentExhibit.InstID, InstrumentExhibit.Room AS InstrRoom, InstrumentExhibit.LocationInRoom, " +
-                Instrument.INSTNAME + ", " + Instrument.INSTTYPE + ", " + Instrument.SUBTYPE +
-                " FROM Exhibit, InstrumentExhibit, Instrument" +
-                " WHERE Exhibit.ExhibitID = InstrumentExhibit.ExhibitID AND" +
-                " InstrumentExhibit.InstID = Instrument.InstID";*/
-            // second line of query below refers to named fields in the subquery.
+        // second line of query below refers to named fields in the subquery.
         String sqltoUse = "SELECT " +
                 EXHIBIT_ID + ", " + EXHIBIT_NAME + ", " + START_DATE + ", " + END_DATE + ", " + ROOM + " AS ExhibitHome, " +
                 "InstID, InstrRoom, LocationInRoom, InstName, InstType, Subtype" +

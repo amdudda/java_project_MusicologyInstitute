@@ -103,7 +103,7 @@ public class BrowseListDataModel extends AbstractTableModel {
                 break;
             }
         }
-        System.out.println(colName + " is in column " + colNum);
+        //System.out.println(colName + " is in column " + colNum);
         return colNum;
     }
 

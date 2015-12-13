@@ -61,7 +61,13 @@ public class Instrument {
 
     // and a constructor so we can pass instrument attributes to the editing screen and pass values back to the databae
     public Instrument(String recID) {
-        if (recID != null) {
+        System.out.println(recID);
+        if (recID.equals("") || recID == null)  {
+            this.InstID = 0;
+        } else {
+            this.InstID = Integer.parseInt(recID);
+        }
+        if (this.InstID != 0) {
             PreparedStatement psFetch = null;
             // only bother populating the values if a recordID is actually passed to the constructor.
             try {
@@ -367,11 +373,14 @@ public class Instrument {
 
     @Override
     public String toString() {
-        return this.InstName + "\n" + this.InstType + " " + this.Subtype + "\n" +
-                "Acquired " + this.AcquiredDate + " from " + this.acquisitionInfo.getFullName()  + "\n" +
-                this.Height + "cm high x " + this.Width + "cm wide x " + this.Depth + "cm deep\n"  +
-                "Originates from " + this.Culture  + "\n" +
-                "Lowest Note is " + this.LowNote + " and highest note is " + this.HighNote  + "\n" +
-                "Notes:\n" + this.Description;
+        if (this.InstID == 0) { return "No instrument data available"; }
+        else {
+            return this.InstName + "\n" + this.InstType + " " + this.Subtype + "\n" +
+                    "Acquired " + this.AcquiredDate + " from " + this.acquisitionInfo.getFullName() + "\n" +
+                    this.Height + "cm high x " + this.Width + "cm wide x " + this.Depth + "cm deep\n" +
+                    "Originates from " + this.Culture + "\n" +
+                    "Lowest Note is " + this.LowNote + " and highest note is " + this.HighNote + "\n" +
+                    "Notes:\n" + this.Description;
+        }
     }
 }
