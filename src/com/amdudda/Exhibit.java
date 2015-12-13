@@ -21,32 +21,34 @@ public class Exhibit {
 
     public Exhibit(String id) {
         // instantiates an Exhibit object
-        String sqlToUse = "SELECT * FROM " + EXHIBIT_TABLE_NAME +
-                " WHERE " + EXHIBIT_ID + " = ?";
-        ResultSet rs = null;
-        PreparedStatement ps = null;
-        try {
-            ps = Database.conn.prepareStatement(sqlToUse);
-            ps.setInt(1, Integer.parseInt(id));
-            rs = ps.executeQuery();
-        } catch (SQLException sqle) {
-            System.out.println("Unable to get Exhibit data.\n" + sqle);
-        }
+        if (id != null) {
+            String sqlToUse = "SELECT * FROM " + EXHIBIT_TABLE_NAME +
+                    " WHERE " + EXHIBIT_ID + " = ?";
+            ResultSet rs = null;
+            PreparedStatement ps = null;
+            try {
+                ps = Database.conn.prepareStatement(sqlToUse);
+                ps.setInt(1, Integer.parseInt(id));
+                rs = ps.executeQuery();
+            } catch (SQLException sqle) {
+                System.out.println("Unable to get Exhibit data.\n" + sqle);
+            }
 
-        try {
-            if (rs.next()) {
-                this.ExhibitID = rs.getInt(EXHIBIT_ID);
-                this.ExhibitName = rs.getString(EXHIBIT_NAME);
-                this.StartDate = rs.getDate(START_DATE);
-                this.EndDate = rs.getDate(END_DATE);
-                this.Room = rs.getString(ROOM);
-            }
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
-        } catch (SQLException sqle) {
-            System.out.println("Unable to parse Exhibit data.\n" + sqle);
+            try {
+                if (rs.next()) {
+                    this.ExhibitID = rs.getInt(EXHIBIT_ID);
+                    this.ExhibitName = rs.getString(EXHIBIT_NAME);
+                    this.StartDate = rs.getDate(START_DATE);
+                    this.EndDate = rs.getDate(END_DATE);
+                    this.Room = rs.getString(ROOM);
+                }
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+            } catch (SQLException sqle) {
+                System.out.println("Unable to parse Exhibit data.\n" + sqle);
             }
         }
+    }
 
     @Override
     public String toString() {
@@ -58,13 +60,28 @@ public class Exhibit {
         // lists all exhibits and associated instruments
         ResultSet rs = null;
         // TODO: create helper object for InstEx data.
-        String sqltoUse = "SELECT " +
+        /*String sqltoUse = "SELECT " +
                 EXHIBIT_ID + ", " + EXHIBIT_NAME + ", " + START_DATE + ", " + END_DATE + ", " + ROOM + ", " +
                 "InstrumentExhibit.InstID, InstrumentExhibit.Room AS InstrRoom, InstrumentExhibit.LocationInRoom, " +
                 Instrument.INSTNAME + ", " + Instrument.INSTTYPE + ", " + Instrument.SUBTYPE +
                 " FROM Exhibit, InstrumentExhibit, Instrument" +
                 " WHERE Exhibit.ExhibitID = InstrumentExhibit.ExhibitID AND" +
-                " InstrumentExhibit.InstID = Instrument.InstID";
+                " InstrumentExhibit.InstID = Instrument.InstID";*/
+            // second line of query below refers to named fields in the subquery.
+        String sqltoUse = "SELECT " +
+                EXHIBIT_ID + ", " + EXHIBIT_NAME + ", " + START_DATE + ", " + END_DATE + ", " + ROOM + " AS ExhibitHome, " +
+                "InstID, InstrRoom, LocationInRoom, InstName, InstType, Subtype" +
+                " FROM Exhibit " +
+                " LEFT JOIN " +
+                " (SELECT " +
+                "InstrumentExhibit.ExhibitID AS exID, InstrumentExhibit.InstID, InstrumentExhibit.Room AS InstrRoom, InstrumentExhibit.LocationInRoom, " +
+                Instrument.INSTNAME  + ", " + Instrument.INSTTYPE + ", " + Instrument.SUBTYPE +
+                " FROM " +
+                "InstrumentExhibit, " + Instrument.INSTRUMENT_TABLE_NAME +
+                " WHERE " +
+                "InstrumentExhibit.InstID = " + Instrument.INSTID + ") AS IOE " +
+                " ON " +
+                EXHIBIT_ID + " = IOE.exID ";
         try {
             Statement s = Database.conn.createStatement();
             rs = s.executeQuery(sqltoUse);

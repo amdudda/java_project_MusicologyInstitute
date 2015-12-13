@@ -21,6 +21,7 @@ public class WhatsOnExhibitScreen extends JFrame {
     private JTextArea instrumentTextArea;
     private JScrollPane instrDetailsScrollPane;
     private JButton editSelectedExhibitButton;
+    private JButton addNewExhibitButton;
     private BrowseListDataModel bldm;
     private static ResultSet dataToBrowse;
     protected static Statement browseTableStatement;
@@ -90,6 +91,13 @@ public class WhatsOnExhibitScreen extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String selExID = bldm.getValueAt(browseDataTable.getSelectedRow(), 0).toString();
                 UpdateExhibit ue = new UpdateExhibit(selExID,bldm);
+            }
+        });
+
+        addNewExhibitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateExhibit ue = new UpdateExhibit(null,bldm);
             }
         });
     }

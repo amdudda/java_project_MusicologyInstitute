@@ -24,7 +24,6 @@ public class UpdateExhibit extends JFrame {
 
     public UpdateExhibit(String exID, BrowseListDataModel tableModel) {
         my_exhibit = new Exhibit(exID);
-        // TODO: need to decide what gets passed to this screen
         setContentPane(updateExhibitRootPanel);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Update or Add Exhibit");
