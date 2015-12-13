@@ -1,7 +1,5 @@
 package com.amdudda;
 
-import javafx.scene.control.RadioButton;
-
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -18,7 +16,7 @@ public class LocationInfoForm extends ContactManager { // extends JFrame {
     private JTextField startDateTextField;
     private JTextField endDateTextField;
     private JComboBox locInRmComboBox;
-    private JTextField contactIDTextField;
+    private JTextField contactNameTextField;
     private JTextField exhibitIDTextField;
     private JTextField cabinetTextField;
     private JTextField shelfTextField;
@@ -28,6 +26,7 @@ public class LocationInfoForm extends ContactManager { // extends JFrame {
     private JPanel locationInfoRootPanel;
     private JComboBox slRoomComboBox;
     private JComboBox exhibitRoomComboBox;
+    private JButton selectContactbutton;
 
     private int inst_id;
     private String cur_location;
@@ -110,10 +109,18 @@ public class LocationInfoForm extends ContactManager { // extends JFrame {
                 }
             }
         });
-        contactIDTextField.addMouseListener(new MouseAdapter() {
+        contactNameTextField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                //SelectContactScreen scs = new SelectContactScreen(Contact.getBrowsingData(),LocationInfoForm.this);
+            }
+        });
+
+
+        selectContactbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 SelectContactScreen scs = new SelectContactScreen(Contact.getBrowsingData(),LocationInfoForm.this);
             }
         });
@@ -160,7 +167,9 @@ public class LocationInfoForm extends ContactManager { // extends JFrame {
         DataValidator.generateComboBox(locInRmComboBox,DataValidator.LOCATIONS_IN_ROOM);
         locInRmComboBox.setSelectedItem(onExhibit.getLocationInRoom());
 
-        contactIDTextField.setText("" + loan.getContactID());
+        selectContactbutton.setText("" + loan.getContactID());
+        setContactNameTextField("" + loan.getContactID());
+        contactNameTextField.setEditable(false);
         startDateTextField.setText((loan.getStartDate() == null) ? "" : loan.getStartDate().toString());
         endDateTextField.setText((loan.getEndDate() == null) ? "" : loan.getEndDate().toString());
     }
@@ -171,7 +180,7 @@ public class LocationInfoForm extends ContactManager { // extends JFrame {
 
         if (selButton.equals("On Loan")) {
             locAttribs.put("Type",DataValidator.LOC_LOAN);
-            locAttribs.put(Loan.CONTACT_ID,contactIDTextField.getText());
+            locAttribs.put(Loan.CONTACT_ID, selectContactbutton.getText());
             locAttribs.put(Loan.START_DATE,startDateTextField.getText());
             locAttribs.put(Loan.END_DATE,endDateTextField.getText());
         } else if (selButton.equals("Exhibit")) {
@@ -189,6 +198,13 @@ public class LocationInfoForm extends ContactManager { // extends JFrame {
     }
 
     public void setAcquiredFromTextField(String id) {
-        this.contactIDTextField.setText(id);
+        this.selectContactbutton.setText(id);
+        this.loan.setContactID(Integer.parseInt(id));
+        setContactNameTextField(id);
+    }
+
+    private void setContactNameTextField(String id) {
+        Contact c = new Contact(id);
+        contactNameTextField.setText(c.getFullName());
     }
 }

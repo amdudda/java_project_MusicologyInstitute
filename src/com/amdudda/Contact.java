@@ -222,11 +222,11 @@ public class Contact {
 
     public String getFullName() {
         String contDetails = "";
-        if (!(this.ContactName.equals("") || this.ContactName == null)) {
+        if (!(this.ContactName == null || this.ContactName.equals(""))) {
             contDetails += this.ContactName;
         }
         if (!contDetails.equals("")) { contDetails += "\n"; }
-        if (!(this.BusinessName.equals("") || this.BusinessName == null)) {
+        if (!( this.BusinessName == null || this.BusinessName.equals("") )) {
             contDetails += this.BusinessName + "";
         }
         return contDetails;

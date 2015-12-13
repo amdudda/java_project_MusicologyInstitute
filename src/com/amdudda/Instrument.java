@@ -62,7 +62,7 @@ public class Instrument {
     // and a constructor so we can pass instrument attributes to the editing screen and pass values back to the databae
     public Instrument(String recID) {
         System.out.println(recID);
-        if (recID.equals("") || recID == null)  {
+        if (recID == null || recID.equals("") )  {
             this.InstID = 0;
         } else {
             this.InstID = Integer.parseInt(recID);
