@@ -1,9 +1,6 @@
 package com.amdudda;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * Created by amdudda on 12/12/15.
@@ -67,7 +64,7 @@ public class Exhibit {
                 Instrument.INSTNAME + ", " + Instrument.INSTTYPE + ", " + Instrument.SUBTYPE +
                 " FROM Exhibit, InstrumentExhibit, Instrument" +
                 " WHERE Exhibit.ExhibitID = InstrumentExhibit.ExhibitID AND" +
-                " InstrumentExhibit.InstID = Instrument.InstID;";
+                " InstrumentExhibit.InstID = Instrument.InstID";
         try {
             Statement s = Database.conn.createStatement();
             rs = s.executeQuery(sqltoUse);
@@ -75,5 +72,47 @@ public class Exhibit {
             System.out.println("Unable to get Exhibit data.\n" + sqle);
         }
         return rs;
+    }
+
+    // getters and setters
+
+    public int getExhibitID() {
+        return ExhibitID;
+    }
+
+    public void setExhibitID(int exhibitID) {
+        ExhibitID = exhibitID;
+    }
+
+    public String getExhibitName() {
+        return ExhibitName;
+    }
+
+    public void setExhibitName(String exhibitName) {
+        ExhibitName = exhibitName;
+    }
+
+    public Date getStartDate() {
+        return StartDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        StartDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return EndDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        EndDate = endDate;
+    }
+
+    public String getRoom() {
+        return Room;
+    }
+
+    public void setRoom(String room) {
+        Room = room;
     }
 }
