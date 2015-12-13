@@ -59,7 +59,7 @@ public class BrowseDatabaseScreen extends JFrame {
                 if (browseDataTable.getSelectedRow() == -1) {
                     JOptionPane.showMessageDialog(browseDbScreenRootPanel,"Please select a record to edit.");
                 } else if (bldm.getTableName().contains("Instrument")) {
-                    UpdateInstrument updtInst = new UpdateInstrument(selPK);
+                    UpdateInstrument updtInst = new UpdateInstrument(selPK,bldm);
                 } else {
                     UpdateContact updtCont = new UpdateContact(selPK);
                 }
@@ -70,7 +70,7 @@ public class BrowseDatabaseScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (bldm.getTableName().contains("Instrument")) {
-                    UpdateInstrument updtInst = new UpdateInstrument(null);
+                    UpdateInstrument updtInst = new UpdateInstrument(null,bldm);
                 } else {
                     UpdateContact updtCont = new UpdateContact(null);
                 }

@@ -49,7 +49,7 @@ public class MainMenuGUI extends JFrame {
         addNewInstrumentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UpdateInstrument addInst = new UpdateInstrument(null);
+                UpdateInstrument addInst = new UpdateInstrument(null,null);
             }
         });
 

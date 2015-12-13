@@ -41,7 +41,7 @@ public class UpdateInstrument extends ContactManager { //JFrame {
     private String acquiredFromName;
     private boolean isNewRecord=false;
 
-    public UpdateInstrument(String pkToUse) {// fetch the data for the instrument
+    public UpdateInstrument(String pkToUse, BrowseListDataModel dataModel) {// fetch the data for the instrument
         // instantiate an Instrument object and read its attributes.
         selectedInstrument = new Instrument(pkToUse);
         if (pkToUse != null) {
@@ -84,6 +84,9 @@ public class UpdateInstrument extends ContactManager { //JFrame {
                 } else {
                     // update the record
                     updateInstrument();
+                }
+                if (dataModel != null) {
+                    dataModel.clearSearch();
                 }
                 dispose();
             }
@@ -333,9 +336,11 @@ public class UpdateInstrument extends ContactManager { //JFrame {
             System.out.println("sql state:" + sqle.getSQLState());*/
         }
 
-//        Also insert the location information
-        selectedInstrument.getLocationInfo().setInstID(genPK);
-        selectedInstrument.getLocationInfo().updateRecord();
+//        Also insert the location information if it's available
+        if (selectedInstrument.getLocationInfo() != null) {
+            selectedInstrument.getLocationInfo().setInstID(genPK);
+            selectedInstrument.getLocationInfo().updateRecord();
+        }
     }
 
     public void setAcquiredFromTextField(String id) {
