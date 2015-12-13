@@ -3,6 +3,8 @@ package com.amdudda;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 /**
  * Created by amdudda on 12/12/15.
@@ -41,6 +43,28 @@ public class UpdateExhibit extends JFrame {
         // now pack our window
         pack();
 
+        // data validation
+        startDateTextField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                if (!(startDateTextField.equals("") || DataValidator.isDate(startDateTextField.getText()))) {
+                    JOptionPane.showMessageDialog(updateExhibitRootPanel,"Please enter a date in YYYY-MM-DD format.");
+                }
+            }
+        });
+
+        endDateTextField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                if (!(endDateTextField.equals("") || DataValidator.isDate(endDateTextField.getText()))) {
+                    JOptionPane.showMessageDialog(updateExhibitRootPanel,"Please enter a date in YYYY-MM-DD format.");
+                }
+            }
+        });
+
+        // action listeners
         exitDiscardChangesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -48,12 +72,14 @@ public class UpdateExhibit extends JFrame {
             }
         });
 
-
         saveChangesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(updateExhibitRootPanel,"This button doesn't do anything yet.");
             }
         });
+
+
     }
+
 }

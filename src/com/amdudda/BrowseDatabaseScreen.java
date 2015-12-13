@@ -76,6 +76,7 @@ public class BrowseDatabaseScreen extends JFrame {
                 }
             }
         });
+
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -85,6 +86,7 @@ public class BrowseDatabaseScreen extends JFrame {
                 bldm.search(selField, searchString);
             }
         });
+
         clearResultsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

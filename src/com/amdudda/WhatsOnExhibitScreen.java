@@ -20,6 +20,7 @@ public class WhatsOnExhibitScreen extends JFrame {
     private JTextArea exhibitTextArea;
     private JTextArea instrumentTextArea;
     private JScrollPane instrDetailsScrollPane;
+    private JButton editSelectedExhibitButton;
     private BrowseListDataModel bldm;
     private static ResultSet dataToBrowse;
     protected static Statement browseTableStatement;
@@ -55,6 +56,7 @@ public class WhatsOnExhibitScreen extends JFrame {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // TODO: fix this search utility
                 JOptionPane.showMessageDialog(whatsOnExhibitRootPanel,"This button doesn't work properly.");
                 /*String selField = selectSearchColumnComboBox.getSelectedItem().toString();
                 String searchString = searchStringTextField.getText();
@@ -80,6 +82,13 @@ public class WhatsOnExhibitScreen extends JFrame {
                 exhibitTextArea.setText(new Exhibit(selExh).toString());
                 String selInstr = bldm.getValueAt(browseDataTable.getSelectedRow(), instColNum).toString();
                 instrumentTextArea.setText(new Instrument(selInstr).toString());
+            }
+        });
+        editSelectedExhibitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selExID = bldm.getValueAt(browseDataTable.getSelectedRow(), 0).toString();
+                UpdateExhibit ue = new UpdateExhibit(selExID);
             }
         });
     }
