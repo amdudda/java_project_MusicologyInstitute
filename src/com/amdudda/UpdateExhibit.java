@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.sql.Date;
 
 /**
  * Created by amdudda on 12/12/15.
@@ -75,7 +76,15 @@ public class UpdateExhibit extends JFrame {
         saveChangesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(updateExhibitRootPanel,"This button doesn't do anything yet.");
+                // JOptionPane.showMessageDialog(updateExhibitRootPanel,"This button doesn't do anything yet.");
+                // update object values
+                my_exhibit.setExhibitName(exhibitNameTextField.getText());
+                my_exhibit.setStartDate(Date.valueOf(startDateTextField.getText()));
+                my_exhibit.setEndDate(Date.valueOf(endDateTextField.getText()));
+                my_exhibit.setRoom(roomComboBox.getSelectedItem().toString());
+                // then update the database
+                my_exhibit.updateRecord();
+                dispose();
             }
         });
 

@@ -115,4 +115,60 @@ public class Exhibit {
     public void setRoom(String room) {
         Room = room;
     }
+
+    // method to update an Exhibit object in database
+    protected void updateRecord() {
+        String sqlToRun = "UPDATE " + EXHIBIT_TABLE_NAME + " SET " +
+                EXHIBIT_NAME + " = ?, " +
+                START_DATE + " = ?," +
+                END_DATE + " = ?, " +
+                ROOM + " = ? " +
+                " WHERE " + EXHIBIT_ID + " = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = Database.conn.prepareStatement(sqlToRun);
+            int i = 1;
+            ps.setString(i,this.ExhibitName);
+            ps.setDate(++i,this.StartDate);
+            ps.setDate(++i,this.EndDate);
+            ps.setString(++i,this.Room);
+            ps.setInt(++i,this.ExhibitID);
+
+            if (ps.executeUpdate() == 0 ) {
+                // if update fails, try inserting instead
+                insertRecord();
+            }
+            if (ps != null) ps.close();
+
+        } catch (SQLException e) {
+            System.out.println("Unable to update Exhibit record.\n" + e);
+            //e.printStackTrace();
+        }
+    }
+
+    protected void insertRecord() {
+        // inserts a record
+        String sqlToRun = "INSERT INTO " + EXHIBIT_TABLE_NAME + "(" +
+                EXHIBIT_NAME + ", " +
+                START_DATE + "," +
+                END_DATE + ", " +
+                ROOM + ") " +
+                " VALUES (?,?,?,?)";
+        PreparedStatement ps = null;
+        try {
+            ps = Database.conn.prepareStatement(sqlToRun);
+            int i = 1;
+            ps.setString(i,this.ExhibitName);
+            ps.setDate(++i,this.StartDate);
+            ps.setDate(++i,this.EndDate);
+            ps.setString(++i,this.Room);
+
+            ps.executeUpdate();
+            if (ps != null) ps.close();
+
+        } catch (SQLException e) {
+            System.out.println("Unable to insert Exhibit record.\n" + e);
+            //e.printStackTrace();
+        }
+    }
 }

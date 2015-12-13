@@ -84,6 +84,7 @@ public class WhatsOnExhibitScreen extends JFrame {
                 instrumentTextArea.setText(new Instrument(selInstr).toString());
             }
         });
+
         editSelectedExhibitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
