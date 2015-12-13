@@ -348,8 +348,8 @@ public class UpdateInstrument extends ContactManager { //JFrame {
 
     public void setLocationInfo(HashMap<String,String> objAttribs) {
         // takes an arraylist and sets
-        System.out.println("setLocationInfo thinks the current instrument id is " +
-        selectedInstrument.getInstID());
+        // System.out.println("setLocationInfo thinks the current instrument id is " +
+        selectedInstrument.getInstID();
         String locType = objAttribs.get("Type");
         locationComboBox.setSelectedItem(locType);
         if (locType == DataValidator.LOC_LOAN) {

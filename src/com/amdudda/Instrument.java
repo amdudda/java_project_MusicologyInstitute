@@ -55,57 +55,56 @@ public class Instrument {
     private boolean isALoan;
     private LocationInfo locationInfo;
     private Contact acquisitionInfo;
+    ResultSet rs_instrument = null;
 
     // misc attributes for data retrieval
-    ResultSet my_instrument;
 
     // and a constructor so we can pass instrument attributes to the editing screen and pass values back to the databae
     public Instrument(String recID) {
-        System.out.println(recID);
+        PreparedStatement psFetch = null;
         if (recID == null || recID.equals("") )  {
             this.InstID = 0;
         } else {
             this.InstID = Integer.parseInt(recID);
         }
         if (this.InstID != 0) {
-            PreparedStatement psFetch = null;
             // only bother populating the values if a recordID is actually passed to the constructor.
             try {
                 psFetch = Database.conn.prepareStatement("SELECT * FROM " + INSTRUMENT_TABLE_NAME +
                         " WHERE " + INSTID + " = ?");
                 psFetch.setInt(1, Integer.parseInt(recID));
-                my_instrument = psFetch.executeQuery();
-                my_instrument.next();
+                rs_instrument = psFetch.executeQuery();
             } catch (SQLException sqle) {
                 System.out.println("Unable to fetch instrument info.\n" + sqle);
             }
             // then try to parse it.
             try {
-                // I map these without worrying about field order in the table.
-                InstID = Integer.parseInt(my_instrument.getObject(INSTID).toString());
-                //System.out.println("Instrument id is: " + InstID);
-                InstName = fetchValueOfString(INSTNAME);
-                InstType = fetchValueOfString(INSTTYPE);
-                Subtype = fetchValueOfString(SUBTYPE);
-                AcquiredDate = Date.valueOf(my_instrument.getObject(ACQUIREDDATE).toString());
-                AcquiredFrom = Integer.parseInt(my_instrument.getObject(ACQUIREDFROM).toString());
-                PurchasePrice = fetchValueOfDouble(PURCHASEPRICE);
-                InsuranceValue = fetchValueOfDouble(INSURANCEVALUE);
-                Location = fetchValueOfString(LOCATION);
-                Height = fetchValueOfDouble(HEIGHT);
-                Width = fetchValueOfDouble(WIDTH);
-                Depth = fetchValueOfDouble(DEPTH);
-                Region = fetchValueOfString(REGION);
-                Country = fetchValueOfString(COUNTRY);
-                Culture = fetchValueOfString(CULTURE);
-                Tuning = fetchValueOfString(TUNING);
-                LowNote = fetchValueOfString(LOWNOTE);
-                HighNote = fetchValueOfString(HIGHNOTE);
-                Description = fetchValueOfString(DESCRIPTION);
-                isALoan = (my_instrument.getObject(ISALOAN) == null) ? false : Boolean.parseBoolean(my_instrument.getObject(ISALOAN).toString());
-
+                if (rs_instrument.next()) {
+                    // I map these without worrying about field order in the table.
+                    InstID = Integer.parseInt(rs_instrument.getObject(INSTID).toString());
+                    //System.out.println("Instrument id is: " + InstID);
+                    InstName = fetchValueOfString(INSTNAME);
+                    InstType = fetchValueOfString(INSTTYPE);
+                    Subtype = fetchValueOfString(SUBTYPE);
+                    AcquiredDate = Date.valueOf(rs_instrument.getObject(ACQUIREDDATE).toString());
+                    AcquiredFrom = Integer.parseInt(rs_instrument.getObject(ACQUIREDFROM).toString());
+                    PurchasePrice = fetchValueOfDouble(PURCHASEPRICE);
+                    InsuranceValue = fetchValueOfDouble(INSURANCEVALUE);
+                    Location = fetchValueOfString(LOCATION);
+                    Height = fetchValueOfDouble(HEIGHT);
+                    Width = fetchValueOfDouble(WIDTH);
+                    Depth = fetchValueOfDouble(DEPTH);
+                    Region = fetchValueOfString(REGION);
+                    Country = fetchValueOfString(COUNTRY);
+                    Culture = fetchValueOfString(CULTURE);
+                    Tuning = fetchValueOfString(TUNING);
+                    LowNote = fetchValueOfString(LOWNOTE);
+                    HighNote = fetchValueOfString(HIGHNOTE);
+                    Description = fetchValueOfString(DESCRIPTION);
+                    isALoan = (rs_instrument.getObject(ISALOAN) == null) ? false : Boolean.parseBoolean(rs_instrument.getObject(ISALOAN).toString());
+                }
                 // and close my query now that I've gathered my data...
-                my_instrument.close();
+                if (rs_instrument != null) rs_instrument.close();
                 if(psFetch != null) psFetch.close();
 
             } catch (SQLException sqle) {
@@ -354,7 +353,7 @@ public class Instrument {
     private String fetchValueOfString(String fieldname) {
         // This method reads in a value and translates nulls into an empty string so the constructor doesn't choke.
         try {
-           return (my_instrument.getObject(fieldname) == null) ? "" : my_instrument.getObject(fieldname).toString();
+           return (rs_instrument.getObject(fieldname) == null) ? "" : rs_instrument.getObject(fieldname).toString();
         } catch (SQLException sqle) {
             System.out.println("Unable to fetch value of " + fieldname + ".\n" + sqle);
             return "?????";
@@ -364,7 +363,7 @@ public class Instrument {
     private double fetchValueOfDouble(String fieldname) {
         // As with fetch...String, the point is to handle nulls gracefully.
         try {
-            return (my_instrument.getObject(fieldname) == null) ? 0 : Double.parseDouble(my_instrument.getObject(HEIGHT).toString());
+            return (rs_instrument.getObject(fieldname) == null) ? 0 : Double.parseDouble(rs_instrument.getObject(HEIGHT).toString());
         } catch (SQLException sqle) {
             System.out.println("Unable to fetch value of " + fieldname + ".\n" + sqle);
             return -1;
