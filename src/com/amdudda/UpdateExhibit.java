@@ -1,6 +1,7 @@
 package com.amdudda;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -21,7 +22,7 @@ public class UpdateExhibit extends JFrame {
     private JPanel updateExhibitRootPanel;
     private Exhibit my_exhibit;
 
-    public UpdateExhibit(String exID) {
+    public UpdateExhibit(String exID, BrowseListDataModel tableModel) {
         my_exhibit = new Exhibit(exID);
         // TODO: need to decide what gets passed to this screen
         setContentPane(updateExhibitRootPanel);
@@ -84,6 +85,7 @@ public class UpdateExhibit extends JFrame {
                 my_exhibit.setRoom(roomComboBox.getSelectedItem().toString());
                 // then update the database
                 my_exhibit.updateRecord();
+                tableModel.clearSearch();
                 dispose();
             }
         });

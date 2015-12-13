@@ -54,7 +54,7 @@ public class Exhibit {
                 " and runs from " + this.StartDate + " to " + this.EndDate + ".";
     }
 
-    protected static ResultSet getExhibitDetailList(){
+    protected static ResultSet getBrowsingData(){
         // lists all exhibits and associated instruments
         ResultSet rs = null;
         // TODO: create helper object for InstEx data.

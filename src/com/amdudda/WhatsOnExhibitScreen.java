@@ -89,7 +89,7 @@ public class WhatsOnExhibitScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String selExID = bldm.getValueAt(browseDataTable.getSelectedRow(), 0).toString();
-                UpdateExhibit ue = new UpdateExhibit(selExID);
+                UpdateExhibit ue = new UpdateExhibit(selExID,bldm);
             }
         });
     }

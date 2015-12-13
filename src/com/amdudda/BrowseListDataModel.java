@@ -159,6 +159,8 @@ public class BrowseListDataModel extends AbstractTableModel {
             this.browseTable = Instrument.getBrowsingData();
         } else if (this.getTableName().equals(Contact.CONTACT_TABLE_NAME)) {
             this.browseTable = Contact.getBrowsingData();
+        } else if (this.getTableName().equals(Exhibit.EXHIBIT_TABLE_NAME)) {
+            this.browseTable = Exhibit.getBrowsingData();
         } else {
             // fall back to original result set if we can't figure out which table to requery.
             this.browseTable = this.originalData;
