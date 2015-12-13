@@ -74,8 +74,9 @@ public class Exhibit {
                 " FROM Exhibit " +
                 " LEFT JOIN " +
                 " (SELECT " +
-                "InstrumentExhibit.ExhibitID AS exID, InstrumentExhibit.InstID, InstrumentExhibit.Room AS InstrRoom, InstrumentExhibit.LocationInRoom, " +
-                Instrument.INSTNAME  + ", " + Instrument.INSTTYPE + ", " + Instrument.SUBTYPE +
+                InstrumentExhibit.EXHIBIT_ID + " AS exID, " + InstrumentExhibit.INST_ID + ", " +
+                InstrumentExhibit.ROOM  + " AS InstrRoom, " + InstrumentExhibit.LOCATION_IN_ROOM + ", " +
+                Instrument.INSTNAME + ", " + Instrument.INSTTYPE + ", " + Instrument.SUBTYPE +
                 " FROM " +
                 "InstrumentExhibit, " + Instrument.INSTRUMENT_TABLE_NAME +
                 " WHERE " +
@@ -87,6 +88,8 @@ public class Exhibit {
             rs = s.executeQuery(sqltoUse);
         } catch (SQLException sqle) {
             System.out.println("Unable to get Exhibit data.\n" + sqle);
+            System.out.println(sqle.getSQLState());
+            System.out.println(sqle.getErrorCode());
         }
         return rs;
     }

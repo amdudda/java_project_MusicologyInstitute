@@ -153,7 +153,6 @@ public class BrowseListDataModel extends AbstractTableModel {
     }
 
     public void clearSearch() {
-        // TODO: Data is not automatically updated in table after being edited; HOW TO FIX???
         // This requeries the database so the user can see the info after manually clicking 'clear search'.
         if (this.getTableName().equals(Instrument.INSTRUMENT_TABLE_NAME)) {
             this.browseTable = Instrument.getBrowsingData();

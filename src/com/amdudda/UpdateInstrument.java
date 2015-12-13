@@ -182,7 +182,6 @@ public class UpdateInstrument extends ContactManager { //JFrame {
             instrIDtextField.setText("" + selectedInstrument.getInstID());
             instrNameTextField.setText(selectedInstrument.getInstName());
             acquiredDateTextField.setText(selectedInstrument.getAcquiredDate().toString());
-            // TODO: now that we pull in acquiredFrom's human readable name, do we need the FK value?
             acquiredFromTextField.setText("" + selectedInstrument.getAcquiredFrom());
             acquiredFromFullNameTextArea.setText(acquiredFromName);
             heightTextField.setText("" + selectedInstrument.getHeight());

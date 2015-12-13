@@ -63,8 +63,6 @@ public class MainMenuGUI extends JFrame {
         whatsOnExhibitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: a screen to pull up just what's on exhibit right now.
-                //JOptionPane.showMessageDialog(mainMenuRootPanel,"This doesn't do anything yet.");
                 WhatsOnExhibitScreen woe = new WhatsOnExhibitScreen(Exhibit.getBrowsingData());
             }
         });
