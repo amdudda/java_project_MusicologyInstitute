@@ -27,6 +27,7 @@ public class LocationInfoForm extends ContactManager { // extends JFrame {
     private JComboBox slRoomComboBox;
     private JComboBox exhibitRoomComboBox;
     private JButton selectContactbutton;
+    private JButton selExhButton;
 
     private int inst_id;
     private String cur_location;
@@ -122,6 +123,13 @@ public class LocationInfoForm extends ContactManager { // extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 SelectContactScreen scs = new SelectContactScreen(Contact.getBrowsingData(),LocationInfoForm.this);
+            }
+        });
+
+        selExhButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SelectExhibitScreen ses = new SelectExhibitScreen(Exhibit.getExhibitList(),exhibitIDTextField);
             }
         });
     }

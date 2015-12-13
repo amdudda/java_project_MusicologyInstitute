@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.amdudda.SelectContactScreen">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.amdudda.SelectExhibitScreen">
   <grid id="27dc6" binding="selectContactRootPanel" layout-manager="GridBagLayout">
     <constraints>
       <xy x="20" y="20" width="705" height="629"/>
@@ -21,12 +21,12 @@
       </vspacer>
       <component id="45ee2" class="javax.swing.JLabel">
         <constraints>
-          <grid row="1" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="2" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
           <font size="18" style="1"/>
-          <text value="Select Contact"/>
+          <text value="Select Exhibit"/>
         </properties>
       </component>
       <scrollpane id="92c6">
@@ -48,7 +48,7 @@
       </scrollpane>
       <vspacer id="4e789">
         <constraints>
-          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
       </vspacer>
@@ -95,33 +95,6 @@
           <text value="Clear Results"/>
         </properties>
       </component>
-      <component id="c13b7" class="javax.swing.JTextArea" binding="contactDetailsTextArea">
-        <constraints>
-          <grid row="4" column="2" row-span="2" col-span="4" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
-          </grid>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="58a48" class="javax.swing.JButton" binding="useSelectedRecordButton">
-        <constraints>
-          <grid row="4" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="Use Selected Contact"/>
-        </properties>
-      </component>
-      <component id="fda16" class="javax.swing.JButton" binding="returnToMainMenuButton" default-binding="true">
-        <constraints>
-          <grid row="5" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="Return to Previous Screen"/>
-        </properties>
-      </component>
       <component id="8f001" class="javax.swing.JButton" binding="searchButton" default-binding="true">
         <constraints>
           <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -137,6 +110,24 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
       </hspacer>
+      <component id="58a48" class="javax.swing.JButton" binding="useSelectedRecordButton">
+        <constraints>
+          <grid row="4" column="2" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Use Selected Exhibit"/>
+        </properties>
+      </component>
+      <component id="fda16" class="javax.swing.JButton" binding="returnToMainMenuButton" default-binding="true">
+        <constraints>
+          <grid row="4" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Return to Location Selection"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

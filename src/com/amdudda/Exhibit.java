@@ -86,6 +86,19 @@ public class Exhibit {
         return rs;
     }
 
+    public static ResultSet getExhibitList() {
+        String sqlToUse = "SELECT * FROM " + EXHIBIT_TABLE_NAME;
+        Statement s = null;
+        ResultSet rs = null;
+        try {
+            s = Database.conn.createStatement();
+            rs = s.executeQuery(sqlToUse);
+        } catch (SQLException sqle) {
+            System.out.println("Unable to fetch list of exhibits.\n" + sqle);
+        }
+        return rs;
+    }
+
     // getters and setters
 
     public int getExhibitID() {
@@ -183,4 +196,6 @@ public class Exhibit {
             //e.printStackTrace();
         }
     }
+
+
 }
