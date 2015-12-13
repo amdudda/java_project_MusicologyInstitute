@@ -56,7 +56,7 @@ public class MainMenuGUI extends JFrame {
         addNewContactButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UpdateContact addContact = new UpdateContact(null);
+                UpdateContact addContact = new UpdateContact(null,null);
             }
         });
 

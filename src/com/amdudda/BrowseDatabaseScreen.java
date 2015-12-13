@@ -61,7 +61,7 @@ public class BrowseDatabaseScreen extends JFrame {
                 } else if (bldm.getTableName().contains("Instrument")) {
                     UpdateInstrument updtInst = new UpdateInstrument(selPK,bldm);
                 } else {
-                    UpdateContact updtCont = new UpdateContact(selPK);
+                    UpdateContact updtCont = new UpdateContact(selPK,bldm);
                 }
             }
         });
@@ -72,7 +72,7 @@ public class BrowseDatabaseScreen extends JFrame {
                 if (bldm.getTableName().contains("Instrument")) {
                     UpdateInstrument updtInst = new UpdateInstrument(null,bldm);
                 } else {
-                    UpdateContact updtCont = new UpdateContact(null);
+                    UpdateContact updtCont = new UpdateContact(null,bldm);
                 }
             }
         });

@@ -27,7 +27,7 @@ public class UpdateContact extends JFrame {
     private JLabel formDescriptionLabel;
     private Contact selected_contact;
 
-    public UpdateContact(String selContact) {
+    public UpdateContact(String selContact, BrowseListDataModel dataModel) {
         selected_contact = new Contact(selContact);
 
         setContentPane(updateContactRootPanel);
@@ -52,6 +52,7 @@ public class UpdateContact extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (selContact == null) { insertContact(); } else { updateContact(); }
+                if (dataModel != null) dataModel.clearSearch();
                 dispose();
             }
         });
