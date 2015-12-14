@@ -23,9 +23,9 @@ public class Database {
     // The list of setup files to be read in so the tables can be created.
     // The queries need to be run in this order to prevent them from tripping up on foreign keys referring
     // to nonexistent tables.
-    protected static final String[] setupFileNames = {"00-Countries.sql", "00a-populateCountries.sql",
-            "01-Contact.sql", "02-Instrument.sql", "03-Loan.sql", "04-StorageLibrary.sql", "05-Rooms.sql",
-            "06-Exhibit.sql", "07-InstrumentExhibit.sql","08a - States.sql","08b - States.sql"};
+    protected static final String[] setupFileNames = {"00 - Countries.sql", "00a - populateCountries.sql",
+            "01 - Contact.sql", "02 - Instrument.sql", "03 - Loan.sql", "04 - StorageLibrary.sql", "05 - Rooms.sql",
+            "06 - Exhibit.sql", "07 - InstrumentExhibit.sql","08a - States.sql","08b - States.sql"};
 
     // no constructor - this is just setup stuff.
 
