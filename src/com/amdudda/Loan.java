@@ -46,7 +46,7 @@ public class Loan extends LocationInfo {
     public String toString() {
         // generates a string with loan information
         String toReturn = "";
-        if (InstID == 0 ) return "No loan information found.";
+        //if (InstID == 0 ) return "No loan information found.";
         return "Instrument ID# " + this.InstID + " is on loan to " + this.ContactName +
                 " (ID # " + this.ContactID + ") from " + this.StartDate + " to " + this.EndDate + ".";
     }

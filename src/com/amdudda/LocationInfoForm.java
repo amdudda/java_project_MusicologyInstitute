@@ -77,7 +77,7 @@ public class LocationInfoForm extends ContactManager { // extends JFrame {
             @Override
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
-                validateDate(startDateTextField);
+                if (!validateDate(startDateTextField)) { startDateTextField.grabFocus(); }
             }
         });
 
@@ -86,7 +86,7 @@ public class LocationInfoForm extends ContactManager { // extends JFrame {
             @Override
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
-                validateDate(endDateTextField);
+                if (!validateDate(endDateTextField)) { endDateTextField.grabFocus(); }
             }
         });
 
@@ -134,11 +134,13 @@ public class LocationInfoForm extends ContactManager { // extends JFrame {
         });
     }
 
-    private void validateDate(JTextField fieldToCheck) {
+    private boolean validateDate(JTextField fieldToCheck) {
         if (!DataValidator.isDate(fieldToCheck.getText())) {
             JOptionPane.showMessageDialog(locationInfoRootPanel,"Please enter a date in YYYY-MM-DD format.");
-            fieldToCheck.grabFocus();
+            //fieldToCheck.grabFocus();
+            return false;
         }
+        return true;
     }
 
     private void populateFields() {
