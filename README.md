@@ -15,21 +15,18 @@ A Java program that manages a database for a fictional ethnomusicological museum
 
 -- To create a new, empty database -- 
 
-1. Change the hardcoded username and password in the Database object in my code.
+1. Change the contents of \data\dbFlag.txt to say "false" (no quotes).
 
-2. Change the contents of \data\dbFlag.txt to say "false" (no quotes).
+2. Run the program.
 
-3. Run the program.
-
-4. If you want to play with test data, you will need to run the queries in \SetupFiles\DataDump\ (do this in mySQL) after the database has been successfully set up.
+3. If you want to play with test data, you will need to run the queries in \SetupFiles\DataDump\ (do this in mySQL) after the database has been successfully set up.
 
 -- To set up the database with test data before running the program: --
 
 1. Create the MusicologyInstitute database in mySQL.
 
-2. Run the queries in \SetupFiles\DataDump\ after the database has been successfully set up.
+2. Unpack the database in \SetupFiles\DataDump\ after the database has been successfully set up.
 
-3. Change the hardcoded username and password in the Database object in my code.
 
 ** COOL THINGS **
 
@@ -40,7 +37,7 @@ I also had to figure out how to create records and link them to foreign keys in 
 
 ** KNOWN BUGS AND ISSUES **
 
-Username and password are hard-coded and stored as plaintext.
+Username and password are stored as plaintext.
 
 There is no easy way to add instruments to an exhibit; it can be done on a per-instrument basis, but not directly from the screen to edit exhibit information.
 

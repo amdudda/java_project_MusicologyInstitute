@@ -1,7 +1,6 @@
 package com.amdudda;
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -27,11 +26,11 @@ public class Login extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Database.USER = usernameTextField.getText();
+                Database.username = usernameTextField.getText();
                 for (char c: passwordField.getPassword()) {
-                    Database.PASS += Character.toString(c);
+                    Database.pwd += Character.toString(c);
                 }
-                //System.out.println(Database.PASS);
+                //System.out.println(Database.pwd);
                 startProgram();
                 dispose();
             }

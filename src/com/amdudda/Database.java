@@ -1,7 +1,6 @@
 package com.amdudda;
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.io.*;
 import java.sql.*;
 
@@ -12,8 +11,8 @@ public class Database {
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static String DB_CONNECTION_URL = "jdbc:mysql://localhost:3306/";
     private static final String DB_NAME = "MusicologyInstitute";
-    protected static String USER = "";
-    protected static String PASS = "";
+    protected static String username = "";
+    protected static String pwd = "";
 
     protected static Connection conn;
     protected static Statement statement;
@@ -47,7 +46,7 @@ public class Database {
 
     private static void createSchema() {
         try {
-            conn = DriverManager.getConnection(DB_CONNECTION_URL, USER, PASS);
+            conn = DriverManager.getConnection(DB_CONNECTION_URL, username, pwd);
             statement = conn.createStatement();
 
             statement.executeUpdate("CREATE DATABASE " + DB_NAME);
@@ -96,7 +95,7 @@ public class Database {
     protected static void openConnStatement() {
         // establishes a connection to the database.
         try {
-            conn = DriverManager.getConnection(DB_CONNECTION_URL + DB_NAME, USER, PASS);
+            conn = DriverManager.getConnection(DB_CONNECTION_URL + DB_NAME, username, pwd);
             statement = conn.createStatement();
             rs = null;
         } catch (SQLException sqle) {
