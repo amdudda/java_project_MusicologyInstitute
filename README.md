@@ -25,7 +25,7 @@ A Java program that manages a database for a fictional ethnomusicological museum
 
 1. Create the MusicologyInstitute database in mySQL.
 
-2. Unpack the database in \SetupFiles\DataDump\ after the database has been successfully set up.
+2. Unpack the dump file in \SetupFiles\DataDump\ after the database has been successfully set up.
 
 
 ** COOL THINGS **
