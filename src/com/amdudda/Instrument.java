@@ -109,7 +109,7 @@ public class Instrument {
 
             } catch (SQLException sqle) {
                 System.out.println("Unable to assign instrument attributes.\n" + sqle);
-            }
+                }
 
             // try fetching location info if it exists
             createLocationInfo();

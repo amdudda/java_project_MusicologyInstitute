@@ -86,7 +86,7 @@ public class LocationInfoForm extends ContactManager { // extends JFrame {
             @Override
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
-                if (!validateDate(endDateTextField)) { endDateTextField.grabFocus(); }
+                validateDate(endDateTextField);
             }
         });
 

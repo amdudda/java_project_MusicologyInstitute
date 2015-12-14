@@ -59,22 +59,6 @@ public class Exhibit {
     protected static ResultSet getBrowsingData(){
         // lists all exhibits and associated instruments
         ResultSet rs = null;
-        // second line of query below refers to named fields in the subquery.
-        /*String sqltoUse = "SELECT " +
-                EXHIBIT_ID + ", " + EXHIBIT_NAME + ", " + START_DATE + ", " + END_DATE + ", " + ROOM + " AS ExhibitHome, " +
-                "InstID, InstrRoom, LocationInRoom, InstName, InstType, Subtype" +
-                " FROM Exhibit " +
-                " LEFT JOIN " +
-                " (SELECT " +
-                InstrumentExhibit.EXHIBIT_ID + " AS exID, " + InstrumentExhibit.INST_ID + ", " +
-                InstrumentExhibit.ROOM  + " AS InstrRoom, " + InstrumentExhibit.LOCATION_IN_ROOM + ", " +
-                Instrument.INSTNAME + ", " + Instrument.INSTTYPE + ", " + Instrument.SUBTYPE +
-                " FROM " +
-                "InstrumentExhibit, " + Instrument.INSTRUMENT_TABLE_NAME +
-                " WHERE " +
-                "InstrumentExhibit.InstID = " + Instrument.INSTID + ") AS IOE " +
-                " ON " +
-                EXHIBIT_ID + " = IOE.exID ";*/
         String sqltoUse = getBrowseSQLString();
         try {
             Statement s = Database.conn.createStatement();

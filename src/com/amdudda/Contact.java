@@ -47,14 +47,12 @@ public class Contact {
 
     ResultSet my_contact;
 
-    // constructors for contact info
-    public Contact() {
-        // no data to autopopulate; just instatiate it so code can generate forms
-    }
+    // constructor for contact info
 
     public Contact(String pkToUse) {
         // check whether there's even any data to pull for this contact
-        if (pkToUse != null) {
+        this.ContactID = Integer.parseInt(pkToUse);
+        if (this.ContactID != 0) {
             // first, fetch the data
             PreparedStatement stmt = null;
             try {
@@ -84,7 +82,7 @@ public class Contact {
                 my_contact.close();
                 if (stmt != null) stmt.close();
             } catch (SQLException sqle) {
-                System.out.println("Unable to assign object attributes.\n" + sqle);
+                System.out.println("Unable to assign Contact attributes.\n" + sqle);
             }
         }
     }
