@@ -11,7 +11,9 @@ A Java program that manages a database for a fictional ethnomusicological museum
 
 ** DATABASE SETUP **
 
-To set up the database, you will need to do the following:
+*** To set up the database, you will need to do one of the following ***
+
+-- To create a new, empty database -- 
 
 1. Change the hardcoded username and password in the Database object in my code.
 
@@ -21,7 +23,7 @@ To set up the database, you will need to do the following:
 
 4. If you want to play with test data, you will need to run the queries in \SetupFiles\DataDump\ (do this in mySQL) after the database has been successfully set up.
 
-Alternatively, you can do the following to set up the database with test data before running the program:
+-- To set up the database with test data before running the program: --
 
 1. Create the MusicologyInstitute database in mySQL.
 
