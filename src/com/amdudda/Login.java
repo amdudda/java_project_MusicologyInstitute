@@ -3,6 +3,7 @@ package com.amdudda;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.DriverManager;
 
 /**
  * Created by amdudda on 12/13/15.
@@ -16,23 +17,29 @@ public class Login extends JFrame {
     private JTextArea pleaseEnterYourUsernameTextArea;
 
     public Login() {
+        // TODO: Make this more secure.
+        // This is security theater only; all this stuff dances around in plaintext!
         setContentPane(loginRootPanel);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Login Screen");
-        //setModal(true);
         setVisible(true);
         setSize(350,200);
 
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Database.username = usernameTextField.getText();
-                for (char c: passwordField.getPassword()) {
-                    Database.pwd += Character.toString(c);
-                }
-                //System.out.println(Database.pwd);
-                startProgram();
-                dispose();
+                    Database.username = usernameTextField.getText();
+                    for (char c : passwordField.getPassword()) {
+                        Database.pwd += Character.toString(c);
+                    }
+                    //System.out.println(Database.pwd);
+                    if (!Database.checkCredentials()) {
+                        pleaseEnterYourUsernameTextArea.setText("Invalid username or password.  Please try again.");
+                        Database.pwd = "";
+                    } else {
+                        startProgram();
+                        dispose();
+                    }
             }
         });
 

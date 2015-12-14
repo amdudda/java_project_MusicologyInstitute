@@ -126,6 +126,16 @@ public class Database {
         }
     }
 
+    protected static boolean checkCredentials() {
+        try {
+            conn = DriverManager.getConnection(DB_CONNECTION_URL, username, pwd);
+            return true;
+        } catch (Exception e) {
+            //e.printStackTrace();
+            return false;
+        }
+    }
+
     // and a function to read in a sql file and return a string that can be run as a query
     private static String fetchSQLdata(String filename) {
         String queryToRun = "";
@@ -204,17 +214,4 @@ public class Database {
         return alreadySetup;
     }
 
-    protected void populateData() {
-        String file1 = "./SetupFiles/SampleData/20-PopulateContacts.sql";
-        String file2 = "./SetupFiles/SampleData/21-PopulateInstruments.sql";
-        String file3 = "./SetupFiles/SampleData/22-PopulateLoan.sql";
-        try {
-            statement = Database.conn.createStatement();
-            statement.execute(fetchSQLdata(file1));
-            statement.execute(fetchSQLdata(file1));
-            statement.execute(fetchSQLdata(file1));
-        } catch (SQLException sqle) {
-            System.out.println(sqle);
-        }
-    }
 }
