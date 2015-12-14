@@ -109,7 +109,7 @@ public class BrowseListDataModel extends AbstractTableModel {
 
     public void search(String selField, String searchString) {
         // this updates the display with search results
-        String listOfFields, tableToQuery;
+        String listOfFields, tableToQuery, sqlToRun;
         if (getTableName().equals(Contact.CONTACT_TABLE_NAME)) {
             listOfFields = Contact.CONTACTID + ", " +
                     Contact.CONTACTNAME + ", " +
@@ -120,6 +120,8 @@ public class BrowseListDataModel extends AbstractTableModel {
                     Contact.COUNTRY + ", " +
                     Contact.CONTACTTYPE;
             tableToQuery = getTableName();
+            sqlToRun = "SELECT " + listOfFields + " FROM " + tableToQuery + " WHERE " +
+                    selField + " LIKE ?";
         } else if (getTableName().equals(Instrument.INSTRUMENT_TABLE_NAME)) {
             listOfFields = Instrument.INSTID + "," +
                     Instrument.INSTNAME + "," +
@@ -127,19 +129,18 @@ public class BrowseListDataModel extends AbstractTableModel {
                     Instrument.SUBTYPE + "," +
                     Instrument.LOCATION;
             tableToQuery = getTableName();
+            sqlToRun = "SELECT " + listOfFields + " FROM " + tableToQuery + " WHERE " +
+                    selField + " LIKE ?";
         } else if (getTableName().equals(Exhibit.EXHIBIT_TABLE_NAME)) {
-            listOfFields = Exhibit.EXHIBIT_ID + ", " +Exhibit.EXHIBIT_NAME + ", " +
-                    Exhibit.START_DATE + ", " + Exhibit.END_DATE + ", " + Exhibit.ROOM + ", " +
-                    "InstrumentExhibit.InstID, InstrumentExhibit.Room AS InstrRoom, InstrumentExhibit.LocationInRoom, " +
-                    Instrument.INSTNAME + ", " + Instrument.INSTTYPE + ", " + Instrument.SUBTYPE;
-            tableToQuery = "Exhibit, InstrumentExhibit, Instrument";
+            sqlToRun = Exhibit.getBrowseSQLString() +
+                " WHERE " + selField + " LIKE ?";
         } else {  // table is one this code doesn't account for, let's just use "*" so it fails
             // with useable data
             listOfFields = "*";
             tableToQuery = getTableName();
+            sqlToRun = "SELECT " + listOfFields + " FROM " + tableToQuery + " WHERE " +
+                    selField + " LIKE ?";
         }
-        String sqlToRun = "SELECT " + listOfFields + " FROM " + tableToQuery + " WHERE " +
-                selField + " LIKE ?";
         PreparedStatement ps = null;
         try {
             ps = Database.conn.prepareStatement(sqlToRun);

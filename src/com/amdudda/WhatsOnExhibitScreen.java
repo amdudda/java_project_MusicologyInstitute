@@ -57,11 +57,9 @@ public class WhatsOnExhibitScreen extends JFrame {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: fix this search utility
-                JOptionPane.showMessageDialog(whatsOnExhibitRootPanel,"This button doesn't work properly.");
-                /*String selField = selectSearchColumnComboBox.getSelectedItem().toString();
+                String selField = selectSearchColumnComboBox.getSelectedItem().toString();
                 String searchString = searchStringTextField.getText();
-                bldm.search(selField, searchString);*/
+                bldm.search(selField, searchString);
             }
         });
 
