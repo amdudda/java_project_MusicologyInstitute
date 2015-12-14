@@ -1,71 +1,58 @@
 package com.amdudda;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.xml.crypto.Data;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Login extends JDialog {
-    private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
+/**
+ * Created by amdudda on 12/13/15.
+ */
+public class Login extends JFrame {
     private JTextField usernameTextField;
     private JPasswordField passwordField;
+    private JButton cancelButton;
+    private JButton loginButton;
+    private JPanel loginRootPanel;
+    private JTextArea pleaseEnterYourUsernameTextArea;
 
     public Login() {
-        setContentPane(contentPane);
-        setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
-        //setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setContentPane(loginRootPanel);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Login Screen");
+        //setModal(true);
+        setVisible(true);
+        setSize(350,200);
 
-        buttonOK.addActionListener(new ActionListener() {
+        loginButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                onOK();
+                Database.USER = usernameTextField.getText();
+                for (char c: passwordField.getPassword()) {
+                    Database.PASS += Character.toString(c);
+                }
+                //System.out.println(Database.PASS);
+                startProgram();
+                dispose();
             }
         });
 
-        buttonCancel.addActionListener(new ActionListener() {
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                onCancel();
+                System.exit(0);
             }
         });
 
-// call onCancel() when cross is clicked
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                onCancel();
-            }
-        });
 
-// call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
-    private void onOK() {
-// add your code here
-        System.out.println(usernameTextField.getText());
-        System.out.println(passwordField.getPassword());
-        dispose();
+    private static void startProgram() {
+
+        Database.setupDatabase();
+
+        Database.openConnStatement();  // have to reopen connection because
+        // (a) dbsetup closes it, and (b) if dbFlag.txt set to true, it never actually fires up.
+        MainMenuGUI mMG = new MainMenuGUI();
     }
-
-    private void onCancel() {
-// add your code here if necessary
-        //dispose();
-        System.exit(0);
-    }
-
-/*
-    public static void main(String[] args) {
-        Login dialog = new Login();
-        dialog.setSize(300,300);
-        dialog.setVisible(true);
-        System.exit(0);
-    }
-*/
-
-
 }

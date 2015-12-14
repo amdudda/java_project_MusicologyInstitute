@@ -12,8 +12,8 @@ public class Database {
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static String DB_CONNECTION_URL = "jdbc:mysql://localhost:3306/";
     private static final String DB_NAME = "MusicologyInstitute";
-    private static final String USER = "amdudda";
-    private static final String PASS = "tanuki";
+    protected static String USER = "";
+    protected static String PASS = "";
 
     protected static Connection conn;
     protected static Statement statement;
