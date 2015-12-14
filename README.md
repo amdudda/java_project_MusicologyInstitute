@@ -30,7 +30,7 @@ A Java program that manages a database for a fictional ethnomusicological museum
 
 ** COOL THINGS **
 
-My biggest challenge was getting data to persist across screens, because Java passes references, not values, and the references disappear after "dispose()".  I'm probaby proudest of the LocationInfoForm, which actually works with three different tables.  The goal was for that to be transparent to the end users; end users just care about supplying the location information, not about how it's stored.  I fudged by using a hashmap and a method to build a new location object using the hashmap's data.
+My biggest challenge was getting data to persist across screens, because Java passes references, not values, and the references disappear after "dispose()".  I'm probably proudest of the LocationInfoForm, which actually works with three different tables.  The goal was for that to be transparent to the end users; end users just care about supplying the location information, not about how it's stored.  I fudged by using a hashmap and a method to build a new location object using the hashmap's data.
 
 I also had to figure out how to create records and link them to foreign keys in child tables.  UpdateInstrument uses code to enable mySQL to return the relevant primary key so that location information can be added along with the new instrument.  (The URL that showed me how is attributed in the addIntrument method.)
 

@@ -92,14 +92,12 @@ public class UpdateInstrument extends ContactManager { //JFrame {
             }
         });
 
+        // data validation
         heightTextField.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
-                String fieldValue = heightTextField.getText().toString();
-                if (!fieldValue.equals("") && !DataValidator.isDouble(fieldValue)) {
-                    JOptionPane.showMessageDialog(updateInstrumentRootPanel, "Please enter a number.");
-                }
+                if (!validateDimensions(heightTextField)) { heightTextField.grabFocus(); }
             }
         });
 
@@ -107,10 +105,7 @@ public class UpdateInstrument extends ContactManager { //JFrame {
             @Override
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
-                String fieldValue = widthTextField.getText().toString();
-                if (!fieldValue.equals("") && !DataValidator.isDouble(fieldValue)) {
-                    JOptionPane.showMessageDialog(updateInstrumentRootPanel, "Please enter a number.");
-                }
+                if (!validateDimensions(widthTextField)) { widthTextField.grabFocus(); }
             }
         });
 
@@ -118,16 +113,45 @@ public class UpdateInstrument extends ContactManager { //JFrame {
             @Override
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
-                String fieldValue = depthTextField.getText().toString();
-                if (!fieldValue.equals("") && !DataValidator.isDouble(fieldValue)) {
-                    JOptionPane.showMessageDialog(updateInstrumentRootPanel, "Please enter a number.");
-                }
+                if (!validateDimensions(depthTextField)) { depthTextField.grabFocus(); }
             }
         });
+
+
+
         selectContactButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 SelectContactScreen scs = new SelectContactScreen(Contact.getBrowsingData(), UpdateInstrument.this);
+            }
+        });
+
+        lowNoteTextField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                String descValidFormats = "Please make sure you have entered a valid note.\n";
+                descValidFormats += "It should be either a letter followed by a number or a letter followed by s or f and a number.\n";
+                descValidFormats += "Examples include 'B5' for 'b five' or 'Df4' for 'd flat four'.";
+                if (!(DataValidator.isNote(lowNoteTextField.getText()) || lowNoteTextField.getText().equals("") )) {
+                    JOptionPane.showMessageDialog(updateInstrumentRootPanel,descValidFormats);
+                    lowNoteTextField.grabFocus();
+                }
+            }
+        });
+
+
+        highNoteTextField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                String descValidFormats = "Please make sure you have entered a valid note.\n";
+                descValidFormats += "It should be either a letter followed by a number or a letter followed by s or f and a number.\n";
+                descValidFormats += "Examples include 'B5' for 'b five' or 'Df4' for 'd flat four'.";
+                if (!(DataValidator.isNote(highNoteTextField.getText()) || highNoteTextField.getText().equals("") )) {
+                    JOptionPane.showMessageDialog(updateInstrumentRootPanel,descValidFormats);
+                    highNoteTextField.grabFocus();
+                }
             }
         });
 
@@ -142,6 +166,7 @@ public class UpdateInstrument extends ContactManager { //JFrame {
                 }
             }
         });
+
 
         locationComboBox.addActionListener(new ActionListener() {
             @Override
@@ -161,6 +186,7 @@ public class UpdateInstrument extends ContactManager { //JFrame {
                 LocationInfoForm lif = new LocationInfoForm(selectedInstrument, UpdateInstrument.this);
             }
         });
+
     }
 
     private void populateFormFields(boolean haveData) {
@@ -379,5 +405,15 @@ public class UpdateInstrument extends ContactManager { //JFrame {
         }
         //System.out.println(this.selectedInstrument.getLocationInfo().toString());
         this.locationSummaryTextArea.setText(this.selectedInstrument.getLocationInfo().toString());
+    }
+
+    private boolean validateDimensions(JTextField textField) {
+        String fieldValue = textField.getText().toString();
+        if (!fieldValue.equals("") && !DataValidator.isDouble(fieldValue)) {
+            JOptionPane.showMessageDialog(updateInstrumentRootPanel, "Please enter a number.");
+            return false;
+        } else {
+            return true;
+        }
     }
 }
