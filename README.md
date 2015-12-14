@@ -6,7 +6,7 @@ Final project for Java class.  Musical Instrument Museum using mySQL database.
 
 ** PROGRAM DESCRIPTION **
 
-A Java program that manages a database for a fictional ethnomusicological museum.  There are instruments in storage, on exhibit, and other places, and contacts the museum has acquired the instruments from.
+A Java program that manages a database for a fictional ethno-musicological museum.  There are instruments in storage, on exhibit, and other places, and contacts the museum has acquired the instruments from.
 
 
 ** DATABASE SETUP **
