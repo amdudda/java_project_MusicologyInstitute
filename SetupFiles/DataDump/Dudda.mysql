@@ -1,0 +1,298 @@
+-- MySQL dump 10.13  Distrib 5.6.27, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: MusicologyInstitute
+-- ------------------------------------------------------
+-- Server version	5.6.27-0ubuntu1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `Contact`
+--
+
+DROP TABLE IF EXISTS `Contact`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Contact` (
+  `ContactID` int(11) NOT NULL AUTO_INCREMENT,
+  `ContactName` varchar(100) DEFAULT NULL,
+  `BusinessName` varchar(100) DEFAULT NULL,
+  `Address` varchar(300) DEFAULT NULL,
+  `City` varchar(75) DEFAULT NULL,
+  `State` varchar(2) DEFAULT NULL,
+  `PostalCode` varchar(6) DEFAULT NULL,
+  `Country` varchar(100) DEFAULT NULL,
+  `BusinessPhone` varchar(15) DEFAULT NULL,
+  `ContactPhone` varchar(15) DEFAULT NULL,
+  `ContactType` varchar(30) DEFAULT NULL,
+  `Notes` varchar(1500) DEFAULT NULL,
+  PRIMARY KEY (`ContactID`),
+  KEY `Country` (`Country`),
+  CONSTRAINT `Contact_ibfk_1` FOREIGN KEY (`Country`) REFERENCES `Countries` (`CountryName`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Contact`
+--
+
+LOCK TABLES `Contact` WRITE;
+/*!40000 ALTER TABLE `Contact` DISABLE KEYS */;
+INSERT INTO `Contact` VALUES (1,'Suzanne Merveilleux','Musical Instrument Museum of Brussels','9 Rue Atomium','Bruxelles',NULL,'10910','Belgium',NULL,NULL,'Museum',NULL),(2,'YoYo Ma',NULL,'PO Box 010101','Washington','DC','10101','United States',NULL,'101-910-2222','Musician','Wants to borrow our cello for SPCO concert.'),(3,'A.M Dudda','','1 Tardis Lane','London','MN','SW11AA','United Kingdom','','763-999-9999','Donor','Donated database to the museum.'),(4,NULL,'University of MN','1 Oak Street','Minneapolis','MN','55408','United States',NULL,NULL,'School',NULL),(5,'jhjh test','jh','','hj','MN','','United States','','','Museum','huiluio'),(6,'fake','snopes.com','0 nothing lane','nowhereville','CA','99999','United States','','','Donor','fake record for testing');
+/*!40000 ALTER TABLE `Contact` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Countries`
+--
+
+DROP TABLE IF EXISTS `Countries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Countries` (
+  `CountryNum` int(11) NOT NULL AUTO_INCREMENT,
+  `CountryName` varchar(40) NOT NULL,
+  PRIMARY KEY (`CountryNum`),
+  UNIQUE KEY `CountryName` (`CountryName`)
+) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Countries`
+--
+
+LOCK TABLES `Countries` WRITE;
+/*!40000 ALTER TABLE `Countries` DISABLE KEYS */;
+INSERT INTO `Countries` VALUES (1,'Abkhazia'),(2,'Afghanistan'),(3,'Albania'),(4,'Algeria'),(5,'Andorra'),(6,'Angola'),(7,'Antigua and Barbuda'),(8,'Argentina'),(9,'Armenia'),(10,'Australia'),(11,'Austria'),(12,'Azerbaijan'),(13,'Bahamas, The'),(14,'Bahrain'),(15,'Bangladesh'),(16,'Barbados'),(17,'Belarus'),(18,'Belgium'),(19,'Belize'),(20,'Benin'),(21,'Bhutan'),(22,'Bolivia'),(23,'Bosnia and Herzegovina'),(24,'Botswana'),(25,'Brazil'),(26,'Brunei'),(27,'Bulgaria'),(28,'Burkina Faso'),(29,'Burma'),(30,'Burundi'),(31,'Cambodia'),(32,'Cameroon'),(33,'Canada'),(34,'Cape Verde'),(35,'Central African Republic'),(36,'Chad'),(37,'Chile'),(38,'China'),(39,'China, Republic of'),(40,'Colombia'),(41,'Comoros'),(42,'Congo, Democratic Republic of the'),(43,'Congo, Republic of the'),(44,'Cook Islands'),(45,'Costa Rica'),(46,'Côte d\'Ivoire'),(47,'Croatia'),(48,'Cuba'),(49,'Cyprus'),(50,'Czech Republic'),(51,'Democratic People\'s Republic of Korea'),(52,'Democratic Republic of the Congo'),(53,'Denmark'),(54,'Djibouti'),(55,'Dominica'),(56,'Dominican Republic'),(57,'East Timor'),(58,'Ecuador'),(59,'Egypt'),(60,'El Salvador'),(61,'Equatorial Guinea'),(62,'Eritrea'),(63,'Estonia'),(64,'Ethiopia'),(65,'Federated States of Micronesia'),(66,'Fiji'),(67,'Finland'),(68,'France'),(69,'Gabon'),(70,'Gambia, The'),(71,'Georgia'),(72,'Germany'),(73,'Ghana'),(74,'Greece'),(75,'Grenada'),(76,'Guatemala'),(77,'Guinea'),(78,'Guinea-Bissau'),(79,'Guyana'),(80,'Haiti'),(81,'Holy See'),(82,'Honduras'),(83,'Hungary'),(84,'Iceland'),(85,'India'),(86,'Indonesia'),(87,'Iran'),(88,'Iraq'),(89,'Ireland'),(90,'Israel'),(91,'Italy'),(92,'Ivory Coast'),(93,'Jamaica'),(94,'Japan'),(95,'Jordan'),(96,'Kazakhstan'),(97,'Kenya'),(98,'Kiribati'),(99,'Korea, North'),(100,'Korea, South'),(101,'Kosovo'),(102,'Kuwait'),(103,'Kyrgyzstan'),(104,'Laos'),(105,'Latvia'),(106,'Lebanon'),(107,'Lesotho'),(108,'Liberia'),(109,'Libya'),(110,'Liechtenstein'),(111,'Lithuania'),(112,'Luxembourg'),(113,'Macedonia'),(114,'Madagascar'),(115,'Malawi'),(116,'Malaysia'),(117,'Maldives'),(118,'Mali'),(119,'Malta'),(120,'Marshall Islands'),(121,'Mauritania'),(122,'Mauritius'),(123,'Mexico'),(124,'Moldova'),(125,'Monaco'),(126,'Mongolia'),(127,'Montenegro'),(128,'Morocco'),(129,'Mozambique'),(130,'Myanmar'),(131,'Nagorno-Karabakh'),(132,'Namibia'),(133,'Nauru'),(134,'Nepal'),(135,'Netherlands'),(136,'New Zealand'),(137,'Nicaragua'),(138,'Niger'),(139,'Nigeria'),(140,'Niue'),(141,'North Korea'),(142,'Northern Cyprus'),(143,'Norway'),(144,'Oman'),(145,'Pakistan'),(146,'Palau'),(147,'Palestine'),(148,'Panama'),(149,'Papua New Guinea'),(150,'Paraguay'),(151,'Peru'),(152,'Philippines'),(153,'Poland'),(154,'Portugal'),(155,'Pridnestrovie'),(156,'Qatar'),(157,'Republic of Korea'),(158,'Republic of the Congo'),(159,'Romania'),(160,'Russia'),(161,'Rwanda'),(162,'Sahrawi Arab Democratic Republic'),(163,'Saint Kitts and Nevis'),(164,'Saint Lucia'),(165,'Saint Vincent and the Grenadines'),(166,'Samoa'),(167,'San Marino'),(168,'São Tomé and Príncipe'),(169,'Saudi Arabia'),(170,'Senegal'),(171,'Serbia'),(172,'Seychelles'),(173,'Sierra Leone'),(174,'Singapore'),(175,'Slovakia'),(176,'Slovenia'),(177,'Solomon Islands'),(178,'Somalia'),(179,'Somaliland'),(180,'South Africa'),(181,'South Korea'),(182,'South Ossetia'),(183,'South Sudan'),(184,'Spain'),(185,'Sri Lanka'),(186,'Sudan'),(187,'Sudan, South'),(188,'Suriname'),(189,'Swaziland'),(190,'Sweden'),(191,'Switzerland'),(192,'Syria'),(193,'Taiwan'),(194,'Taiwan (Republic of China)'),(195,'Tajikistan'),(196,'Tanzania'),(197,'Thailand'),(198,'Timor-Leste'),(199,'Togo'),(200,'Tonga'),(201,'Transnistria'),(202,'Trinidad and Tobago'),(203,'Tunisia'),(204,'Turkey'),(205,'Turkmenistan'),(206,'Tuvalu'),(207,'Uganda'),(208,'Ukraine'),(209,'United Arab Emirates'),(210,'United Kingdom'),(211,'United States'),(212,'Uruguay'),(213,'Uzbekistan'),(214,'Vanuatu'),(215,'Vatican City'),(216,'Venezuela'),(217,'Vietnam'),(218,'Yemen'),(219,'Zambia'),(220,'Zimbabwe');
+/*!40000 ALTER TABLE `Countries` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Exhibit`
+--
+
+DROP TABLE IF EXISTS `Exhibit`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Exhibit` (
+  `ExhibitID` int(11) NOT NULL AUTO_INCREMENT,
+  `ExhibitName` varchar(100) DEFAULT NULL,
+  `StartDate` date DEFAULT NULL,
+  `EndDate` date DEFAULT NULL,
+  `Room` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`ExhibitID`),
+  KEY `Room` (`Room`),
+  CONSTRAINT `Exhibit_ibfk_1` FOREIGN KEY (`Room`) REFERENCES `Rooms` (`RoomNum`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Exhibit`
+--
+
+LOCK TABLES `Exhibit` WRITE;
+/*!40000 ALTER TABLE `Exhibit` DISABLE KEYS */;
+INSERT INTO `Exhibit` VALUES (3,'Main Gallery','2015-01-01','2016-12-31','M-100'),(4,'Free Reeds','2016-01-01','2016-02-05','M-100');
+/*!40000 ALTER TABLE `Exhibit` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Instrument`
+--
+
+DROP TABLE IF EXISTS `Instrument`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Instrument` (
+  `InstID` int(11) NOT NULL AUTO_INCREMENT,
+  `InstName` varchar(50) DEFAULT NULL,
+  `InstType` varchar(30) DEFAULT NULL,
+  `Subtype` varchar(30) DEFAULT NULL,
+  `AcquiredDate` date DEFAULT NULL,
+  `AcquiredFrom` int(11) DEFAULT NULL,
+  `PurchasePrice` decimal(12,2) DEFAULT NULL,
+  `InsuranceValue` decimal(12,2) DEFAULT NULL,
+  `Location` varchar(10) DEFAULT NULL,
+  `Height` double DEFAULT NULL,
+  `Width` double DEFAULT NULL,
+  `Depth` double DEFAULT NULL,
+  `Region` varchar(100) DEFAULT NULL,
+  `Country` varchar(100) DEFAULT NULL,
+  `Culture` varchar(100) DEFAULT NULL,
+  `Tuning` varchar(20) DEFAULT NULL,
+  `LowNote` varchar(3) DEFAULT NULL,
+  `HighNote` varchar(3) DEFAULT NULL,
+  `Description` varchar(1500) DEFAULT NULL,
+  `IsALoan` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`InstID`),
+  KEY `AcquiredFrom` (`AcquiredFrom`),
+  KEY `Country` (`Country`),
+  CONSTRAINT `Instrument_ibfk_1` FOREIGN KEY (`AcquiredFrom`) REFERENCES `Contact` (`ContactID`),
+  CONSTRAINT `Instrument_ibfk_2` FOREIGN KEY (`Country`) REFERENCES `Countries` (`CountryName`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Instrument`
+--
+
+LOCK TABLES `Instrument` WRITE;
+/*!40000 ALTER TABLE `Instrument` DISABLE KEYS */;
+INSERT INTO `Instrument` VALUES (1,'Soprano Saxophone','Aerophone','single reed','2015-05-01',1,100.00,150.00,'Exhibit',80,80,80,'The Americas','United States','United States','Specified','Af3','E6','',0),(2,'Alto Saxophone','Aerophone','single reed','2015-06-02',2,400.00,400.00,'Exhibit',90,90,90,'The Americas','United States','United States','Specified','Df3','Af5','',0),(3,'Grand Piano','Chordophone','hammered','2015-07-03',3,0.00,25000.00,'Library',150,150,150,'The Americas','Canada','Europe','Fixed','A0','C8','test',0),(4,'Upright Piano','Chordophone','hammered','2015-08-04',4,1532.00,1600.00,'Storage',160,160,160,'The Americas','United States','Europe','Fixed','A0','C8','',0),(5,'Cello','Chordophone','bowed','2014-09-05',1,3012.00,4000.00,'Exhibit',160,160,160,'Europe','Italy','Europe','Specified','C2','A5','Higher pitches can be reached with harmonics.',0),(6,'Mandolin','Chordophone','plucked','2014-10-06',2,130.00,130.00,'Storage',45,45,45,'Europe','Hungary','Europe','Specified','G1','F6','test',0),(7,'Viola da Gamba','Chordophone','bowed','2014-08-31',3,0.00,25000.00,'On Loan',150,150,150,'Europe','Italy','European Renaissance','Variable','D2','','Six string bass viol.  No clear high note due to use of harmonics.',0),(8,'16-hole Harmonica','Aerophone','free reed','2015-01-04',4,15.00,15.00,'Library',2.5,10,4,'The Americas','United States','United States','Fixed','C3','D5','16-hole chromatic harmonica.',0),(9,'Glass Harmonica','Idiophone','friction','2015-03-15',1,1000.99,1001.00,'On Loan',75,75,75,'The Americas','United States','United States','Fixed','C3','C6','Replica of Benjamin Franklin\'s original armonica.',0),(13,'qeej','Aerophone','free reed','2015-12-12',5,NULL,NULL,'Exhibit',0,0,0,'Europe',NULL,'Hmong','Specified','','','aka lusheng',0),(14,'test2','Idiophone','','2015-12-13',2,NULL,NULL,'Library',55,55,55,'Europe',NULL,'','Fixed','','','561041',0),(15,'lii','Idiophone','','2015-12-13',5,NULL,NULL,'Storage',0,0,0,'Europe',NULL,'','Fixed','','','',0),(16,'test','Idiophone','','2015-12-13',5,NULL,NULL,'Storage',0,0,0,'Europe',NULL,'','Fixed','','','',0),(17,'test','Idiophone','','2015-12-13',5,NULL,NULL,'Storage',0,0,0,'Europe',NULL,'','Fixed','','','',0);
+/*!40000 ALTER TABLE `Instrument` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `InstrumentExhibit`
+--
+
+DROP TABLE IF EXISTS `InstrumentExhibit`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `InstrumentExhibit` (
+  `ExhibitID` int(11) NOT NULL,
+  `InstID` int(11) NOT NULL,
+  `Room` varchar(5) DEFAULT NULL,
+  `LocationInRoom` varchar(16) DEFAULT NULL,
+  PRIMARY KEY (`ExhibitID`,`InstID`),
+  KEY `InstID` (`InstID`),
+  CONSTRAINT `InstrumentExhibit_ibfk_1` FOREIGN KEY (`ExhibitID`) REFERENCES `Exhibit` (`ExhibitID`),
+  CONSTRAINT `InstrumentExhibit_ibfk_2` FOREIGN KEY (`InstID`) REFERENCES `Instrument` (`InstID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `InstrumentExhibit`
+--
+
+LOCK TABLES `InstrumentExhibit` WRITE;
+/*!40000 ALTER TABLE `InstrumentExhibit` DISABLE KEYS */;
+INSERT INTO `InstrumentExhibit` VALUES (3,1,'M-100','Floor'),(3,2,'M-100','South'),(3,9,'M-100','West'),(4,5,'M-100','South'),(4,13,'M-100','NW Corner');
+/*!40000 ALTER TABLE `InstrumentExhibit` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Loan`
+--
+
+DROP TABLE IF EXISTS `Loan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Loan` (
+  `InstID` int(11) NOT NULL,
+  `ContactID` int(11) NOT NULL,
+  `StartDate` date DEFAULT NULL,
+  `EndDate` date DEFAULT NULL,
+  PRIMARY KEY (`InstID`,`ContactID`),
+  KEY `ContactID` (`ContactID`),
+  CONSTRAINT `Loan_ibfk_1` FOREIGN KEY (`InstID`) REFERENCES `Instrument` (`InstID`),
+  CONSTRAINT `Loan_ibfk_2` FOREIGN KEY (`ContactID`) REFERENCES `Contact` (`ContactID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Loan`
+--
+
+LOCK TABLES `Loan` WRITE;
+/*!40000 ALTER TABLE `Loan` DISABLE KEYS */;
+INSERT INTO `Loan` VALUES (7,3,'2015-01-01','2015-12-31'),(9,5,'2015-12-01','2016-01-31');
+/*!40000 ALTER TABLE `Loan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Rooms`
+--
+
+DROP TABLE IF EXISTS `Rooms`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Rooms` (
+  `RoomNum` varchar(5) NOT NULL,
+  `RoomName` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`RoomNum`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Rooms`
+--
+
+LOCK TABLES `Rooms` WRITE;
+/*!40000 ALTER TABLE `Rooms` DISABLE KEYS */;
+INSERT INTO `Rooms` VALUES ('LIB','Library'),('M-100','Main Gallery'),('P-210','Preservation and Restoration'),('S-100','Primary Storage'),('S-666','Deep Storage');
+/*!40000 ALTER TABLE `Rooms` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `States`
+--
+
+DROP TABLE IF EXISTS `States`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `States` (
+  `StateName` varchar(55) DEFAULT NULL,
+  `Country` varchar(40) DEFAULT NULL,
+  `Abbreviation` varchar(2) NOT NULL,
+  PRIMARY KEY (`Abbreviation`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `States`
+--
+
+LOCK TABLES `States` WRITE;
+/*!40000 ALTER TABLE `States` DISABLE KEYS */;
+INSERT INTO `States` VALUES ('ARMED FORCES AMERICAS (EXCEPT CANADA)','USA','AA'),('ALBERTA','Canada','AB'),('ARMED FORCES AFRICA, CANADA, EUROPE, OR MIDDLE EAST','USA','AE'),('ALASKA','USA','AK'),('ALABAMA','USA','AL'),('ARMED FORCES PACIFIC','USA','AP'),('ARKANSAS','USA','AR'),('AMERICAN SAMOA','USA','AS'),('ARIZONA','USA','AZ'),('BRITISH COLUMBIA','Canada','BC'),('CALIFORNIA','USA','CA'),('COLORADO','USA','CO'),('CONNECTICUT','USA','CT'),('DISTRICT OF COLUMBIA','USA','DC'),('DELAWARE','USA','DE'),('FLORIDA','USA','FL'),('FEDERATED STATES OF MICRONESIA','USA','FM'),('GEORGIA','USA','GA'),('GUAM','USA','GU'),('HAWAII','USA','HI'),('IOWA','USA','IA'),('IDAHO','USA','ID'),('ILLINOIS','USA','IL'),('INDIANA','USA','IN'),('KANSAS','USA','KS'),('KENTUCKY','USA','KY'),('LOUISIANA','USA','LA'),('MASSACHUSETTS','USA','MA'),('MANITOBA','Canada','MB'),('MARYLAND','USA','MD'),('MAINE','USA','ME'),('MARSHALL ISLANDS','USA','MH'),('MICHIGAN','USA','MI'),('MINNESOTA','USA','MN'),('MISSOURI','USA','MO'),('NORTHERN MARIANA ISLANDS','USA','MP'),('MISSISSIPPI','USA','MS'),('MONTANA','USA','MT'),('NEW BRUNSWICK','Canada','NB'),('NORTH CAROLINA','USA','NC'),('NORTH DAKOTA','USA','ND'),('NEBRASKA','USA','NE'),('NEW HAMPSHIRE','USA','NH'),('NEW JERSEY','USA','NJ'),('NEWFOUNDLAND & LABRADOR','Canada','NL'),('NEW MEXICO','USA','NM'),('NOVA SCOTIA','Canada','NS'),('NORTHWEST TERRITORIES','Canada','NT'),('NUNAVUT','Canada','NU'),('NEVADA','USA','NV'),('NEW YORK','USA','NY'),('OHIO','USA','OH'),('OKLAHOMA','USA','OK'),('ONTARIO','Canada','ON'),('OREGON','USA','OR'),('PENNSYLVANIA','USA','PA'),('PRINCE EDWARD ISLAND','Canada','PE'),('PUERTO RICO','USA','PR'),('PALAU','USA','PW'),('QUEBEC','Canada','QC'),('RHODE ISLAND','USA','RI'),('SOUTH CAROLINA','USA','SC'),('SOUTH DAKOTA','USA','SD'),('SASKATCHEWAN','Canada','SK'),('TENNESSEE','USA','TN'),('TEXAS','USA','TX'),('UTAH','USA','UT'),('VIRGINIA','USA','VA'),('VIRGIN ISLANDS','USA','VI'),('VERMONT','USA','VT'),('WASHINGTON','USA','WA'),('WISCONSIN','USA','WI'),('WEST VIRGINIA','USA','WV'),('WYOMING','USA','WY'),('YUKON','Canada','YT');
+/*!40000 ALTER TABLE `States` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `StorageLibrary`
+--
+
+DROP TABLE IF EXISTS `StorageLibrary`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `StorageLibrary` (
+  `InstID` int(11) NOT NULL,
+  `StorageType` varchar(30) DEFAULT NULL,
+  `Room` varchar(5) DEFAULT NULL,
+  `Cabinet` varchar(1) DEFAULT NULL,
+  `Shelf` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`InstID`),
+  CONSTRAINT `StorageLibrary_ibfk_1` FOREIGN KEY (`InstID`) REFERENCES `Instrument` (`InstID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `StorageLibrary`
+--
+
+LOCK TABLES `StorageLibrary` WRITE;
+/*!40000 ALTER TABLE `StorageLibrary` DISABLE KEYS */;
+INSERT INTO `StorageLibrary` VALUES (3,'Library','LIB','a',123),(4,'Storage','S-100','B',0),(5,'Storage','S-100',NULL,NULL),(6,'Storage','S-100','',0),(8,'Library','LIB',NULL,NULL),(13,'Storage','S-100','q',1),(14,'Library','LIB','Z',61),(16,'Storage','S-666','S',777),(17,'Storage','S-666','c',12);
+/*!40000 ALTER TABLE `StorageLibrary` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-12-13 18:14:56

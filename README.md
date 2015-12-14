@@ -25,7 +25,7 @@ Alternatively, you can do the following to set up the database with test data be
 
 1. Create the MusicologyInstitute database in mySQL.
 
-2. If you want to play with test data, you will need to run the queries in \SetupFiles\DataDump\ after the database has been successfully set up.
+2. Run the queries in \SetupFiles\DataDump\ after the database has been successfully set up.
 
 3. Change the hardcoded username and password in the Database object in my code.
 
