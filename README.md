@@ -39,7 +39,7 @@ I also had to figure out how to create records and link them to foreign keys in 
 
 Username and password are stored as plaintext.
 
-FIXED 2015.12.14 @ 20:40 -- When location information is added to a new instrument, that information is not updating properly on the add new instrument screen.  The info makes it into the database, so it's not a HUGE bug, but it would be disconcerting for end users.
+FIXED 2015.12.14 @ 20:40 - When location information is added to a new instrument, that information is not updating properly on the add new instrument screen.  The info makes it into the database, so it's not a HUGE bug, but it would be disconcerting for end users.
 
 There is no easy way to add instruments to an exhibit; it can be done on a per-instrument basis, but not directly from the screen to edit exhibit information.
 
