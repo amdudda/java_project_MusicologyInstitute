@@ -46,7 +46,7 @@ public class StorageLibrary extends LocationInfo {
 
     @Override
     public String toString() {
-        if (this.InstID == 0) return "No storage or libary location information found.";
+        //if (this.InstID == 0) return "No storage or libary location information found.";
         return "In " + this.StorageType + " at room " + this.Room +
                 " in cabinet " + this.Cabinet + " on shelf " + this.Shelf;
     }

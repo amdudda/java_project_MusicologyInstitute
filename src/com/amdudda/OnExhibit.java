@@ -45,7 +45,7 @@ public class OnExhibit extends LocationInfo {
 
     @Override
     public String toString() {
-        if (this.InstID == 0) return "No exhibit information found.";
+        //if (this.InstID == 0) return "No exhibit information found.";
         return "On exhibit in the " + this.LocationInRoom + " area of room " + this.Room;
     }
 
