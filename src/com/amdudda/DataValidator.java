@@ -53,10 +53,10 @@ public class DataValidator {
         // this validates our Decimal(12,2) data types.
         boolean verdict;
         try {
-            System.out.println(weight);
+            // System.out.println(weight);
             String[] wtsplit = weight.split("\\.");
             if (wtsplit.length == 2) {
-                verdict = (wtsplit[1].length() < 10 && Integer.parseInt(wtsplit[0]) < 100);
+                verdict = (wtsplit[0].length() < 10 && (wtsplit[1].length() < 3 ));
             } else {
                 verdict = (Integer.parseInt(wtsplit[0]) < 1000);
             }

@@ -2,10 +2,7 @@ package com.amdudda;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -95,6 +92,37 @@ public class AccountingScreen extends ContactManager {
                 atm.setAcctgTable(acctData);
                 atm.refresh();
                 clearFields();
+            }
+        });
+        purchasePriceTextField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                if (!(DataValidator.isCurrency(purchasePriceTextField.getText()) || purchasePriceTextField.getText().equals(""))) {
+                    JOptionPane.showMessageDialog(acctgScreenRootPanel,"Please enter a number less than 1 billion with no more than 2 decimal places.");
+                    purchasePriceTextField.grabFocus();
+                }
+            }
+        });
+
+        insuranceValueTextField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                if (!(DataValidator.isCurrency(insuranceValueTextField.getText()) || insuranceValueTextField.getText().equals(""))) {
+                    JOptionPane.showMessageDialog(acctgScreenRootPanel,"Please enter a number less than 1 billion with no more than 2 decimal places.");
+                    insuranceValueTextField.grabFocus();
+                }
+            }
+        });
+        acquiredDateTextField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                if (!(DataValidator.isDate(acquiredDateTextField.getText()) || acquiredDateTextField.getText().equals(""))) {
+                    JOptionPane.showMessageDialog(acctgScreenRootPanel,"Please enter a date in YYYY-MM-DD format.");
+                    acquiredDateTextField.grabFocus();
+                }
             }
         });
     }
