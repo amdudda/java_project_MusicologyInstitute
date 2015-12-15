@@ -15,6 +15,7 @@ public class MainMenuGUI extends JFrame {
     private JButton addNewContactButton;
     private JButton quitButton;
     private JButton whatsOnExhibitButton;
+    private JButton accountingInformationButton;
 
     public MainMenuGUI() {
         setContentPane(mainMenuRootPanel);
@@ -64,6 +65,12 @@ public class MainMenuGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 WhatsOnExhibitScreen woe = new WhatsOnExhibitScreen(Exhibit.getBrowsingData());
+            }
+        });
+        accountingInformationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AccountingScreen acct = new AccountingScreen();
             }
         });
     }

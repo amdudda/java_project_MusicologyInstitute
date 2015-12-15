@@ -43,5 +43,5 @@ FIXED 2015.12.14 @ 20:40 - When location information is added to a new instrumen
 
 There is no easy way to add instruments to an exhibit; it can be done on a per-instrument basis, but not directly from the screen to edit exhibit information.
 
-There is no ability to add accounting information to the database - so no way to list a purchase price or an insurance value for an instrument.
+FIXED 2015.12.14 @ 22:26 - There is no ability to add accounting information to the database - so no way to list a purchase price or an insurance value for an instrument.
 

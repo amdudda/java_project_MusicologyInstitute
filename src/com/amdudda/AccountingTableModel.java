@@ -21,7 +21,7 @@ public class AccountingTableModel extends AbstractTableModel {
         setTableDimensions();
     }
 
-    private void refresh() {
+    protected void refresh() {
         setTableDimensions();
         this.fireTableStructureChanged();  // not sure I want this... keep output consistent; see to-do item below
         this.fireTableDataChanged();
@@ -87,20 +87,19 @@ public class AccountingTableModel extends AbstractTableModel {
         return columnText;
     }
 
-    @Override
-    // modeled after code in MovieRatings project covered in class
-    public boolean isCellEditable(int row, int col) {
-        try {
-            String columnLabel = acctgTable.getMetaData().getColumnLabel(col+1);
-            // debugging: System.out.println(resultSet.getMetaData().getColumnLabel(col + 1));
-            if (columnLabel.equals(Instrument.INSTID) || columnLabel.equals(Instrument.INSTNAME)) {
-                return false;
+    public int getColumnNumber(String colName) {
+        int colNum = 0;
+        for (int i = 0; i <= this.colcount; i++) {
+            if (colName.equals(this.getColumnName(i))) {
+                colNum = i;
+                break;
             }
-            return true;
-        } catch (SQLException sqle) {
-            // coding defensively - assume column should not be editable if we can't tell what's being changed.
-            System.out.println("Oops, unable to get column metadata.");
-            return false;
         }
+        //System.out.println(colName + " is in column " + colNum);
+        return colNum;
+    }
+
+    public void setAcctgTable(ResultSet tbl) {
+        this.acctgTable = tbl;
     }
 }
