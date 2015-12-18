@@ -1,20 +1,19 @@
 package com.amdudda;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import java.awt.event.*;
 import java.sql.*;
-import java.util.ArrayList;
 
 /**
  * Created by amdudda on 12/14/15.
  */
 public class AccountingScreen extends ContactManager {
-    private static final String INSTID = Instrument.INSTID.split("\\.")[1];
-    private static final String AC_FROM = Instrument.ACQUIREDFROM.split("\\.")[1];
-    private static final String AC_DATE = Instrument.ACQUIREDDATE.split("\\.")[1];
-    private static final String PURCH_PRICE = Instrument.PURCHASEPRICE.split("\\.")[1];
-    private static final String INS_VAL = Instrument.INSURANCEVALUE.split("\\.")[1];
+    protected static final String INST_ID = Instrument.INSTID.split("\\.")[1];
+    protected static final String INST_NAME = Instrument.INSTNAME.split("\\.")[1];
+    protected static final String AC_FROM = Instrument.ACQUIREDFROM.split("\\.")[1];
+    protected static final String AC_DATE = Instrument.ACQUIREDDATE.split("\\.")[1];
+    protected static final String PURCH_PRICE = Instrument.PURCHASEPRICE.split("\\.")[1];
+    protected static final String INS_VAL = Instrument.INSURANCEVALUE.split("\\.")[1];
 
     private JTable acctDataTable;
     private JButton exitDiscardChangesButton;
@@ -82,7 +81,7 @@ public class AccountingScreen extends ContactManager {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // updates the database and refreshes the dataset
-                updateRecord(selInst);//atm.getColumnNumber(INSTID));
+                updateRecord(selInst);//atm.getColumnNumber(INST_ID));
                 try {
                     s = Database.conn.createStatement();
                     acctData = s.executeQuery(sqlToUse());
@@ -135,7 +134,7 @@ public class AccountingScreen extends ContactManager {
     }
 
     private void populateFields(int selectedRow) {
-        selInst = Integer.parseInt(atm.getValueAt(selectedRow, atm.getColumnNumber(INSTID)).toString());
+        selInst = Integer.parseInt(atm.getValueAt(selectedRow, atm.getColumnNumber(INST_ID)).toString());
         String acFromVal = atm.getValueAt(selectedRow, atm.getColumnNumber(AC_FROM)).toString();
         acquiredFromTextField.setText(acFromVal);
         String acDateVal = atm.getValueAt(selectedRow, atm.getColumnNumber(AC_DATE)).toString();
